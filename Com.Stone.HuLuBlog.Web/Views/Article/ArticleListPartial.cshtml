@@ -1,0 +1,136 @@
+﻿
+
+<div class="article-container"></div>
+<div id="page"></div>
+
+<script>
+        layui.use(['jquery','layer', 'laypage'], function () {
+        var $ = layui.jquery;
+        var laypage = layui.laypage;
+        var pageSize = @ViewBag.PageSize;
+        var requestUrl = '@Url.Action("ArticleListTemplatePartial", "Article")';
+
+        //每次访问页面都请求一次
+        GetDataByHtml(requestUrl,"get",
+                    { pageIndex: 1, pageSize: pageSize},function(data){
+                        setHtml(data); //渲染第一页
+                        getPages(totalCount); //此方法第一次不生效，渲染后续页  totalCount来自于组件页面定义的变量
+                    });
+
+
+        function getPages(count) {
+            laypage.render({
+            elem: 'page',
+            count: count,
+            layout: ['page', 'skip', 'count'],
+            limit: pageSize,
+            jump: function (obj, first) {
+                if (!first) {
+                    GetDataByHtml(requestUrl,"get",{pageIndex:obj.curr,pageSize:obj.limit},function(data){
+                        setHtml(data);
+                    });
+                }
+            }
+        });
+        }
+
+        function setHtml(data) {
+            $('.article-container').html(data);
+            $('html,body').animate({scrollTop:0}); //滚动条置顶
+        }
+    });
+
+</script>
+
+
+
+
+@*<script>   //页面渲染js实现
+    layui.use(['jquery', 'layer', 'laypage'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var laypage = layui.laypage;
+        var pageSize = @ViewBag.PageSize;
+        var requestUrl = '@Url.Action("ArticleListPaged", "Article")';
+
+        //每次访问页面都请求一次
+        GetDataByJson(requestUrl,"get",
+                    { pageIndex: 1, pageSize: pageSize},function(data){
+                        totalCount = data.Data.TotalCount;
+                        setHtml(data.Data.PageList); //渲染第一页
+                        getPages(totalCount); //此方法第一次不生效，渲染后续页
+                    });
+
+
+        function getPages(count) {
+            laypage.render({
+            elem: 'page',
+            count: count,
+            layout: ['page', 'skip', 'count'],
+            limit: pageSize,
+            jump: function (obj, first) {
+                if (!first) {
+                    GetDataByJson(requestUrl,"get",{pageIndex:obj.curr,pageSize:obj.limit},function(data){
+                        setHtml(data.Data.PageList);
+                    });
+                }
+            }
+        });
+        }
+
+        function setHtml(data) {
+            var strHtml = "";
+            $.each(data,function(index,item){
+                strHtml +='<div class="article shadow">';
+
+                if (item.ImagePath){  //如果文章含有缩略图则添加缩略图
+                    strHtml += '\
+                        <div class="article-left">\
+                            <img src="@Url.Content("~/Content/Images/cover/201703181909057125.jpg")" />\
+                        </div>\
+                        <div class="article-right" style="width:73%">';
+                }else{
+                    strHtml += '<div class="article-right" style="width:100%">';
+                }
+
+                strHtml += ('\
+                            <div class="article-title">\
+                                <a href="@Url.Action("x","x")">' + item.ArticleTitle + '</a>\
+                            </div>\
+                            <div class="article-abstract">' + item.ArticleContent + '</div>\
+                        </div>\
+                    <div class="clear"></div>\
+                    <div class="article-footer">\
+                        <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;' + formatDate(getDate(item.AddDateTime)) + '</span>\
+                        <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;' + item.UserName + '</span>\
+                        <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">' + item.TagName + '</a></span>\
+                        <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;' + item.ReadCount + '</span>\
+                        <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;' + item.CommentCount + '</span>\
+                    </div>\
+                    </div>\
+                    ');
+            });
+
+            $('.article-container').html(strHtml);
+            $('html,body').animate({scrollTop:0}); //滚动条置顶
+        }
+
+        //c#时间转换
+        function getDate(str_time) {
+            var re = new RegExp('\\/Date\\(([-+])?(\\d+)(?:[+-]\\d{4})?\\)\\/');
+            var r = (str_time || '').match(re);
+            var format = r ? new Date(((r[1] || '') + r[2]) * 1) : null;
+            return r ? new Date(((r[1] || '') + r[2]) * 1) : null;
+        }
+        function formatDate(now) {
+            var year = now.getYear() + 1900;
+            var month = now.getMonth() + 1;
+            var date = now.getDate();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            //return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+            return year + "-" + month + "-" + date;
+        }
+    });
+</script>*@

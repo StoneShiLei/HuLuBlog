@@ -1,0 +1,21 @@
+﻿@using Com.Stone.HuLuBlog.Web.Models
+@model List<ArticleTagVM>
+
+
+<select class="articleTag" name="ArticleTag" lay-filter="ArticleTag">
+    @foreach (var tag in Model)
+    {
+        if (ViewBag.TagID == tag.ID)
+        {
+            <option value="@tag.ID" selected="selected">@tag.TagName</option>
+        }
+        else
+        {
+            <option value="@tag.ID">@tag.TagName</option>
+        }
+    }
+
+</select>
+
+
+

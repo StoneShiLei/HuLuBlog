@@ -1,0 +1,38 @@
+﻿@using Com.Stone.HuLuBlog.Web.Models
+@using Com.Stone.HuLuBlog.Web.App_Start
+@model UserVM
+
+@if (Model.ID == Configurations.ADMIN_ID)
+{
+    <li class="layui-nav-item">
+        <a class="backstage" href="#" data-request-url="@Url.Action("index","backstage")"><i class="fa fa-user fa-fw"></i>&nbsp;后台管理</a>
+    </li>
+
+    <li class="layui-nav-item">
+        <a class="logout" href="#"  data-home-url="@Url.Action("index","home")" data-request-url="@Url.Action("logout","account")"><i class="fa fa-user-times fa-fw"></i>&nbsp;注销登陆</a>
+    </li>
+}
+
+
+<script>
+    layui.use(['jquery', 'form', 'layer'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+        $(".logout").click(function () {
+            GetDataByJson($(this).data("request-url"), 'get',null, function (data) {
+                if (data.IsSuccess) {
+                    layer.msg("注销成功");
+                    location.href = $(".logout").data("home-url");
+                }
+                else {
+                    layer.msg("注销失败，系统异常");
+                }
+            })
+        });
+
+        $('.backstage').click(function(){
+            location.href = $(this).data('request-url')
+        });
+    })
+</script>

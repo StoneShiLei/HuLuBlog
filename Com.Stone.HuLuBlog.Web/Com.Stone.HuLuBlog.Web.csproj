@@ -1,0 +1,1730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3D85F8E-A14B-4C3A-A08C-A1BB6E99E68B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Com.Stone.HuLuBlog.Web</RootNamespace>
+    <AssemblyName>Com.Stone.HuLuBlog.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.3.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.3.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthAttribute.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Configurations.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\GlobalExceptionHandleAttribute.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="AutoMapConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\BackStageController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Models\ArticleTagVM.cs" />
+    <Compile Include="Models\ArticleVM.cs" />
+    <Compile Include="Models\CommentVM.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IocConfig.cs" />
+    <Compile Include="Models\UserVM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\about.css" />
+    <Content Include="Content\AddArticle.css" />
+    <Content Include="Content\animate.min.css" />
+    <Content Include="Content\article.css" />
+    <Content Include="Content\detail.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Content\global.css" />
+    <Content Include="Content\home.css" />
+    <Content Include="Content\Images\cover\201703051349045432.jpg" />
+    <Content Include="Content\Images\cover\201703051847567306.jpg" />
+    <Content Include="Content\Images\cover\201703142313157316.jpg" />
+    <Content Include="Content\Images\cover\201703152314519971.jpg" />
+    <Content Include="Content\Images\cover\201703162101115908.jpg" />
+    <Content Include="Content\Images\cover\201703181708141811.jpg" />
+    <Content Include="Content\Images\cover\201703181740098218.jpg" />
+    <Content Include="Content\Images\cover\201703181909057125.jpg" />
+    <Content Include="Content\Images\cover\cover.jpg" />
+    <Content Include="Content\Images\cover\cover_default.jpg" />
+    <Content Include="Content\Images\favicon.ico" />
+    <Content Include="Content\Images\handshake.png" />
+    <Content Include="Content\Images\HuLu.png" />
+    <Content Include="Content\Images\Logo_100.png" />
+    <Content Include="Content\Images\Logo_40.png" />
+    <Content Include="Content\Images\messagewall.png" />
+    <Content Include="Content\Images\qq_32.png" />
+    <Content Include="Content\Images\qzone_32.png" />
+    <Content Include="Content\Images\wechat_32.png" />
+    <Content Include="Content\Images\weibo_32.png" />
+    <Content Include="Content\login.css" />
+    <Content Include="Content\prettify.css" />
+    <Content Include="Content\resource.css" />
+    <Content Include="Content\timeline.css" />
+    <Content Include="editor.md\css\editormd.css" />
+    <Content Include="editor.md\css\editormd.logo.css" />
+    <Content Include="editor.md\css\editormd.logo.min.css" />
+    <Content Include="editor.md\css\editormd.min.css" />
+    <Content Include="editor.md\css\editormd.preview.css" />
+    <Content Include="editor.md\css\editormd.preview.min.css" />
+    <Content Include="editor.md\editormd.amd.js" />
+    <Content Include="editor.md\editormd.amd.min.js" />
+    <Content Include="editor.md\editormd.js" />
+    <Content Include="editor.md\editormd.min.js" />
+    <Content Include="editor.md\fonts\editormd-logo.svg" />
+    <Content Include="editor.md\fonts\fontawesome-webfont.svg" />
+    <Content Include="editor.md\images\loading%402x.gif" />
+    <Content Include="editor.md\images\loading%403x.gif" />
+    <Content Include="editor.md\images\loading.gif" />
+    <Content Include="editor.md\images\logos\editormd-favicon-16x16.ico" />
+    <Content Include="editor.md\images\logos\editormd-favicon-24x24.ico" />
+    <Content Include="editor.md\images\logos\editormd-favicon-32x32.ico" />
+    <Content Include="editor.md\images\logos\editormd-favicon-48x48.ico" />
+    <Content Include="editor.md\images\logos\editormd-favicon-64x64.ico" />
+    <Content Include="editor.md\images\logos\editormd-logo-114x114.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-120x120.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-144x144.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-16x16.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-180x180.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-240x240.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-24x24.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-320x320.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-32x32.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-48x48.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-57x57.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-64x64.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-72x72.png" />
+    <Content Include="editor.md\images\logos\editormd-logo-96x96.png" />
+    <Content Include="editor.md\images\logos\vi.png" />
+    <Content Include="editor.md\lib\codemirror\addons.min.js" />
+    <Content Include="editor.md\lib\codemirror\addon\comment\comment.js" />
+    <Content Include="editor.md\lib\codemirror\addon\comment\continuecomment.js" />
+    <Content Include="editor.md\lib\codemirror\addon\dialog\dialog.css" />
+    <Content Include="editor.md\lib\codemirror\addon\dialog\dialog.js" />
+    <Content Include="editor.md\lib\codemirror\addon\display\fullscreen.css" />
+    <Content Include="editor.md\lib\codemirror\addon\display\fullscreen.js" />
+    <Content Include="editor.md\lib\codemirror\addon\display\panel.js" />
+    <Content Include="editor.md\lib\codemirror\addon\display\placeholder.js" />
+    <Content Include="editor.md\lib\codemirror\addon\display\rulers.js" />
+    <Content Include="editor.md\lib\codemirror\addon\edit\closebrackets.js" />
+    <Content Include="editor.md\lib\codemirror\addon\edit\closetag.js" />
+    <Content Include="editor.md\lib\codemirror\addon\edit\continuelist.js" />
+    <Content Include="editor.md\lib\codemirror\addon\edit\matchbrackets.js" />
+    <Content Include="editor.md\lib\codemirror\addon\edit\matchtags.js" />
+    <Content Include="editor.md\lib\codemirror\addon\edit\trailingspace.js" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\brace-fold.js" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\comment-fold.js" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\foldcode.js" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\foldgutter.css" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\foldgutter.js" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\indent-fold.js" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\markdown-fold.js" />
+    <Content Include="editor.md\lib\codemirror\addon\fold\xml-fold.js" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\anyword-hint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\css-hint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\html-hint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\javascript-hint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\show-hint.css" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\show-hint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\sql-hint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\hint\xml-hint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\lint\coffeescript-lint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\lint\css-lint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\lint\javascript-lint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\lint\json-lint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\lint\lint.css" />
+    <Content Include="editor.md\lib\codemirror\addon\lint\lint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\lint\yaml-lint.js" />
+    <Content Include="editor.md\lib\codemirror\addon\merge\merge.css" />
+    <Content Include="editor.md\lib\codemirror\addon\merge\merge.js" />
+    <Content Include="editor.md\lib\codemirror\addon\mode\loadmode.js" />
+    <Content Include="editor.md\lib\codemirror\addon\mode\multiplex.js" />
+    <Content Include="editor.md\lib\codemirror\addon\mode\multiplex_test.js" />
+    <Content Include="editor.md\lib\codemirror\addon\mode\overlay.js" />
+    <Content Include="editor.md\lib\codemirror\addon\mode\simple.js" />
+    <Content Include="editor.md\lib\codemirror\addon\runmode\colorize.js" />
+    <Content Include="editor.md\lib\codemirror\addon\runmode\runmode-standalone.js" />
+    <Content Include="editor.md\lib\codemirror\addon\runmode\runmode.js" />
+    <Content Include="editor.md\lib\codemirror\addon\runmode\runmode.node.js" />
+    <Content Include="editor.md\lib\codemirror\addon\scroll\annotatescrollbar.js" />
+    <Content Include="editor.md\lib\codemirror\addon\scroll\scrollpastend.js" />
+    <Content Include="editor.md\lib\codemirror\addon\scroll\simplescrollbars.css" />
+    <Content Include="editor.md\lib\codemirror\addon\scroll\simplescrollbars.js" />
+    <Content Include="editor.md\lib\codemirror\addon\search\match-highlighter.js" />
+    <Content Include="editor.md\lib\codemirror\addon\search\matchesonscrollbar.css" />
+    <Content Include="editor.md\lib\codemirror\addon\search\matchesonscrollbar.js" />
+    <Content Include="editor.md\lib\codemirror\addon\search\search.js" />
+    <Content Include="editor.md\lib\codemirror\addon\search\searchcursor.js" />
+    <Content Include="editor.md\lib\codemirror\addon\selection\active-line.js" />
+    <Content Include="editor.md\lib\codemirror\addon\selection\mark-selection.js" />
+    <Content Include="editor.md\lib\codemirror\addon\selection\selection-pointer.js" />
+    <Content Include="editor.md\lib\codemirror\addon\tern\tern.css" />
+    <Content Include="editor.md\lib\codemirror\addon\tern\tern.js" />
+    <Content Include="editor.md\lib\codemirror\addon\tern\worker.js" />
+    <Content Include="editor.md\lib\codemirror\addon\wrap\hardwrap.js" />
+    <Content Include="editor.md\lib\codemirror\codemirror.min.css" />
+    <Content Include="editor.md\lib\codemirror\codemirror.min.js" />
+    <Content Include="editor.md\lib\codemirror\lib\codemirror.css" />
+    <Content Include="editor.md\lib\codemirror\lib\codemirror.js" />
+    <Content Include="editor.md\lib\codemirror\modes.min.js" />
+    <Content Include="editor.md\lib\codemirror\mode\apl\apl.js" />
+    <Content Include="editor.md\lib\codemirror\mode\apl\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\asterisk\asterisk.js" />
+    <Content Include="editor.md\lib\codemirror\mode\asterisk\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\clike\clike.js" />
+    <Content Include="editor.md\lib\codemirror\mode\clike\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\clike\scala.html" />
+    <Content Include="editor.md\lib\codemirror\mode\clojure\clojure.js" />
+    <Content Include="editor.md\lib\codemirror\mode\clojure\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\cobol\cobol.js" />
+    <Content Include="editor.md\lib\codemirror\mode\cobol\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\coffeescript\coffeescript.js" />
+    <Content Include="editor.md\lib\codemirror\mode\coffeescript\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\commonlisp\commonlisp.js" />
+    <Content Include="editor.md\lib\codemirror\mode\commonlisp\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\css\css.js" />
+    <Content Include="editor.md\lib\codemirror\mode\css\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\css\less.html" />
+    <Content Include="editor.md\lib\codemirror\mode\css\less_test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\css\scss.html" />
+    <Content Include="editor.md\lib\codemirror\mode\css\scss_test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\css\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\cypher\cypher.js" />
+    <Content Include="editor.md\lib\codemirror\mode\cypher\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\dart\dart.js" />
+    <Content Include="editor.md\lib\codemirror\mode\dart\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\diff\diff.js" />
+    <Content Include="editor.md\lib\codemirror\mode\diff\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\django\django.js" />
+    <Content Include="editor.md\lib\codemirror\mode\django\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\dockerfile\dockerfile.js" />
+    <Content Include="editor.md\lib\codemirror\mode\dockerfile\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\dtd\dtd.js" />
+    <Content Include="editor.md\lib\codemirror\mode\dtd\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\dylan\dylan.js" />
+    <Content Include="editor.md\lib\codemirror\mode\dylan\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\d\d.js" />
+    <Content Include="editor.md\lib\codemirror\mode\d\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\ebnf\ebnf.js" />
+    <Content Include="editor.md\lib\codemirror\mode\ebnf\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\ecl\ecl.js" />
+    <Content Include="editor.md\lib\codemirror\mode\ecl\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\eiffel\eiffel.js" />
+    <Content Include="editor.md\lib\codemirror\mode\eiffel\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\erlang\erlang.js" />
+    <Content Include="editor.md\lib\codemirror\mode\erlang\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\forth\forth.js" />
+    <Content Include="editor.md\lib\codemirror\mode\forth\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\fortran\fortran.js" />
+    <Content Include="editor.md\lib\codemirror\mode\fortran\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\gas\gas.js" />
+    <Content Include="editor.md\lib\codemirror\mode\gas\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\gfm\gfm.js" />
+    <Content Include="editor.md\lib\codemirror\mode\gfm\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\gfm\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\gherkin\gherkin.js" />
+    <Content Include="editor.md\lib\codemirror\mode\gherkin\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\go\go.js" />
+    <Content Include="editor.md\lib\codemirror\mode\go\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\groovy\groovy.js" />
+    <Content Include="editor.md\lib\codemirror\mode\groovy\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\haml\haml.js" />
+    <Content Include="editor.md\lib\codemirror\mode\haml\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\haml\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\haskell\haskell.js" />
+    <Content Include="editor.md\lib\codemirror\mode\haskell\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\haxe\haxe.js" />
+    <Content Include="editor.md\lib\codemirror\mode\haxe\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\htmlembedded\htmlembedded.js" />
+    <Content Include="editor.md\lib\codemirror\mode\htmlembedded\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\htmlmixed\htmlmixed.js" />
+    <Content Include="editor.md\lib\codemirror\mode\htmlmixed\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\http\http.js" />
+    <Content Include="editor.md\lib\codemirror\mode\http\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\idl\idl.js" />
+    <Content Include="editor.md\lib\codemirror\mode\idl\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\jade\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\jade\jade.js" />
+    <Content Include="editor.md\lib\codemirror\mode\javascript\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\javascript\javascript.js" />
+    <Content Include="editor.md\lib\codemirror\mode\javascript\json-ld.html" />
+    <Content Include="editor.md\lib\codemirror\mode\javascript\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\javascript\typescript.html" />
+    <Content Include="editor.md\lib\codemirror\mode\jinja2\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\jinja2\jinja2.js" />
+    <Content Include="editor.md\lib\codemirror\mode\julia\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\julia\julia.js" />
+    <Content Include="editor.md\lib\codemirror\mode\kotlin\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\kotlin\kotlin.js" />
+    <Content Include="editor.md\lib\codemirror\mode\livescript\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\livescript\livescript.js" />
+    <Content Include="editor.md\lib\codemirror\mode\lua\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\lua\lua.js" />
+    <Content Include="editor.md\lib\codemirror\mode\markdown\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\markdown\markdown.js" />
+    <Content Include="editor.md\lib\codemirror\mode\markdown\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\meta.js" />
+    <Content Include="editor.md\lib\codemirror\mode\mirc\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\mirc\mirc.js" />
+    <Content Include="editor.md\lib\codemirror\mode\mllike\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\mllike\mllike.js" />
+    <Content Include="editor.md\lib\codemirror\mode\modelica\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\modelica\modelica.js" />
+    <Content Include="editor.md\lib\codemirror\mode\nginx\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\nginx\nginx.js" />
+    <Content Include="editor.md\lib\codemirror\mode\ntriples\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\ntriples\ntriples.js" />
+    <Content Include="editor.md\lib\codemirror\mode\octave\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\octave\octave.js" />
+    <Content Include="editor.md\lib\codemirror\mode\pascal\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\pascal\pascal.js" />
+    <Content Include="editor.md\lib\codemirror\mode\pegjs\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\pegjs\pegjs.js" />
+    <Content Include="editor.md\lib\codemirror\mode\perl\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\perl\perl.js" />
+    <Content Include="editor.md\lib\codemirror\mode\php\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\php\php.js" />
+    <Content Include="editor.md\lib\codemirror\mode\php\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\pig\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\pig\pig.js" />
+    <Content Include="editor.md\lib\codemirror\mode\properties\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\properties\properties.js" />
+    <Content Include="editor.md\lib\codemirror\mode\puppet\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\puppet\puppet.js" />
+    <Content Include="editor.md\lib\codemirror\mode\python\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\python\python.js" />
+    <Content Include="editor.md\lib\codemirror\mode\q\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\q\q.js" />
+    <Content Include="editor.md\lib\codemirror\mode\rpm\changes\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\rpm\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\rpm\rpm.js" />
+    <Content Include="editor.md\lib\codemirror\mode\rst\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\rst\rst.js" />
+    <Content Include="editor.md\lib\codemirror\mode\ruby\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\ruby\ruby.js" />
+    <Content Include="editor.md\lib\codemirror\mode\ruby\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\rust\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\rust\rust.js" />
+    <Content Include="editor.md\lib\codemirror\mode\r\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\r\r.js" />
+    <Content Include="editor.md\lib\codemirror\mode\sass\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\sass\sass.js" />
+    <Content Include="editor.md\lib\codemirror\mode\scheme\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\scheme\scheme.js" />
+    <Content Include="editor.md\lib\codemirror\mode\shell\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\shell\shell.js" />
+    <Content Include="editor.md\lib\codemirror\mode\shell\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\sieve\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\sieve\sieve.js" />
+    <Content Include="editor.md\lib\codemirror\mode\slim\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\slim\slim.js" />
+    <Content Include="editor.md\lib\codemirror\mode\slim\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\smalltalk\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\smalltalk\smalltalk.js" />
+    <Content Include="editor.md\lib\codemirror\mode\smartymixed\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\smartymixed\smartymixed.js" />
+    <Content Include="editor.md\lib\codemirror\mode\smarty\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\smarty\smarty.js" />
+    <Content Include="editor.md\lib\codemirror\mode\solr\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\solr\solr.js" />
+    <Content Include="editor.md\lib\codemirror\mode\soy\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\soy\soy.js" />
+    <Content Include="editor.md\lib\codemirror\mode\sparql\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\sparql\sparql.js" />
+    <Content Include="editor.md\lib\codemirror\mode\spreadsheet\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\spreadsheet\spreadsheet.js" />
+    <Content Include="editor.md\lib\codemirror\mode\sql\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\sql\sql.js" />
+    <Content Include="editor.md\lib\codemirror\mode\stex\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\stex\stex.js" />
+    <Content Include="editor.md\lib\codemirror\mode\stex\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\stylus\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\stylus\stylus.js" />
+    <Content Include="editor.md\lib\codemirror\mode\tcl\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\tcl\tcl.js" />
+    <Content Include="editor.md\lib\codemirror\mode\textile\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\textile\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\textile\textile.js" />
+    <Content Include="editor.md\lib\codemirror\mode\tiddlywiki\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\tiddlywiki\tiddlywiki.css" />
+    <Content Include="editor.md\lib\codemirror\mode\tiddlywiki\tiddlywiki.js" />
+    <Content Include="editor.md\lib\codemirror\mode\tiki\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\tiki\tiki.css" />
+    <Content Include="editor.md\lib\codemirror\mode\tiki\tiki.js" />
+    <Content Include="editor.md\lib\codemirror\mode\toml\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\toml\toml.js" />
+    <Content Include="editor.md\lib\codemirror\mode\tornado\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\tornado\tornado.js" />
+    <Content Include="editor.md\lib\codemirror\mode\turtle\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\turtle\turtle.js" />
+    <Content Include="editor.md\lib\codemirror\mode\vbscript\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\vbscript\vbscript.js" />
+    <Content Include="editor.md\lib\codemirror\mode\vb\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\vb\vb.js" />
+    <Content Include="editor.md\lib\codemirror\mode\velocity\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\velocity\velocity.js" />
+    <Content Include="editor.md\lib\codemirror\mode\verilog\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\verilog\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\verilog\verilog.js" />
+    <Content Include="editor.md\lib\codemirror\mode\xml\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\xml\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\xml\xml.js" />
+    <Content Include="editor.md\lib\codemirror\mode\xquery\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\xquery\test.js" />
+    <Content Include="editor.md\lib\codemirror\mode\xquery\xquery.js" />
+    <Content Include="editor.md\lib\codemirror\mode\yaml\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\yaml\yaml.js" />
+    <Content Include="editor.md\lib\codemirror\mode\z80\index.html" />
+    <Content Include="editor.md\lib\codemirror\mode\z80\z80.js" />
+    <Content Include="editor.md\lib\codemirror\theme\3024-day.css" />
+    <Content Include="editor.md\lib\codemirror\theme\3024-night.css" />
+    <Content Include="editor.md\lib\codemirror\theme\ambiance-mobile.css" />
+    <Content Include="editor.md\lib\codemirror\theme\ambiance.css" />
+    <Content Include="editor.md\lib\codemirror\theme\base16-dark.css" />
+    <Content Include="editor.md\lib\codemirror\theme\base16-light.css" />
+    <Content Include="editor.md\lib\codemirror\theme\blackboard.css" />
+    <Content Include="editor.md\lib\codemirror\theme\cobalt.css" />
+    <Content Include="editor.md\lib\codemirror\theme\colorforth.css" />
+    <Content Include="editor.md\lib\codemirror\theme\eclipse.css" />
+    <Content Include="editor.md\lib\codemirror\theme\elegant.css" />
+    <Content Include="editor.md\lib\codemirror\theme\erlang-dark.css" />
+    <Content Include="editor.md\lib\codemirror\theme\lesser-dark.css" />
+    <Content Include="editor.md\lib\codemirror\theme\mbo.css" />
+    <Content Include="editor.md\lib\codemirror\theme\mdn-like.css" />
+    <Content Include="editor.md\lib\codemirror\theme\midnight.css" />
+    <Content Include="editor.md\lib\codemirror\theme\monokai.css" />
+    <Content Include="editor.md\lib\codemirror\theme\neat.css" />
+    <Content Include="editor.md\lib\codemirror\theme\neo.css" />
+    <Content Include="editor.md\lib\codemirror\theme\night.css" />
+    <Content Include="editor.md\lib\codemirror\theme\paraiso-dark.css" />
+    <Content Include="editor.md\lib\codemirror\theme\paraiso-light.css" />
+    <Content Include="editor.md\lib\codemirror\theme\pastel-on-dark.css" />
+    <Content Include="editor.md\lib\codemirror\theme\rubyblue.css" />
+    <Content Include="editor.md\lib\codemirror\theme\solarized.css" />
+    <Content Include="editor.md\lib\codemirror\theme\the-matrix.css" />
+    <Content Include="editor.md\lib\codemirror\theme\tomorrow-night-bright.css" />
+    <Content Include="editor.md\lib\codemirror\theme\tomorrow-night-eighties.css" />
+    <Content Include="editor.md\lib\codemirror\theme\twilight.css" />
+    <Content Include="editor.md\lib\codemirror\theme\vibrant-ink.css" />
+    <Content Include="editor.md\lib\codemirror\theme\xq-dark.css" />
+    <Content Include="editor.md\lib\codemirror\theme\xq-light.css" />
+    <Content Include="editor.md\lib\codemirror\theme\zenburn.css" />
+    <Content Include="editor.md\lib\flowchart.min.js" />
+    <Content Include="editor.md\lib\jquery.flowchart.min.js" />
+    <Content Include="editor.md\lib\marked.min.js" />
+    <Content Include="editor.md\lib\prettify.min.js" />
+    <Content Include="editor.md\lib\raphael.min.js" />
+    <Content Include="editor.md\lib\sequence-diagram.min.js" />
+    <Content Include="editor.md\lib\underscore.min.js" />
+    <Content Include="editor.md\plugins\code-block-dialog\code-block-dialog.js" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji-dialog.js" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\+1.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\-1.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\100.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\109.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\1234.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\8ball.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\a.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ab.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\abc.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\abcd.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\accept.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\aerial_tramway.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\airplane.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\alarm_clock.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\alien.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ambulance.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\anchor.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\angel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\anger.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\angry.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\anguished.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ant.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\apple.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\aquarius.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\aries.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrows_clockwise.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrows_counterclockwise.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_backward.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_double_down.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_double_up.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_down.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_down_small.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_forward.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_heading_down.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_heading_up.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_left.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_lower_left.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_lower_right.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_right.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_right_hook.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_up.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_upper_left.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_upper_right.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_up_down.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\arrow_up_small.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\art.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\articulated_lorry.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\astonished.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\atm.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\b.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\baby.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\baby_bottle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\baby_chick.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\baby_symbol.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\back.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\baggage_claim.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\balloon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ballot_box_with_check.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bamboo.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\banana.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bangbang.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bank.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\barber.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bar_chart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\baseball.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\basketball.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bath.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bathtub.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\battery.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bear.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bee.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\beer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\beers.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\beetle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\beginner.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bell.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bento.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bicyclist.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bike.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bikini.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bird.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\birthday.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_circle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_joker.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_medium_small_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_medium_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_nib.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_small_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\black_square_button.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\blossom.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\blowfish.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\blue_book.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\blue_car.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\blue_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\blush.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\boar.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\boat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bomb.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\book.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bookmark.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bookmark_tabs.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\books.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\boom.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\boot.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bouquet.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bow.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bowling.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bowtie.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\boy.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bread.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bride_with_veil.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bridge_at_night.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\briefcase.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\broken_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bug.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bulb.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bullettrain_front.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bullettrain_side.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\busstop.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\busts_in_silhouette.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\bust_in_silhouette.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cactus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cake.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\calendar.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\calling.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\camel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\camera.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cancer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\candy.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\capital_abcd.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\capricorn.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\car.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\card_index.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\carousel_horse.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cat2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cd.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\chart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\chart_with_downwards_trend.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\chart_with_upwards_trend.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\checkered_flag.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cherries.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cherry_blossom.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\chestnut.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\chicken.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\children_crossing.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\chocolate_bar.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\christmas_tree.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\church.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cinema.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\circus_tent.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\city_sunrise.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\city_sunset.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cl.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clap.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clapper.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clipboard.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock1.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock10.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock1030.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock11.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock1130.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock12.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock1230.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock130.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock230.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock3.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock330.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock4.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock430.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock5.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock530.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock6.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock630.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock7.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock730.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock8.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock830.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock9.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clock930.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\closed_book.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\closed_lock_with_key.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\closed_umbrella.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cloud.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\clubs.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cn.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cocktail.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\coffee.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cold_sweat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\collision.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\computer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\confetti_ball.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\confounded.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\confused.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\congratulations.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\construction.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\construction_worker.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\convenience_store.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cookie.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cool.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cop.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\copyright.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\corn.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\couple.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\couplekiss.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\couple_with_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cow.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cow2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\credit_card.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\crocodile.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\crossed_flags.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\crown.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cry.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\crying_cat_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\crystal_ball.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cupid.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\curly_loop.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\currency_exchange.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\curry.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\custard.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\customs.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\cyclone.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dancer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dancers.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dango.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dash.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\date.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\de.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\deciduous_tree.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\department_store.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\diamonds.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\diamond_shape_with_a_dot_inside.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\disappointed.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\disappointed_relieved.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dizzy.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dizzy_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dog.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dog2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dollar.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dolls.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dolphin.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\donut.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\door.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\doughnut.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\do_not_litter.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dragon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dragon_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dress.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dromedary_camel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\droplet.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\dvd.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\e-mail.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ear.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\earth_africa.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\earth_americas.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\earth_asia.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ear_of_rice.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\egg.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\eggplant.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\eight.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\eight_pointed_black_star.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\eight_spoked_asterisk.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\electric_plug.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\elephant.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\email.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\emojify.css" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\end.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\envelope.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\es.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\euro.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\european_castle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\european_post_office.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\evergreen_tree.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\exclamation.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\expressionless.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\eyeglasses.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\eyes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\facepunch.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\factory.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fallen_leaf.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\family.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fast_forward.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fax.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fearful.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\feelsgood.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\feet.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ferris_wheel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\file_folder.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\finnadie.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fire.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fireworks.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fire_engine.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\first_quarter_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\first_quarter_moon_with_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fish.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fishing_pole_and_fish.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fish_cake.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fist.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\five.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\flags.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\flashlight.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\floppy_disk.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\flower_playing_cards.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\flushed.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\foggy.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\football.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fork_and_knife.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fountain.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\four.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\four_leaf_clover.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fr.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\free.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fried_shrimp.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fries.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\frog.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\frowning.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fu.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\fuelpump.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\full_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\full_moon_with_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\game_die.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\gb.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\gem.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\gemini.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ghost.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\gift.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\gift_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\girl.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\globe_with_meridians.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\goat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\goberserk.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\godmode.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\golf.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\grapes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\green_apple.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\green_book.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\green_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\grey_exclamation.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\grey_question.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\grimacing.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\grin.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\grinning.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\guardsman.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\guitar.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\gun.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\haircut.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hamburger.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hammer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hamster.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hand.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\handbag.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hankey.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hash.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hatched_chick.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hatching_chick.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\headphones.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heartbeat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heartpulse.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hearts.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heart_decoration.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heart_eyes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heart_eyes_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hear_no_evil.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heavy_check_mark.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heavy_division_sign.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heavy_dollar_sign.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heavy_exclamation_mark.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heavy_minus_sign.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heavy_multiplication_x.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\heavy_plus_sign.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\helicopter.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\herb.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hibiscus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\high_brightness.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\high_heel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hocho.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\honeybee.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\honey_pot.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\horse.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\horse_racing.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hospital.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hotel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hotsprings.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hourglass.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hourglass_flowing_sand.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\house.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\house_with_garden.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hurtrealbad.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\hushed.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\icecream.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ice_cream.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\id.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ideograph_advantage.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\imp.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\inbox_tray.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\incoming_envelope.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\information_desk_person.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\information_source.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\innocent.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\interrobang.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\iphone.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\it.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\izakaya_lantern.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\jack_o_lantern.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\japan.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\japanese_castle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\japanese_goblin.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\japanese_ogre.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\jeans.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\joy.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\joy_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\jp.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\key.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\keycap_ten.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kimono.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kiss.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kissing.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kissing_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kissing_closed_eyes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kissing_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kissing_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kissing_smiling_eyes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\koala.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\koko.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\kr.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\large_blue_circle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\large_blue_diamond.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\large_orange_diamond.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\last_quarter_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\last_quarter_moon_with_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\laughing.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\leaves.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ledger.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\leftwards_arrow_with_hook.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\left_luggage.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\left_right_arrow.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\lemon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\leo.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\leopard.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\libra.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\light_rail.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\link.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\lips.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\lipstick.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\lock.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\lock_with_ink_pen.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\lollipop.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\loop.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\loudspeaker.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\love_hotel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\love_letter.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\low_brightness.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\m.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mag.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mag_right.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mahjong.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mailbox.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mailbox_closed.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mailbox_with_mail.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mailbox_with_no_mail.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\man.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mans_shoe.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\man_with_gua_pi_mao.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\man_with_turban.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\maple_leaf.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mask.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\massage.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\meat_on_bone.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mega.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\melon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\memo.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mens.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\metal.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\metro.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\microphone.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\microscope.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\milky_way.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\minibus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\minidisc.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mobile_phone_off.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\moneybag.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\money_with_wings.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\monkey.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\monkey_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\monorail.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mortar_board.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mountain_bicyclist.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mountain_cableway.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mountain_railway.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mount_fuji.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mouse.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mouse2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\movie_camera.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\moyai.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\muscle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mushroom.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\musical_keyboard.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\musical_note.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\musical_score.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\mute.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\nail_care.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\name_badge.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\neckbeard.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\necktie.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\negative_squared_cross_mark.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\neutral_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\new.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\newspaper.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\new_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\new_moon_with_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ng.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\nine.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\non-potable_water.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\nose.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\notebook.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\notebook_with_decorative_cover.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\notes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_bell.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_bicycles.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_entry.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_entry_sign.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_good.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_mobile_phones.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_mouth.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_pedestrians.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\no_smoking.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\nut_and_bolt.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\o.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\o2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ocean.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\octocat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\octopus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\oden.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\office.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ok.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ok_hand.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ok_woman.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\older_man.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\older_woman.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\on.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\oncoming_automobile.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\oncoming_bus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\oncoming_police_car.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\oncoming_taxi.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\one.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\open_file_folder.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\open_hands.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\open_mouth.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ophiuchus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\orange_book.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\outbox_tray.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ox.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\package.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pager.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\page_facing_up.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\page_with_curl.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\palm_tree.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\panda_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\paperclip.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\parking.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\partly_sunny.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\part_alternation_mark.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\passport_control.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\paw_prints.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\peach.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pear.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pencil.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pencil2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\penguin.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pensive.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\performing_arts.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\persevere.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\person_frowning.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\person_with_blond_hair.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\person_with_pouting_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\phone.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pig.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pig2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pig_nose.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pill.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pineapple.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pisces.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pizza.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\plus1.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\point_down.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\point_left.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\point_right.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\point_up.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\point_up_2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\police_car.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\poodle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\poop.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\postal_horn.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\postbox.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\post_office.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\potable_water.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pouch.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\poultry_leg.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pound.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pouting_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pray.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\princess.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\punch.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\purple_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\purse.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\pushpin.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\put_litter_in_its_place.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\question.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rabbit.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rabbit2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\racehorse.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\radio.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\radio_button.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rage.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rage1.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rage2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rage3.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rage4.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\railway_car.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rainbow.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\raised_hand.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\raised_hands.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\raising_hand.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ram.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ramen.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\recycle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\red_car.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\red_circle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\registered.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\relaxed.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\relieved.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\repeat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\repeat_one.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\restroom.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\revolving_hearts.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rewind.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ribbon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rice.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rice_ball.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rice_cracker.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rice_scene.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ring.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rocket.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\roller_coaster.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rooster.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rose.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rotating_light.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\round_pushpin.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rowboat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ru.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\rugby_football.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\runner.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\running.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\running_shirt_with_sash.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sa.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sagittarius.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sailboat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sake.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sandal.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\santa.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\satellite.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\satisfied.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\saxophone.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\school.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\school_satchel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\scissors.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\scorpius.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\scream.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\scream_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\scroll.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\seat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\secret.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\seedling.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\see_no_evil.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\seven.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\shaved_ice.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sheep.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\shell.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ship.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\shipit.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\shirt.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\shit.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\shoe.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\shower.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\signal_strength.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\six.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\six_pointed_star.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ski.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\skull.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sleeping.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sleepy.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\slot_machine.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\small_blue_diamond.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\small_orange_diamond.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\small_red_triangle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\small_red_triangle_down.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smile.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smiley.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smiley_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smile_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smiling_imp.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smirk.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smirk_cat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\smoking.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\snail.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\snake.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\snowboarder.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\snowflake.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\snowman.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sob.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\soccer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\soon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sos.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sound.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\space_invader.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\spades.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\spaghetti.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sparkle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sparkler.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sparkles.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sparkling_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\speaker.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\speak_no_evil.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\speech_balloon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\speedboat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\squirrel.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\star.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\star2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\stars.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\station.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\statue_of_liberty.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\steam_locomotive.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\stew.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\straight_ruler.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\strawberry.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\stuck_out_tongue.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\stuck_out_tongue_closed_eyes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\stuck_out_tongue_winking_eye.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sunflower.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sunglasses.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sunny.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sunrise.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sunrise_over_mountains.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sun_with_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\surfer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sushi.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\suspect.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\suspension_railway.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sweat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sweat_drops.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sweat_smile.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\sweet_potato.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\swimmer.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\symbols.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\syringe.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tada.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tanabata_tree.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tangerine.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\taurus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\taxi.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tea.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\telephone.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\telephone_receiver.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\telescope.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tennis.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tent.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\thought_balloon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\three.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\thumbsdown.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\thumbsup.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\ticket.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tiger.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tiger2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tired_face.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tm.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\toilet.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tokyo_tower.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tomato.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tongue.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\top.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tophat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tractor.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\traffic_light.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\train.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\train2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tram.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\triangular_flag_on_post.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\triangular_ruler.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\trident.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\triumph.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\trolleybus.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\trollface.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\trophy.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tropical_drink.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tropical_fish.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\truck.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\trumpet.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tshirt.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tulip.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\turtle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\tv.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\twisted_rightwards_arrows.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\two.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\two_hearts.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\two_men_holding_hands.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\two_women_holding_hands.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u5272.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u5408.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u55b6.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u6307.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u6708.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u6709.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u6e80.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u7121.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u7533.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u7981.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\u7a7a.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\uk.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\umbrella.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\unamused.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\underage.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\unlock.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\up.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\us.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\v.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\vertical_traffic_light.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\vhs.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\vibration_mode.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\video_camera.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\video_game.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\violin.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\virgo.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\volcano.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\vs.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\walking.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\waning_crescent_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\waning_gibbous_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\warning.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\watch.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\watermelon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\water_buffalo.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wave.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wavy_dash.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\waxing_crescent_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\waxing_gibbous_moon.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wc.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\weary.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wedding.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\whale.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\whale2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wheelchair.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_check_mark.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_circle.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_flower.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_large_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_medium_small_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_medium_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_small_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_square.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\white_square_button.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wind_chime.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wine_glass.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wink.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wink2.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wolf.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\woman.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\womans_clothes.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\womans_hat.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\womens.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\worried.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\wrench.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\x.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\yellow_heart.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\yen.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\yum.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\zap.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\zero.png" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji\zzz.png" />
+    <Content Include="editor.md\plugins\goto-line-dialog\goto-line-dialog.js" />
+    <Content Include="editor.md\plugins\help-dialog\help-dialog.js" />
+    <Content Include="editor.md\plugins\html-entities-dialog\html-entities-dialog.js" />
+    <Content Include="editor.md\plugins\image-dialog\image-dialog.js" />
+    <Content Include="editor.md\plugins\link-dialog\link-dialog.js" />
+    <Content Include="editor.md\plugins\plugin-template.js" />
+    <Content Include="editor.md\plugins\preformatted-text-dialog\preformatted-text-dialog.js" />
+    <Content Include="editor.md\plugins\reference-link-dialog\reference-link-dialog.js" />
+    <Content Include="editor.md\plugins\table-dialog\table-dialog.js" />
+    <Content Include="editor.md\plugins\test-plugin\test-plugin.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="layui\css\layui.css" />
+    <Content Include="layui\css\layui.mobile.css" />
+    <Content Include="layui\css\modules\code.css" />
+    <Content Include="layui\css\modules\laydate\default\laydate.css" />
+    <Content Include="layui\css\modules\layer\default\icon-ext.png" />
+    <Content Include="layui\css\modules\layer\default\icon.png" />
+    <Content Include="layui\css\modules\layer\default\layer.css" />
+    <Content Include="layui\css\modules\layer\default\loading-0.gif" />
+    <Content Include="layui\css\modules\layer\default\loading-1.gif" />
+    <Content Include="layui\css\modules\layer\default\loading-2.gif" />
+    <Content Include="layui\css\theme10.min.css" />
+    <Content Include="layui\font\iconfont.svg" />
+    <Content Include="layui\images\face\0.gif" />
+    <Content Include="layui\images\face\1.gif" />
+    <Content Include="layui\images\face\10.gif" />
+    <Content Include="layui\images\face\11.gif" />
+    <Content Include="layui\images\face\12.gif" />
+    <Content Include="layui\images\face\13.gif" />
+    <Content Include="layui\images\face\14.gif" />
+    <Content Include="layui\images\face\15.gif" />
+    <Content Include="layui\images\face\16.gif" />
+    <Content Include="layui\images\face\17.gif" />
+    <Content Include="layui\images\face\18.gif" />
+    <Content Include="layui\images\face\19.gif" />
+    <Content Include="layui\images\face\2.gif" />
+    <Content Include="layui\images\face\20.gif" />
+    <Content Include="layui\images\face\21.gif" />
+    <Content Include="layui\images\face\22.gif" />
+    <Content Include="layui\images\face\23.gif" />
+    <Content Include="layui\images\face\24.gif" />
+    <Content Include="layui\images\face\25.gif" />
+    <Content Include="layui\images\face\26.gif" />
+    <Content Include="layui\images\face\27.gif" />
+    <Content Include="layui\images\face\28.gif" />
+    <Content Include="layui\images\face\29.gif" />
+    <Content Include="layui\images\face\3.gif" />
+    <Content Include="layui\images\face\30.gif" />
+    <Content Include="layui\images\face\31.gif" />
+    <Content Include="layui\images\face\32.gif" />
+    <Content Include="layui\images\face\33.gif" />
+    <Content Include="layui\images\face\34.gif" />
+    <Content Include="layui\images\face\35.gif" />
+    <Content Include="layui\images\face\36.gif" />
+    <Content Include="layui\images\face\37.gif" />
+    <Content Include="layui\images\face\38.gif" />
+    <Content Include="layui\images\face\39.gif" />
+    <Content Include="layui\images\face\4.gif" />
+    <Content Include="layui\images\face\40.gif" />
+    <Content Include="layui\images\face\41.gif" />
+    <Content Include="layui\images\face\42.gif" />
+    <Content Include="layui\images\face\43.gif" />
+    <Content Include="layui\images\face\44.gif" />
+    <Content Include="layui\images\face\45.gif" />
+    <Content Include="layui\images\face\46.gif" />
+    <Content Include="layui\images\face\47.gif" />
+    <Content Include="layui\images\face\48.gif" />
+    <Content Include="layui\images\face\49.gif" />
+    <Content Include="layui\images\face\5.gif" />
+    <Content Include="layui\images\face\50.gif" />
+    <Content Include="layui\images\face\51.gif" />
+    <Content Include="layui\images\face\52.gif" />
+    <Content Include="layui\images\face\53.gif" />
+    <Content Include="layui\images\face\54.gif" />
+    <Content Include="layui\images\face\55.gif" />
+    <Content Include="layui\images\face\56.gif" />
+    <Content Include="layui\images\face\57.gif" />
+    <Content Include="layui\images\face\58.gif" />
+    <Content Include="layui\images\face\59.gif" />
+    <Content Include="layui\images\face\6.gif" />
+    <Content Include="layui\images\face\60.gif" />
+    <Content Include="layui\images\face\61.gif" />
+    <Content Include="layui\images\face\62.gif" />
+    <Content Include="layui\images\face\63.gif" />
+    <Content Include="layui\images\face\64.gif" />
+    <Content Include="layui\images\face\65.gif" />
+    <Content Include="layui\images\face\66.gif" />
+    <Content Include="layui\images\face\67.gif" />
+    <Content Include="layui\images\face\68.gif" />
+    <Content Include="layui\images\face\69.gif" />
+    <Content Include="layui\images\face\7.gif" />
+    <Content Include="layui\images\face\70.gif" />
+    <Content Include="layui\images\face\71.gif" />
+    <Content Include="layui\images\face\8.gif" />
+    <Content Include="layui\images\face\9.gif" />
+    <Content Include="layui\indexNav.js" />
+    <Content Include="layui\layui.all.js" />
+    <Content Include="layui\layui.js" />
+    <Content Include="layui\lay\modules\carousel.js" />
+    <Content Include="layui\lay\modules\code.js" />
+    <Content Include="layui\lay\modules\colorpicker.js" />
+    <Content Include="layui\lay\modules\element.js" />
+    <Content Include="layui\lay\modules\flow.js" />
+    <Content Include="layui\lay\modules\form.js" />
+    <Content Include="layui\lay\modules\jquery.js" />
+    <Content Include="layui\lay\modules\laydate.js" />
+    <Content Include="layui\lay\modules\layedit.js" />
+    <Content Include="layui\lay\modules\layer.js" />
+    <Content Include="layui\lay\modules\laypage.js" />
+    <Content Include="layui\lay\modules\laytpl.js" />
+    <Content Include="layui\lay\modules\mobile.js" />
+    <Content Include="layui\lay\modules\rate.js" />
+    <Content Include="layui\lay\modules\slider.js" />
+    <Content Include="layui\lay\modules\table.js" />
+    <Content Include="layui\lay\modules\transfer.js" />
+    <Content Include="layui\lay\modules\tree.js" />
+    <Content Include="layui\lay\modules\upload.js" />
+    <Content Include="layui\lay\modules\util.js" />
+    <Content Include="layui\font\iconfont.eot" />
+    <Content Include="layui\font\iconfont.ttf" />
+    <Content Include="layui\font\iconfont.woff" />
+    <Content Include="layui\font\iconfont.woff2" />
+    <Content Include="Scripts\about.js" />
+    <Content Include="Scripts\AddArticle.js" />
+    <Content Include="Scripts\cookie.js" />
+    <Content Include="Scripts\detail.js" />
+    <Content Include="Scripts\GetDataByJson.js" />
+    <Content Include="Scripts\global.js" />
+    <Content Include="Scripts\home.js" />
+    <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\prettify.js" />
+    <Content Include="需求文档.txt" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\animated.less" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\screen-reader.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_animated.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
+    <Content Include="editor.md\fonts\editormd-logo.eot" />
+    <Content Include="editor.md\fonts\editormd-logo.ttf" />
+    <Content Include="editor.md\fonts\editormd-logo.woff" />
+    <Content Include="editor.md\fonts\fontawesome-webfont.eot" />
+    <Content Include="editor.md\fonts\fontawesome-webfont.ttf" />
+    <Content Include="editor.md\fonts\fontawesome-webfont.woff" />
+    <Content Include="editor.md\fonts\fontawesome-webfont.woff2" />
+    <Content Include="editor.md\fonts\FontAwesome.otf" />
+    <Content Include="editor.md\lib\codemirror\AUTHORS" />
+    <Content Include="editor.md\lib\codemirror\bower.json" />
+    <Content Include="editor.md\lib\codemirror\LICENSE" />
+    <Content Include="editor.md\lib\codemirror\package.json" />
+    <Content Include="editor.md\lib\codemirror\README.md" />
+    <Content Include="editor.md\plugins\emoji-dialog\emoji.json" />
+    <Content Include="editor.md\plugins\help-dialog\help.md" />
+    <Content Include="editor.md\plugins\html-entities-dialog\html-entities.json" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\NavLayOut.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\BackStagePartial.cshtml" />
+    <Content Include="Views\BackStage\Index.cshtml" />
+    <Content Include="Views\Article\AddArticle.cshtml" />
+    <Content Include="Views\Article\ArticleTagPartial.cshtml" />
+    <Content Include="Views\Article\ArticleListPartial.cshtml" />
+    <Content Include="Views\Article\ArticleListTemplatePartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Log\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Com.Stone.HuLuBlog.Application\Com.Stone.HuLuBlog.Application.csproj">
+      <Project>{d52bd435-d789-4e94-83d6-a114cc5ae543}</Project>
+      <Name>Com.Stone.HuLuBlog.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Com.Stone.HuLuBlog.Domain\Com.Stone.HuLuBlog.Domain.csproj">
+      <Project>{0b1bc43b-5041-4230-a328-2a9059ae65d3}</Project>
+      <Name>Com.Stone.HuLuBlog.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Com.Stone.HuLuBlog.Infrastructure\Com.Stone.HuLuBlog.Infrastructure.csproj">
+      <Project>{5cd26f06-4118-479c-8d9a-fcb2f22f5636}</Project>
+      <Name>Com.Stone.HuLuBlog.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Com.Stone.HuLuBlog.Repositories\Com.Stone.HuLuBlog.Repositories.csproj">
+      <Project>{7c8746a9-1f90-4666-b8f8-a0c47579e65e}</Project>
+      <Name>Com.Stone.HuLuBlog.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57344</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57344/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

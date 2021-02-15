@@ -1,0 +1,105 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{@RenderSection("css", required: false)}
+@section scripts{@RenderSection("scripts", required: false)}
+
+<!-- 导航 -->
+<nav class="blog-nav layui-header">
+    <div class="blog-container">
+
+        <a class="blog-logo" href="@Url.Action("Index", "Home")">HuLuBlog</a>
+        <!-- 导航菜单 -->
+        <ul class="layui-nav" lay-filter="nav">
+            <li class="layui-nav-item layui-this">
+                <a href="@Url.Action("Index", "Home")"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="article.html"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
+            </li>
+            @*<li class="layui-nav-item">
+                <a href="resource.html"><i class="fa fa-tags fa-fw"></i>&nbsp;资源分享</a>
+                </li>*@
+            @*<li class="layui-nav-item">
+                <a href="timeline.html"><i class="fa fa-hourglass-half fa-fw"></i>&nbsp;点点滴滴</a>
+                     </li>*@
+            <li class="layui-nav-item">
+                <a href="about.html"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+            </li>
+
+            @{Html.RenderAction("BackStagePartial", "Home");}
+
+        </ul>
+        <!-- 手机和平板的导航开关 -->
+        <a class="blog-navicon" href="javascript:;">
+            <i class="fa fa-navicon"></i>
+        </a>
+    </div>
+</nav>
+
+<!-- 主体（一般只改变这里的内容） -->
+<div class="blog-body">
+    <!-- canvas -->
+    @*<canvas id="canvas-banner" style="background: #393D49;"></canvas>*@
+    <!--为了及时效果需要立即设置canvas宽高，否则就在home.js中设置-->
+    @*<script type="text/javascript">
+            var canvas = document.getElementById('canvas-banner');
+            canvas.width = window.document.body.clientWidth - 10;//减去滚动条的宽度
+            if (screen.width >= 992) {
+                canvas.height = window.innerHeight * 1 / 3;
+            } else {
+                canvas.height = window.innerHeight * 2 / 7;
+            }
+        </script>*@
+    <!-- 这个一般才是真正的主体内容 -->
+    <div class="blog-container">
+        <div class="blog-main">
+            <!-- 网站公告提示 -->
+            @*<div class="home-tips shadow">
+                    <i style="float:left;line-height:17px;" class="fa fa-volume-up"></i>
+                    <div class="home-tips-container">
+                        <span style="color: #009688">偷偷告诉大家，本博客的后台管理也正在制作，为大家准备了游客专用账号！</span>
+                        <span style="color: red">网站新增留言回复啦！使用QQ登陆即可回复，人人都可以回复！</span>
+                        <span style="color: red">如果你觉得网站做得还不错，来Fly社区点个赞吧！<a href="http://fly.layui.com/case/2017/" target="_blank" style="color:#01AAED">点我前往</a></span>
+                        <span style="color: #009688">不落阁 &nbsp;—— &nbsp;一个.NET程序员的个人博客，新版网站采用Layui为前端框架，目前正在建设中！</span>
+                    </div>
+                </div>*@
+
+
+
+
+            @RenderBody()
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="blog-footer">
+        <p><span>Copyright</span><span>&copy;</span><span>2021</span><a href="@Url.Action("Index","Home")">HuLuBlog</a><span>Design By HuLu</span></p>
+        @*<p><a href="http://www.miibeian.gov.cn/" target="_blank">蜀ICP备16029915号-1</a></p>*@
+    </footer>
+
+    <!--侧边导航-->
+    <ul class="layui-nav layui-nav-tree layui-nav-side blog-nav-left layui-hide" lay-filter="nav">
+        <li class="layui-nav-item layui-this">
+            <a href="home.html"><i class="fa fa-home fa-fw"></i>&nbsp;网站首页</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="article.html"><i class="fa fa-file-text fa-fw"></i>&nbsp;文章专栏</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="resource.html"><i class="fa fa-tags fa-fw"></i>&nbsp;资源分享</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="timeline.html"><i class="fa fa-road fa-fw"></i>&nbsp;点点滴滴</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="about.html"><i class="fa fa-info fa-fw"></i>&nbsp;关于本站</a>
+        </li>
+    </ul>
+</div>
+
+
+
+

@@ -1,0 +1,35 @@
+﻿@using Com.Stone.HuLuBlog.Web.Models
+@model List<ArticleVM>
+
+
+@foreach (var article in Model)
+{
+<div class="article shadow">
+    @if (article.ImagePath != null)
+    {
+        <div class="article-left">
+            <img src="@Url.Content("~/Content/Images/cover/201703181909057125.jpg")" alt="缩略图" />
+        </div>
+    }
+    <div class="article-right" @if (article.ImagePath != null) { <text>style="width:73%"</text> }>
+        <div class="article-title">
+            <a href="@Url.Action("x","x")">@article.ArticleTitle</a>
+        </div>
+        <div class="article-abstract">
+            @article.ArticleContent
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="article-footer">
+        <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;@article.AddDateTime.ToString("yyyy-MM-dd")</span>
+        <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;@article.UserName</span>
+        <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="@Url.Action("x","x")">@article.TagName</a></span>
+        <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;@article.ReadCount</span>
+        <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;@article.CommentCount</span>
+    </div>
+</div>
+}
+
+<script>
+    var totalCount = @ViewBag.TotalCount   //定义一个变量存储总条目数，供后续分页使用
+</script>

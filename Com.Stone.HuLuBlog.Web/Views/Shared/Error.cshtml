@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+@model System.Web.Mvc.HandleErrorInfo
+
+@*@{ Response.StatusCode = 500;}*@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>错误</title>
+</head>
+<body>
+    <hgroup>
+        <h1>错误 - Code: @Response.StatusCode</h1>
+        <h2>处理你的请求时出错。</h2>
+        @if (Model != null)
+        {
+            <p>
+                <strong>异常:</strong>@Model.Exception.GetType().Name<br />
+                <strong>发生于:</strong>/@Model.ControllerName/@Model.ActionName
+            </p>
+            <p><strong>错误信息:</strong><span>@Model.Exception.Message</span></p>
+        }
+    </hgroup>
+
+</body>
+</html>
