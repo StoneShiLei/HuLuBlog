@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Stone.HuLuBlog.Infrastructure", "Com.Stone.HuLuBlog.Infrastructure\Com.Stone.HuLuBlog.Infrastructure.csproj", "{5CD26F06-4118-479C-8D9A-FCB2F22F5636}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Stone.HuLuBlog.Repositories", "Com.Stone.HuLuBlog.Repositories\Com.Stone.HuLuBlog.Repositories.csproj", "{7C8746A9-1F90-4666-B8F8-A0C47579E65E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Stone.HuLuBlog.Application", "Com.Stone.HuLuBlog.Application\Com.Stone.HuLuBlog.Application.csproj", "{D52BD435-D789-4E94-83D6-A114CC5AE543}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Stone.HuLuBlog.Test", "Com.Stone.HuLuBlog.Test\Com.Stone.HuLuBlog.Test.csproj", "{947364B5-7A32-463C-825F-92FD1E552406}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.Stone.HuLuBlog.Web", "Com.Stone.HuLuBlog.Web\Com.Stone.HuLuBlog.Web.csproj", "{E3D85F8E-A14B-4C3A-A08C-A1BB6E99E68B}"
 EndProject
@@ -37,10 +35,6 @@ Global
 		{D52BD435-D789-4E94-83D6-A114CC5AE543}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D52BD435-D789-4E94-83D6-A114CC5AE543}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D52BD435-D789-4E94-83D6-A114CC5AE543}.Release|Any CPU.Build.0 = Release|Any CPU
-		{947364B5-7A32-463C-825F-92FD1E552406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{947364B5-7A32-463C-825F-92FD1E552406}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{947364B5-7A32-463C-825F-92FD1E552406}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{947364B5-7A32-463C-825F-92FD1E552406}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3D85F8E-A14B-4C3A-A08C-A1BB6E99E68B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3D85F8E-A14B-4C3A-A08C-A1BB6E99E68B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3D85F8E-A14B-4C3A-A08C-A1BB6E99E68B}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -21,6 +21,18 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         }
 
         /// <summary>
+        /// 更新文章阅读量
+        /// </summary>
+        /// <param name="articleID"></param>
+        public void UpdateArticleReadCount(string articleID)
+        {
+            ArticleRepository.SugarClient.Updateable<Article>()
+                .SetColumns(a => a.ReadCount == a.ReadCount + 1)
+                .Where(a => a.ID == articleID)
+                .ExecuteCommand();
+        }
+
+        /// <summary>
         /// 添加文章时，更新tag表冗余字段articCount
         /// </summary>
         /// <param name="article"></param>
@@ -30,21 +42,17 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
 
             try
             {
-                //锁此线程
-                lock (this)
-                {
-                    ArticleRepository.BeginTran();
+                ArticleRepository.BeginTran();
 
-                    ArticleRepository.Add(article);
+                ArticleRepository.Add(article);
 
-                    //直接更新articleCount字段  直接+1
-                    ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
-                        .SetColumns(t => t.ArticleCount == t.ArticleCount + 1)
-                        .Where(t => t.ID == tagID)
-                        .ExecuteCommand();
+                //直接更新articleCount字段  直接+1
+                ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
+                    .SetColumns(t => t.ArticleCount == t.ArticleCount + 1)
+                    .Where(t => t.ID == tagID)
+                    .ExecuteCommand();
 
-                    ArticleRepository.CommitTran();
-                }
+                ArticleRepository.CommitTran();
             }
             catch (Exception ex)
             {

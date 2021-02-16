@@ -9,6 +9,7 @@ namespace Com.Stone.HuLuBlog.Application
 {
     public interface IArticleService:IService<Article>
     {
+        void UpdateArticleReadCount(string articleID);
         void AddArticleWithTag(Article article,string tagID);
         void UpdateArticleWithTag(Article article, string tagID, int subNum);
     }

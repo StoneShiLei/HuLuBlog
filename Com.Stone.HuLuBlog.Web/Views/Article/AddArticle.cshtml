@@ -4,31 +4,31 @@
     Layout = "~/Views/Shared/NavLayOut.cshtml";
 }
 
-@section css {
-    <link rel="stylesheet" href="@Url.Content("~/Content/AddArticle.css")" />,
+@section css {<link rel="stylesheet" href="@Url.Content("~/Content/AddArticle.css")" />
     <link rel="stylesheet" href="@Url.Content("~/editor.md/css/editormd.css")" />}
 @section scripts {
-    <script src="@Url.Content("~/editor.md/editormd.min.js")"></script>,
+    <script src="@Url.Content("~/editor.md/editormd.min.js")"></script>
     <script src="@Url.Content("~/Scripts/AddArticle.js")"></script>}
-
+@using Com.Stone.HuLuBlog.Web.Models
+@model ArticleVM
 
     <div class="layui-container">
         <form class="layui-form" action="">
             @Html.AntiForgeryToken()
             <div class="layui-row layui-col-space20">
                 <div class="layui-col-md8">
-                    <input type="text" name="ArticleTitle" autocomplete="off" placeholder="文章标题" class="layui-input">
+                    <input type="text" name="ArticleTitle" autocomplete="off" placeholder="文章标题" value="@(Model?.ArticleTitle)" class="layui-input">
                 </div>
                 <div class="layui-col-md3">
-                    @{ Html.RenderAction("ArticleTagPartial", "Article");}
+                    @{ Html.RenderAction("ArticleTagPartial", "Article", new { tagID = Model?.TagID });}
                 </div>
                 <div class="layui-col-md1 button">
-                    <button type="button" class="layui-btn button-submit" data-article-url="@Url.Action("ArticleDetail","Article")" data-request-url="@Url.Action("AddArticle", "Article")" lay-submit lay-filter="submit">提交</button>
+                    <button type="button" class="layui-btn button-submit" data-article-url="@Url.Action("ArticleDetail", "Article")" data-request-url="@Url.Action("AddArticle", "Article")" lay-submit lay-filter="submit">提交</button>
                 </div>
             </div>
             <div class="layui-row">
-                <div id="editor">
-                    <textarea id="editor-markdown" name="editor-markdown" style="display:none;"></textarea>
+                <div id="editor" data-article-id="@(Model?.ID)" data-request-url="@Url.Action("UploadImages", "Article")">
+                    <textarea id="editor-markdown" name="editor-markdown" style="display:none;">@(Model?.MarkDownContent)</textarea>
                     <textarea id="editor-html" name="editor-html" style="display:none;"></textarea>
                 </div>
             </div>

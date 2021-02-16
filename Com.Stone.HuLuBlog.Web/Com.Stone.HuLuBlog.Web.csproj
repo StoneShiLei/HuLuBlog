@@ -177,16 +177,6 @@
     <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
     <Content Include="Content\global.css" />
     <Content Include="Content\home.css" />
-    <Content Include="Content\Images\cover\201703051349045432.jpg" />
-    <Content Include="Content\Images\cover\201703051847567306.jpg" />
-    <Content Include="Content\Images\cover\201703142313157316.jpg" />
-    <Content Include="Content\Images\cover\201703152314519971.jpg" />
-    <Content Include="Content\Images\cover\201703162101115908.jpg" />
-    <Content Include="Content\Images\cover\201703181708141811.jpg" />
-    <Content Include="Content\Images\cover\201703181740098218.jpg" />
-    <Content Include="Content\Images\cover\201703181909057125.jpg" />
-    <Content Include="Content\Images\cover\cover.jpg" />
-    <Content Include="Content\Images\cover\cover_default.jpg" />
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\handshake.png" />
     <Content Include="Content\Images\HuLu.png" />
@@ -1659,10 +1649,12 @@
     <Content Include="Views\Article\ArticleTagPartial.cshtml" />
     <Content Include="Views\Article\ArticleListPartial.cshtml" />
     <Content Include="Views\Article\ArticleListTemplatePartial.cshtml" />
+    <Content Include="Views\Article\ArticleDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Log\" />
+    <Folder Include="Upload\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

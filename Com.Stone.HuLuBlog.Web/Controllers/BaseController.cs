@@ -42,7 +42,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             else
             {
                 string userID = TokenOperation.GetIdByToken(token);
-                if (userID.IsNullOrEmpty()) throw new Exception("获取用户id失败");
+                if (userID.IsNullOrEmpty()) throw new Exception("获取用户id失败,请清除cookie缓存后再试");
 
                 //从缓存中获取已登录的用户信息，如没有，则从数据库获取，且存入缓存
                 HttpRuntimeCache cache = new HttpRuntimeCache();

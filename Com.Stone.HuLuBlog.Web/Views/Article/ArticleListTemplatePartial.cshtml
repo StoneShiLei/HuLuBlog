@@ -1,19 +1,20 @@
 ﻿@using Com.Stone.HuLuBlog.Web.Models
+@using Com.Stone.HuLuBlog.Infrastructure.Extensions
 @model List<ArticleVM>
 
 
 @foreach (var article in Model)
 {
 <div class="article shadow">
-    @if (article.ImagePath != null)
+    @if (!article.ImagePath.IsNullOrEmpty())
     {
         <div class="article-left">
-            <img src="@Url.Content("~/Content/Images/cover/201703181909057125.jpg")" alt="缩略图" />
+            <img src="@Url.Content(article.ImagePath)" alt="缩略图" />
         </div>
     }
     <div class="article-right" @if (article.ImagePath != null) { <text>style="width:73%"</text> }>
         <div class="article-title">
-            <a href="@Url.Action("x","x")">@article.ArticleTitle</a>
+            <a href="@Url.Action("ArticleDetail","Article",new { articleID = article.ID })">@article.ArticleTitle</a>
         </div>
         <div class="article-abstract">
             @article.ArticleContent
