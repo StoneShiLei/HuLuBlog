@@ -44,40 +44,6 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         [AllowAnonymous]
         public JsonResult Test()
         {
-            //List<Article> list = new List<Article>();
-            //for(int i=0;i<=60;i++)
-            //{
-            //    Article article = new Article()
-            //    {
-            //        ArticleContent = "测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本" +
-            //        "测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本" +
-            //        "测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本",
-            //        ArticleTitle = "这是标题这是标题这是标题",
-            //        CommentCount = 20,
-            //        IsDelete = false,
-            //        ReadCount = 6000,
-            //        TagID = "xxx",
-            //        TagName = "闲聊",
-            //        UserID = User.ID,
-            //        UserName = User.UserName,
-
-            //    };
-
-            //    list.Add(article);
-
-            //}
-
-            //ArticleService.Add(list);
-
-            //var a = new ArticleTag() { TagName = "闲聊", UserID = "49e1417ff5ff479f9ed3dc67d83dbf62" };
-            //var b = new ArticleTag() { TagName = "C#", UserID = "49e1417ff5ff479f9ed3dc67d83dbf62" };
-            //var c = new ArticleTag() { TagName = "前端", UserID = "49e1417ff5ff479f9ed3dc67d83dbf62" };
-            //var d = new ArticleTag() { TagName = "后端", UserID = "49e1417ff5ff479f9ed3dc67d83dbf62" };
-            //var e = new ArticleTag() { TagName = ".Net", UserID = "49e1417ff5ff479f9ed3dc67d83dbf62" };
-            //var f = new ArticleTag() { TagName = ".Net Core", UserID = "49e1417ff5ff479f9ed3dc67d83dbf62" };
-
-            //ArticleTagService.Add(new List<ArticleTag>() { a, b, c, d, e, f });
-
             return Json("1", JsonRequestBehavior.AllowGet);
         }
         

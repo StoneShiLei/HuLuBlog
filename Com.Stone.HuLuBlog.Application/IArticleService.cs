@@ -11,6 +11,8 @@ namespace Com.Stone.HuLuBlog.Application
     {
         void UpdateArticleReadCount(string articleID);
         void AddArticleWithTag(Article article,string tagID);
-        void UpdateArticleWithTag(Article article, string tagID, int subNum);
+        void DeleteArticleWithTag(Article article, string tagID);
+        void UpdateArticleDeleteStatus(Article article);
+        void UpdateArticleTagName(string tagID, string newName);
     }
 }

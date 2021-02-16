@@ -8,11 +8,11 @@
 <div class="article shadow">
     @if (!article.ImagePath.IsNullOrEmpty())
     {
-        <div class="article-left">
+        <a href="@Url.Action("ArticleDetail","Article",new { articleID = article.ID })" class="article-left">
             <img src="@Url.Content(article.ImagePath)" alt="缩略图" />
-        </div>
+        </a>
     }
-    <div class="article-right" @if (article.ImagePath != null) { <text>style="width:73%"</text> }>
+    <div class="article-right" @if (!article.ImagePath.IsNullOrEmpty()) { <text>style="width:73%"</text> }>
         <div class="article-title">
             <a href="@Url.Action("ArticleDetail","Article",new { articleID = article.ID })">@article.ArticleTitle</a>
         </div>

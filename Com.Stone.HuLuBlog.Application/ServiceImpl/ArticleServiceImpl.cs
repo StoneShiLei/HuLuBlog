@@ -63,31 +63,26 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         }
 
         /// <summary>
-        /// 修改文章删除状态时，更新tag表冗余字段articCount
+        /// 硬删除文章时，更新tag表冗余字段articCount
         /// </summary>
         /// <param name="article"></param>
         /// <param name="tagID"></param>
-        /// <param name="subNum"></param>  修改值 1或-1
-        public void UpdateArticleWithTag(Article article, string tagID, int subNum)
+        public void DeleteArticleWithTag(Article article, string tagID)
         {
 
             try
-            {
-                //锁此线程
-                lock (this)
-                {
-                    ArticleRepository.BeginTran();
+            { 
+                ArticleRepository.BeginTran();
 
-                    ArticleRepository.Update(article);
+                ArticleRepository.Remove(article.ID);
 
-                    //直接更新articleCount字段  
-                    ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
-                        .SetColumns(t => t.ArticleCount == t.ArticleCount + subNum)
-                        .Where(t => t.ID == tagID)
-                        .ExecuteCommand();
+                //直接更新articleCount字段  
+                ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
+                    .SetColumns(t => t.ArticleCount == t.ArticleCount - 1)
+                    .Where(t => t.ID == tagID)
+                    .ExecuteCommand();
 
-                    ArticleRepository.CommitTran();
-                }
+                ArticleRepository.CommitTran();
             }
             catch (Exception ex)
             {
@@ -95,6 +90,48 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
                 throw new Exception("事务执行失败", ex);
             }
 
+        }
+
+        /// <summary>
+        /// 修改文章软删除状态
+        /// </summary>
+        /// <param name="article"></param>
+        public void UpdateArticleDeleteStatus(Article article)
+        {
+            ArticleRepository.SugarClient.Updateable<Article>()
+                .SetColumns(a => a.IsDelete == article.IsDelete)
+                .SetColumns(a => a.DeleteDate == article.DeleteDate)
+                .Where(a => a.ID == article.ID)
+                .ExecuteCommand();
+        }
+
+        /// <summary>
+        /// 修改标签名和文章表的冗余tagname
+        /// </summary>
+        /// <param name="tagID"></param>
+        /// <param name="newName"></param>
+        public void UpdateArticleTagName(string tagID,string newName)
+        {
+            try 
+            {
+                ArticleRepository.BeginTran();
+
+                ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
+                    .SetColumns(t => t.TagName == newName)
+                    .Where(t => t.ID == tagID)
+                    .ExecuteCommand();
+                ArticleRepository.SugarClient.Updateable<Article>()
+                    .SetColumns(a => a.TagName == newName)
+                    .Where(a => a.TagID == tagID)
+                    .ExecuteCommand();
+
+                ArticleRepository.CommitTran();
+            }
+            catch(Exception ex)
+            {
+                ArticleRepository.RollBackTran();
+                throw new Exception("事务执行失败", ex);
+            }
         }
     }
 }

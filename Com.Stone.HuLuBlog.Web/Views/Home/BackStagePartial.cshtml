@@ -5,11 +5,15 @@
 @if (Model.ID != null && Model.ID == Configurations.ADMIN_ID)
 {
     <li class="layui-nav-item">
-        <a class="backstage" href="#" data-request-url="@Url.Action("index","backstage")"><i class="fa fa-user fa-fw"></i>&nbsp;后台管理</a>
+        <a class="backstage" href="@Url.Action("Index","BackStage")" ><i class="fa fa-user fa-fw"></i>&nbsp;后台管理</a>
     </li>
 
     <li class="layui-nav-item">
-        <a class="logout" href="#"  data-home-url="@Url.Action("index","home")" data-request-url="@Url.Action("logout","account")"><i class="fa fa-user-times fa-fw"></i>&nbsp;注销登陆</a>
+        <a class="addarticle" href="@Url.Action("AddArticle","Article")"><i class="fa fa-pencil fa-fw"></i>&nbsp;文章发布</a>
+    </li>
+
+    <li class="layui-nav-item">
+        <a class="logout" href="#" data-home-url="@Url.Action("Index","Home")" data-request-url="@Url.Action("logout","account")"><i class="fa fa-user-times fa-fw"></i>&nbsp;注销登陆</a>
     </li>
 }
 
@@ -20,18 +24,20 @@
         var layer = layui.layer;
 
         $(".logout").click(function () {
-            GetDataByJson($(this).data("request-url"), 'get',null, function (data) {
-                if (data.IsSuccess) {
-                    layer.msg("注销成功");
-                    location.href = $(".logout").data("home-url");
-                }
-                else {
-                    layer.msg("注销失败，系统异常");
-                }
-            })
+            layer.confirm('确认注销登陆？', { icon: 3, title: '注销' }, function (index) {
+                GetDataByJson($(".logout").data("request-url"), 'get', null, function (data) {
+                    if (data.IsSuccess) {
+                        layer.msg(data.Message);
+                        location.href = $(".logout").data("home-url");
+                    }
+                    else {
+                        layer.msg(data.Message);
+                    }
+                })
+            });
         });
 
-        $('.backstage').click(function(){
+        $('.backstage').click(function () {
             location.href = $(this).data('request-url')
         });
     })

@@ -170,6 +170,7 @@
     <Content Include="Content\AddArticle.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\article.css" />
+    <Content Include="Content\BackStage.css" />
     <Content Include="Content\detail.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -1559,6 +1560,7 @@
     <Content Include="layui\font\iconfont.woff2" />
     <Content Include="Scripts\about.js" />
     <Content Include="Scripts\AddArticle.js" />
+    <Content Include="Scripts\BackStage.js" />
     <Content Include="Scripts\cookie.js" />
     <Content Include="Scripts\detail.js" />
     <Content Include="Scripts\GetDataByJson.js" />
@@ -1566,7 +1568,6 @@
     <Content Include="Scripts\home.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\prettify.js" />
-    <Content Include="需求文档.txt" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />

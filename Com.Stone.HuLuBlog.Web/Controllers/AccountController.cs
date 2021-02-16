@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Com.Stone.HuLuBlog.Application;
 using Com.Stone.HuLuBlog.Domain.Model;
 using Com.Stone.HuLuBlog.Infrastructure;
+using Com.Stone.HuLuBlog.Infrastructure.Extensions;
 using Com.Stone.HuLuBlog.Web.App_Start;
 using Configurations = Com.Stone.HuLuBlog.Infrastructure.Configurations;
 
@@ -92,6 +93,11 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         public JsonResult LogOut()
         {
             string id = TokenOperation.GetIdByToken(Token);
+            if(id.IsNullOrEmpty())
+            {
+                return Json(ResponseModel.Error("注销失败，系统异常"), JsonRequestBehavior.AllowGet);
+            }
+
             TokenOperation.DeleteCacheByToken(Token);
             TokenOperation.DeleteCacheByToken(id);
             HttpCookie cookie = new HttpCookie(App_Start.Configurations.COOKIE_KEY)
@@ -104,7 +110,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             };
             HttpContext.Response.Cookies.Add(cookie);
             HttpContext.Response.Cookies.Add(tokenCookie);
-            return Json(ResponseModel.Success(), JsonRequestBehavior.AllowGet);
+            return Json(ResponseModel.Success("注销成功"), JsonRequestBehavior.AllowGet);
         }
     }
 }

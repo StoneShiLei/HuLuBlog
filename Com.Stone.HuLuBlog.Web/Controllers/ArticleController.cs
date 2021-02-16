@@ -13,7 +13,6 @@ using Com.Stone.HuLuBlog.Web.Models;
 
 namespace Com.Stone.HuLuBlog.Web.Controllers
 {
-    [AllowAnonymous]
     public class ArticleController : BaseController
     {
         readonly IArticleService ArticleService;
@@ -74,7 +73,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             {
                 HtmlToText convert = new HtmlToText();
                 articleContent = convert.Convert(articleVM.HtmlContent);
-                articleContent = articleContent.Length < 200 ? articleContent : articleContent.Substring(0, 200);
+                articleContent = articleContent.Length < 300 ? articleContent : articleContent.Substring(0, 300);
                 var imageUrlArray = Utils.GetHtmlImageUrlList(articleVM.HtmlContent);
                 if (imageUrlArray.Length > 0) imageUrl = imageUrlArray[0];
             }
@@ -132,6 +131,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             {
                 article.IsDelete = true;
                 article.DeleteDate = DateTime.Now;
+                ArticleService.UpdateArticleDeleteStatus(article);
                 return Json(ResponseModel.Success("删除成功"), JsonRequestBehavior.DenyGet);
             }
             else 
