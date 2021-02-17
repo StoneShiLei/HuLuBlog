@@ -154,6 +154,7 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BackStageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Models\ArticleTagVM.cs" />
     <Compile Include="Models\ArticleVM.cs" />
     <Compile Include="Models\CommentVM.cs" />
@@ -1644,10 +1645,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\NavLayOut.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Home\BackStagePartial.cshtml" />
+    <Content Include="Views\Home\ManagementButtonPartial.cshtml" />
     <Content Include="Views\BackStage\Index.cshtml" />
     <Content Include="Views\Article\AddArticle.cshtml" />
-    <Content Include="Views\Article\ArticleTagPartial.cshtml" />
+    <Content Include="Views\Tag\ArticleTagPartial.cshtml" />
     <Content Include="Views\Article\ArticleListPartial.cshtml" />
     <Content Include="Views\Article\ArticleListTemplatePartial.cshtml" />
     <Content Include="Views\Article\ArticleDetail.cshtml" />

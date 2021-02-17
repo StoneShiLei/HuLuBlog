@@ -7,8 +7,7 @@ using Com.Stone.HuLuBlog.Application;
 using Com.Stone.HuLuBlog.Domain.Model;
 using Com.Stone.HuLuBlog.Infrastructure;
 using Com.Stone.HuLuBlog.Infrastructure.Extensions;
-using Com.Stone.HuLuBlog.Web.App_Start;
-using Configurations = Com.Stone.HuLuBlog.Infrastructure.Configurations;
+using Configurations = Com.Stone.HuLuBlog.Web.App_Start.Configurations;
 
 namespace Com.Stone.HuLuBlog.Web.Controllers
 {
@@ -19,6 +18,10 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         {
         }
 
+        /// <summary>
+        /// 登陆页面
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login()
@@ -35,6 +38,13 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 登陆接口
+        /// </summary>
+        /// <param name="email">用户作为凭据的电子邮箱</param>
+        /// <param name="password"></param>
+        /// <param name="isRemember">是否记住用户</param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -72,7 +82,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 cache.Add(user.ID, user, Configurations.TOKEN_TIME * 60);
                 User = user;//防止意外情况出现直接赋值给basecontroller
 
-                string token = TokenOperation.SetToken(user.ID);
+                string token = TokenOperation.SetToken(user.ID,Configurations.TOKEN_TIME);
                 HttpCookie tokenCookie = new HttpCookie(App_Start.Configurations.TOKEN_KEY);
                 tokenCookie.Values.Add("Token", token);
                 tokenCookie.Expires = DateTime.Now.AddMinutes(Configurations.TOKEN_TIME);
@@ -88,11 +98,14 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return Json(data, JsonRequestBehavior.DenyGet);
         } 
 
-
+        /// <summary>
+        /// 注销登陆接口
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public JsonResult LogOut()
         {
-            string id = TokenOperation.GetIdByToken(Token);
+            string id = TokenOperation.GetIdByToken(Token,Configurations.TOKEN_TIME);
             if(id.IsNullOrEmpty())
             {
                 return Json(ResponseModel.Error("注销失败，系统异常"), JsonRequestBehavior.AllowGet);

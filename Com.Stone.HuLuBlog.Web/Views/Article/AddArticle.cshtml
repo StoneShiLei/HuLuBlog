@@ -20,7 +20,7 @@
                     <input type="text" name="ArticleTitle" autocomplete="off" placeholder="文章标题" value="@(Model?.ArticleTitle)" class="layui-input">
                 </div>
                 <div class="layui-col-md3">
-                    @{ Html.RenderAction("ArticleTagPartial", "Article", new { tagID = Model?.TagID });}
+                    @{ Html.RenderAction("ArticleTagPartial", "Tag", new { tagID = Model?.TagID });}
                 </div>
                 <div class="layui-col-md1 button">
                     <button type="button" class="layui-btn button-submit" data-article-url="@Url.Action("ArticleDetail", "Article")" data-request-url="@Url.Action("AddArticle", "Article")" lay-submit lay-filter="submit">提交</button>

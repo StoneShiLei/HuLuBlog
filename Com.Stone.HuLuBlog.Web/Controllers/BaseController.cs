@@ -5,7 +5,8 @@ using Com.Stone.HuLuBlog.Infrastructure.Extensions;
 using System;
 using System.Web;
 using System.Web.Mvc;
-using Configurations = Com.Stone.HuLuBlog.Infrastructure.Configurations;
+using Com.Stone.HuLuBlog.Web.App_Start;
+using Configurations = Com.Stone.HuLuBlog.Web.App_Start.Configurations;
 
 namespace Com.Stone.HuLuBlog.Web.Controllers
 {
@@ -41,7 +42,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             }
             else
             {
-                string userID = TokenOperation.GetIdByToken(token);
+                string userID = TokenOperation.GetIdByToken(token,Configurations.TOKEN_TIME);
                 if (userID.IsNullOrEmpty()) throw new Exception("获取用户id失败,请清除cookie缓存后再试");
 
                 //从缓存中获取已登录的用户信息，如没有，则从数据库获取，且存入缓存

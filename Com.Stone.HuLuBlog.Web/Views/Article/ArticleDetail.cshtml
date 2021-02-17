@@ -46,7 +46,7 @@
                         @if (ViewBag.UserID == Model.UserID)
                         {
                             <span><a href="@Url.Action("AddArticle","Article",new { articleID=Model.ID})" class="article-edit layui-btn layui-btn-xs">编辑</a></span>
-                            <span><a class="article-delete layui-btn layui-btn-xs" data-home-url="@Url.Action("Index","Home")" data-request-url="@Url.Action("DeleteArticle","Article",new { articleID=Model.ID})">删除</a></span>
+                            <span><a class="article-delete layui-btn layui-btn-xs" data-home-url="@Url.Action("Index","Home")" data-request-url="@Url.Action("SoftDeleteArticle","Article",new { articleID=Model.ID})">删除</a></span>
                         }
                     </div>
                     <div id="editor-content" class="article-detail-content">

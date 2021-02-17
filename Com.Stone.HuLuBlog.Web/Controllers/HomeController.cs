@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Com.Stone.HuLuBlog.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : BaseController
     {
         readonly IArticleService ArticleService;
@@ -22,7 +23,10 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             ArticleTagService = articleTagService;
         }
 
-        [AllowAnonymous]
+        /// <summary>
+        /// 主页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             //热文排行
@@ -33,15 +37,18 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return View(articleVMs);
         }
 
-        [AllowAnonymous]
+        /// <summary>
+        /// 导航条登陆可见按钮
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
-        public PartialViewResult BackStagePartial()
+        public PartialViewResult ManagementButtonPartial()
         {
             return PartialView(User.ToModel());
         }
 
 
-        [AllowAnonymous]
+
         public JsonResult Test()
         {
             return Json("1", JsonRequestBehavior.AllowGet);

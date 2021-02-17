@@ -117,21 +117,5 @@
             });
         });
 
-        ////删除标签按钮
-        //$('.tag-delete').click(function () {
-        //    GetDataByJson($(this).data("request-url"), "post", {
-        //        ID: $(this).data("tag-id"),
-        //        TagName:$(this).data("tag-name")
-        //    }, function (data) {
-        //        if (data.IsSuccess) {
-        //            layer.msg(data.Message);
-        //            location.reload();
-        //        }
-        //        else {
-        //            layer.msg(data.Message)
-        //        }
-        //    });
-        //});
-
     })
 });

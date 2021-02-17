@@ -36,8 +36,8 @@
                 <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;@article.AddDateTime.ToString("yyyy-MM-dd")</span>
                 <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;@article.UserName</span>
                 <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">@article.TagName</a></span>
-                <span><a class="layui-btn layui-btn-xs article-recover" data-article-id="@article.ID" data-request-url="@Url.Action("RecoverArticle","BackStage")" style="color:#ffffff">恢复文章</a></span>
-                <span><a class="layui-btn layui-btn-xs article-delete" data-article-id="@article.ID" data-request-url="@Url.Action("DeleteArticle","BackStage")" style="color:#ffffff">彻底删除</a></span>
+                <span><a class="layui-btn layui-btn-xs article-recover" data-article-id="@article.ID" data-request-url="@Url.Action("RecoverArticle","Article")" style="color:#ffffff">恢复文章</a></span>
+                <span><a class="layui-btn layui-btn-xs article-delete" data-article-id="@article.ID" data-request-url="@Url.Action("HardDeleteArticle","Article")" style="color:#ffffff">彻底删除</a></span>
                 <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;删除时间：@(article.DeleteDate?.ToString("yyyy-MM-dd"))</span>
                 <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;@article.ReadCount</span>
                 <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;@article.CommentCount</span>
@@ -50,13 +50,14 @@
 <div class="blog-main-right">
     <div></div><!--占位-->
     <div class="blog-module shadow table-container"
-         data-tagdelete-url="@Url.Action("DeleteTag","BackStage")"
-         data-tagrename-url="@Url.Action("RenameTag","BackStage")"
-         data-request-url="@Url.Action("TagList","BackStage")"
-         data-tagadd-url="@Url.Action("AddTag","BackStage")">
+         data-tagdelete-url="@Url.Action("DeleteTag","Tag")"
+         data-tagrename-url="@Url.Action("RenameTag","Tag")"
+         data-request-url="@Url.Action("TagManageList","Tag")"
+         data-tagadd-url="@Url.Action("AddTag","Tag")">
         <table id="tag-table" lay-filter="tagTable">
         </table>
     </div>
+
 
     <script type="text/html" id="toolbarhead">
         <div class="layui-row">

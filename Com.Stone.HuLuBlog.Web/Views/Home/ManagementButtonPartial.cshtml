@@ -1,8 +1,9 @@
 ﻿@using Com.Stone.HuLuBlog.Web.Models
 @using Com.Stone.HuLuBlog.Web.App_Start
+@using Com.Stone.HuLuBlog.Infrastructure.Extensions
 @model UserVM
 
-@if (Model.ID != null && Model.ID == Configurations.ADMIN_ID)
+@if (!Model.ID.IsNullOrEmpty())
 {
     <li class="layui-nav-item">
         <a class="backstage" href="@Url.Action("Index","BackStage")" ><i class="fa fa-user fa-fw"></i>&nbsp;后台管理</a>

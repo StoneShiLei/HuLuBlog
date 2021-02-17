@@ -27,24 +27,8 @@ namespace Com.Stone.HuLuBlog.Web.App_Start
 
                 if (token.IsNullOrEmpty()) throw new Exception("token为空");
 
-                string userGuid = TokenOperation.GetIdByToken(token);
-                if (userGuid.IsNullOrEmpty())
-                {
-                    //object data = ResponseModel.Error("请先登录");
-                    //JsonResult result = new JsonResult()
-                    //{
-                    //    Data = data,
-                    //    JsonRequestBehavior = JsonRequestBehavior.AllowGet
-                    //};
-
-                    //filterContext.Result = result;
-
-                    throw new Exception("用户ID为空");
-                }
-                else
-                {
-                    //pass 通过登录
-                }
+                string userGuid = TokenOperation.GetIdByToken(token,Configurations.TOKEN_TIME);
+                if (userGuid.IsNullOrEmpty()) throw new Exception("用户ID为空");
             }
             catch (Exception ex)
             {

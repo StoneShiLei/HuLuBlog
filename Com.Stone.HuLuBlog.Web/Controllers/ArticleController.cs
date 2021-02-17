@@ -24,7 +24,12 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             ArticleService = articleService;
             ArticleTagService = articleTagService;
         }
-
+        
+        /// <summary>
+        /// 发布文章页面
+        /// </summary>
+        /// <param name="articleID"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult AddArticle(string articleID)
         {
@@ -46,6 +51,11 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// 发布文章接口
+        /// </summary>
+        /// <param name="articleVM"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)] //html文本会引发“有潜在危险的 Request.Form 值”
@@ -123,23 +133,10 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return Json(ResponseModel.Success("提交成功",article.ID),JsonRequestBehavior.DenyGet);
         }
 
-        [HttpPost]
-        public JsonResult DeleteArticle(string articleID)
-        {
-            Article article = ArticleService.GetByClause(a => a.ID == articleID && a.IsDelete == false);
-            if(article != null && article.UserID == User.ID)
-            {
-                article.IsDelete = true;
-                article.DeleteDate = DateTime.Now;
-                ArticleService.UpdateArticleDeleteStatus(article);
-                return Json(ResponseModel.Success("删除成功"), JsonRequestBehavior.DenyGet);
-            }
-            else 
-            {
-                return Json(ResponseModel.Error("删除失败"), JsonRequestBehavior.DenyGet);
-            }
-        }
-
+        /// <summary>
+        /// 编辑器上传图片接口
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public async Task<JsonResult> UploadImages()
         {
@@ -158,16 +155,25 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 await files[0].InputStream.CopyToAsync(fs);
             }
 
-            return Json(new { success = 1,message="upload success",
-                url = Url.Content(App_Start.Configurations.UPLOAD_PATH) + path }, JsonRequestBehavior.DenyGet);
+            return Json(new
+            {
+                success = 1,
+                message = "upload success",
+                url = Url.Content(App_Start.Configurations.UPLOAD_PATH) + path
+            }, JsonRequestBehavior.DenyGet);
         }
 
+        /// <summary>
+        /// 文章详情页面
+        /// </summary>
+        /// <param name="articleID"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
         public ActionResult ArticleDetail(string articleID)
         {
             var article = ArticleService.GetByClause(a => a.ID == articleID && a.IsDelete == false);
-            if(article.UserID != User.ID)//如果访问文章的用户非文章作者则阅读量+1
+            if (article.UserID != User.ID)//如果访问文章的用户非文章作者则阅读量+1
             {
                 ArticleService.UpdateArticleReadCount(article.ID);
             }
@@ -176,20 +182,76 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return View(articleVM);
         }
 
-        [ChildActionOnly]
-        public PartialViewResult ArticleTagPartial(string tagID = null)
+        /// <summary>
+        /// 假删除文章接口
+        /// </summary>
+        /// <param name="articleID"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SoftDeleteArticle(string articleID)
         {
-            if (tagID == null) tagID = string.Empty;
-            ViewBag.TagID = tagID;
-
-            var articleTags = ArticleTagService.GetAll().ToList()
-                .MapTo<List<ArticleTag>,List<ArticleTagVM>>()
-                .OrderByDescending(t => t.ArticleCount).ToList();
-            articleTags.Insert(0,new ArticleTagVM() { ID = string.Empty, TagName = string.Empty });
-
-            return PartialView(articleTags);
+            Article article = ArticleService.GetByClause(a => a.ID == articleID && a.IsDelete == false);
+            if(article != null && article.UserID == User.ID)
+            {
+                article.IsDelete = true;
+                article.DeleteDate = DateTime.Now;
+                ArticleService.UpdateArticleDeleteStatus(article);
+                return Json(ResponseModel.Success("删除成功"), JsonRequestBehavior.DenyGet);
+            }
+            else 
+            {
+                return Json(ResponseModel.Error("删除失败"), JsonRequestBehavior.DenyGet);
+            }
         }
 
+        /// <summary>
+        /// 彻底删除文章接口
+        /// </summary>
+        /// <param name="articleID"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult HardDeleteArticle(string articleID)
+        {
+
+            var article = ArticleService.GetByPkValue(articleID);
+
+            if (article != null && article.IsDelete && article.UserID == User.ID)
+            {
+                ArticleService.DeleteArticleWithTag(article, article.TagID);
+                return Json(ResponseModel.Success("删除成功"));
+            }
+            else
+            {
+                return Json(ResponseModel.Error("删除失败，无效的文章id"));
+            }
+        }
+
+        /// <summary>
+        /// 恢复文章删除状态接口
+        /// </summary>
+        /// <param name="articleID"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult RecoverArticle(string articleID)
+        {
+            var article = ArticleService.GetByPkValue(articleID);
+
+            if (article != null && article.IsDelete && article.UserID == User.ID)
+            {
+                ArticleService.UpdateArticleDeleteStatus(new Article() { ID = articleID, IsDelete = false, DeleteDate = null });
+                return Json(ResponseModel.Success("恢复成功"));
+            }
+            else
+            {
+                return Json(ResponseModel.Error("恢复失败，无效的文章id"));
+            }
+        }
+
+        /// <summary>
+        /// 文章分页列表
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [ChildActionOnly]
         public PartialViewResult ArticleListPartial(int pageSize)
@@ -198,6 +260,12 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return PartialView();
         }
 
+        /// <summary>
+        /// 文章分页列表视图模板
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public PartialViewResult ArticleListTemplatePartial(int pageIndex = 1, int pageSize = 10)
         {
