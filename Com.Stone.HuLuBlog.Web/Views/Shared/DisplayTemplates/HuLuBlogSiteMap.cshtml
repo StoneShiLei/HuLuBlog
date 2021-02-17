@@ -5,16 +5,16 @@
 
 
 
-<blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow" lay-separator=">">
+<blockquote class="layui-elem-quote sitemap shadow">
     @foreach (var node in Model)
     {
         if (node != Model.Last())
         {
-            <a href="@node.Url" title="@node.Description">@node.Description</a>
+            <a href="@node.Url" title="@node.Description">@node.Description</a><span class="layui-box"> > </span>
         }
         else
         {
-                <a><cite>@node.Description</cite></a>
+                <span style="color:#646464">@node.Description</span>
         }
     }
 </blockquote>

@@ -12,6 +12,10 @@ body {
     color: #444;
 }
 
+.layui-breadcrumb, .layui-tree-btnGroup {
+    visibility: visible;
+}
+
 .shadow {
     box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);
 }
@@ -922,6 +926,10 @@ body {
     }
 /*评论与留言END*/
 
+
+.layui-laypage .layui-laypage-skip, .layui-laypage .layui-laypage-count {
+    background-color: #eee
+}
 
 
 

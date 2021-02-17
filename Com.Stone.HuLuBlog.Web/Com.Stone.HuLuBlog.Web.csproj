@@ -1574,6 +1574,7 @@
     <Content Include="layui\font\iconfont.woff2" />
     <Content Include="Scripts\about.js" />
     <Content Include="Scripts\AddArticle.js" />
+    <Content Include="Scripts\article.js" />
     <Content Include="Scripts\BackStage.js" />
     <Content Include="Scripts\cookie.js" />
     <Content Include="Scripts\detail.js" />
@@ -1692,7 +1693,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Log\" />
-    <Folder Include="SiteMap\" />
     <Folder Include="Upload\Images\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>

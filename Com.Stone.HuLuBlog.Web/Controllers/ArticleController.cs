@@ -30,6 +30,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -121,6 +122,9 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             else
             {
                 article = ArticleService.GetByClause(a => a.ID == articleVM.ID.Trim() && a.IsDelete == false);
+                string oldTagID = article.TagID;
+                string newTagID = articleVM.TagID;
+
                 if(article!= null && article.UserID == User.ID)
                 {
                     article.ArticleTitle = articleVM.ArticleTitle;
@@ -131,7 +135,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                     article.TagName = articleVM.TagName;
                     article.ImagePath = imageUrl;
 
-                    ArticleService.Update(article);
+                    ArticleService.UpdateArticleWithTag(article,oldTagID,newTagID);
                 }
                 else
                 {

@@ -63,6 +63,42 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         }
 
         /// <summary>
+        /// 修改文章时，更新tag表冗余字段articCount
+        /// </summary>
+        /// <param name="article"></param>
+        /// <param name="tagID"></param>
+        public void UpdateArticleWithTag(Article article, string oldTagID,string newTagID)
+        {
+
+            try
+            {
+                ArticleRepository.BeginTran();
+
+                ArticleRepository.Update(article);
+
+                //旧标签的文章数目-1
+                ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
+                    .SetColumns(t => t.ArticleCount == t.ArticleCount -1)
+                    .Where(t => t.ID == oldTagID)
+                    .ExecuteCommand();
+
+                //新标签的文章数目+1
+                ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
+                    .SetColumns(t => t.ArticleCount == t.ArticleCount + 1)
+                    .Where(t => t.ID == newTagID)
+                    .ExecuteCommand();
+
+                ArticleRepository.CommitTran();
+            }
+            catch (Exception ex)
+            {
+                ArticleRepository.RollBackTran();
+                throw new Exception("事务执行失败", ex);
+            }
+
+        }
+
+        /// <summary>
         /// 硬删除文章时，更新tag表冗余字段articCount
         /// </summary>
         /// <param name="article"></param>

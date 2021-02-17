@@ -22,7 +22,6 @@ layui.use(['element', 'layer', 'util', 'form'], function () {
     //导航菜单选中效果  //todo 暂定
     if (sessionStorage.getItem("selected")) {
         $(".layui-nav-item").each(function () {
-            console.log($(this))
             if ($(this).find('a').attr('href') == sessionStorage.getItem("selected")) {
                 $(this).addClass("layui-this").siblings().removeClass("layui-this");
             }
