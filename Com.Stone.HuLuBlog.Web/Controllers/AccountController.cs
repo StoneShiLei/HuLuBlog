@@ -81,8 +81,9 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 HttpRuntimeCache cache = new HttpRuntimeCache();
                 cache.Add(user.ID, user, Configurations.TOKEN_TIME * 60);
                 User = user;//防止意外情况出现直接赋值给basecontroller
-
                 string token = TokenOperation.SetToken(user.ID,Configurations.TOKEN_TIME);
+
+                //加入到cookie
                 HttpCookie tokenCookie = new HttpCookie(App_Start.Configurations.TOKEN_KEY);
                 tokenCookie.Values.Add("Token", token);
                 tokenCookie.Expires = DateTime.Now.AddMinutes(Configurations.TOKEN_TIME);
@@ -105,7 +106,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         [HttpGet]
         public JsonResult LogOut()
         {
-            string id = TokenOperation.GetIdByToken(Token,Configurations.TOKEN_TIME);
+            string id = TokenOperation.GetIdAndRefreshToken(Token,Configurations.TOKEN_TIME);
             if(id.IsNullOrEmpty())
             {
                 return Json(ResponseModel.Error("注销失败，系统异常"), JsonRequestBehavior.AllowGet);

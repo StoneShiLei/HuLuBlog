@@ -23,7 +23,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            HttpCookie cookies = filterContext.HttpContext.Request.Cookies[App_Start.Configurations.TOKEN_KEY];
+            HttpCookie cookies = filterContext.HttpContext.Request.Cookies[Configurations.TOKEN_KEY];
             string token = string.Empty;
             if (cookies != null && cookies.HasKeys) token = cookies["Token"];
             Token = token;
@@ -42,7 +42,8 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             }
             else
             {
-                string userID = TokenOperation.GetIdByToken(token,Configurations.TOKEN_TIME);
+                
+                string userID = TokenOperation.GetIdAndRefreshToken(token,Configurations.TOKEN_TIME);
                 if (userID.IsNullOrEmpty()) throw new Exception("获取用户id失败,请清除cookie缓存后再试");
 
                 //从缓存中获取已登录的用户信息，如没有，则从数据库获取，且存入缓存
@@ -56,6 +57,10 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 }
 
                 User = user;
+
+                //更新用户cookie过期时间
+                cookies.Expires = DateTime.Now.AddMinutes(Configurations.TOKEN_TIME);
+                filterContext.HttpContext.Response.Cookies.Add(cookies);
             }
 
             base.OnActionExecuting(filterContext);

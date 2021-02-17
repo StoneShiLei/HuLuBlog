@@ -1,0 +1,20 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.SiteMapPathHelperModel
+@using System.Web.Mvc.Html
+@using System.Linq
+@using MvcSiteMapProvider.Web.Html.Models
+
+
+
+<blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow" lay-separator=">">
+    @foreach (var node in Model)
+    {
+        if (node != Model.Last())
+        {
+            <a href="@node.Url" title="@node.Description">@node.Description</a>
+        }
+        else
+        {
+                <a><cite>@node.Description</cite></a>
+        }
+    }
+</blockquote>

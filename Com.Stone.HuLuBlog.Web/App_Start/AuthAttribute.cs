@@ -27,8 +27,9 @@ namespace Com.Stone.HuLuBlog.Web.App_Start
 
                 if (token.IsNullOrEmpty()) throw new Exception("token为空");
 
-                string userGuid = TokenOperation.GetIdByToken(token,Configurations.TOKEN_TIME);
+                string userGuid = TokenOperation.GetIdAndRefreshToken(token,Configurations.TOKEN_TIME);
                 if (userGuid.IsNullOrEmpty()) throw new Exception("用户ID为空");
+
             }
             catch (Exception ex)
             {

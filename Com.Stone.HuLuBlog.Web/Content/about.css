@@ -144,7 +144,7 @@
     border-top: 1px dotted #01AAED;
 }
 
-/* 小屏幕（平板，大于等于 768px） */
+ /*小屏幕（平板，大于等于 768px）*/ 
 @media (min-width: 768px) {
     .layui-tab-brief .layui-tab-title li {
         font-size: 14px;
@@ -155,9 +155,9 @@
     }
 }
 
-/* 中等屏幕（桌面显示器，大于等于 992px） */
-@media (min-width: 992px) {
+ /*中等屏幕（桌面显示器，大于等于 992px）*/ 
+/*@media (min-width: 992px) {
     .blog-container {
         width: 962px;
     }
-}
+}*/

@@ -11,10 +11,7 @@
 }
 
 <div class="blog-container">
-    <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
-        <a href="home.html" title="网站首页">网站首页</a>
-        <a><cite>关于本站</cite></a>
-    </blockquote>
+    @Html.MvcSiteMap().SiteMapPath("HuLuBlogSiteMap")
     <div class="blog-main">
         <div class="layui-tab layui-tab-brief shadow" lay-filter="tabAbout">
             <ul class="layui-tab-title">
@@ -88,13 +85,13 @@
                         <p class="aboutinfo-nickname">友情链接</p>
                         <p class="aboutinfo-introduce">Name：HuLuBlog&nbsp;&nbsp;&nbsp;&nbsp;Site：www.hulu.com</p>
                         @*<p class="aboutinfo-location">
-                            <i class="fa fa-close"></i>经常宕机&nbsp;
-                            <i class="fa fa-close"></i>不合法规&nbsp;
-                            <i class="fa fa-close"></i>插边球站&nbsp;
-                            <i class="fa fa-close"></i>红标报毒&nbsp;
-                            <i class="fa fa-check"></i>原创优先&nbsp;
-                            <i class="fa fa-check"></i>技术优先
-                        </p>*@
+                                <i class="fa fa-close"></i>经常宕机&nbsp;
+                                <i class="fa fa-close"></i>不合法规&nbsp;
+                                <i class="fa fa-close"></i>插边球站&nbsp;
+                                <i class="fa fa-close"></i>红标报毒&nbsp;
+                                <i class="fa fa-check"></i>原创优先&nbsp;
+                                <i class="fa fa-check"></i>技术优先
+                            </p>*@
                         <hr />
                         <div class="aboutinfo-contact">
                             <p style="font-size:2em;">互换友链，携手并进！</p>
@@ -168,8 +165,8 @@
                                                 </div>
                                                 <p class="info"><span class="time">2017-03-18 18:26</span></p>
                                             </div>-->
-                                            <!-- 回复表单默认隐藏 -->
-                                            <!--<div class="replycontainer layui-hide">
+                <!-- 回复表单默认隐藏 -->
+                <!--<div class="replycontainer layui-hide">
                                                 <form class="layui-form" action="">
                                                     <div class="layui-form-item">
                                                         <textarea name="replyContent" lay-verify="replyContent" placeholder="请输入回复内容" class="layui-textarea" style="min-height:80px;"></textarea>
@@ -185,7 +182,8 @@
                             </div>
                         </fieldset>
                     </div>
-                </div>--><!--留言墙End-->
+                </div>-->
+                <!--留言墙End-->
             </div>
         </div>
     </div>

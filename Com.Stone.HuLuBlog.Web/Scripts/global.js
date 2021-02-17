@@ -19,6 +19,23 @@ layui.use(['element', 'layer', 'util', 'form'], function () {
     });
 
 
+    //导航菜单选中效果  //todo 暂定
+    if (sessionStorage.getItem("selected")) {
+        $(".layui-nav-item").each(function () {
+            console.log($(this))
+            if ($(this).find('a').attr('href') == sessionStorage.getItem("selected")) {
+                $(this).addClass("layui-this").siblings().removeClass("layui-this");
+            }
+        })
+    }
+    else {
+        $(".layui-nav-item").eq(0).addClass('layui-this');
+    }
+    $('.layui-nav-item').click(function () {
+        $(this).addClass("layui-this").siblings().removeClass("layui-this");
+        sessionStorage.setItem("selected", $(this).find('a').attr('href'));
+    });
+
     //子栏目导航点击事件
     $('.child-nav span').click(function () {
         layer.msg('切换到相应栏目');

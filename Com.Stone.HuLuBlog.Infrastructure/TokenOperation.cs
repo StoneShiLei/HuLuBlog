@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security;
 using System.Security.Cryptography;
+using System.Web;
 
 namespace Com.Stone.HuLuBlog.Infrastructure
 {
@@ -18,7 +19,13 @@ namespace Com.Stone.HuLuBlog.Infrastructure
             return token;
         }
 
-        public static string GetIdByToken(string token,int minutes)
+        /// <summary>
+        /// 通过token获取用户id，同时刷新用户token缓存
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="minutes"></param>
+        /// <returns></returns>
+        public static string GetIdAndRefreshToken(string token,int minutes)
         {
             HttpRuntimeCache cache = new HttpRuntimeCache();
             string id = string.Empty;
