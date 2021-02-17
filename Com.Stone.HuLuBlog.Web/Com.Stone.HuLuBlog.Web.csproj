@@ -154,6 +154,7 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BackStageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Models\ArticleTagVM.cs" />
     <Compile Include="Models\ArticleVM.cs" />
@@ -1652,11 +1653,13 @@
     <Content Include="Views\Article\ArticleListPartial.cshtml" />
     <Content Include="Views\Article\ArticleListTemplatePartial.cshtml" />
     <Content Include="Views\Article\ArticleDetail.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Log\" />
     <Folder Include="Upload\Images\" />
+    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

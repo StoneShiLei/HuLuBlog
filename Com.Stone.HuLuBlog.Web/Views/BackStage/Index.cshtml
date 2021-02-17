@@ -12,66 +12,74 @@
 @using Com.Stone.HuLuBlog.Infrastructure.Extensions
 @model List<ArticleVM>
 
-<!--左边文章列表-->
-<div class="blog-main-left">
-    @foreach (var article in Model)
-    {
-        <div class="article shadow">
-            @if (!article.ImagePath.IsNullOrEmpty())
+<div class="blog-container">
+    <blockquote class="layui-elem-quote sitemap layui-breadcrumb shadow">
+        <a href="home.html" title="网站首页">网站首页</a>
+        <a><cite>关于本站</cite></a>
+    </blockquote>
+    <div class="blog-main">
+        <!--左边文章列表-->
+        <div class="blog-main-left">
+            @foreach (var article in Model)
             {
-                <div class="article-left">
-                    <img src="@Url.Content(article.ImagePath)" alt="缩略图" />
+                <div class="article shadow">
+                    @if (!article.ImagePath.IsNullOrEmpty())
+                    {
+                        <div class="article-left">
+                            <img src="@Url.Content(article.ImagePath)" alt="缩略图" />
+                        </div>
+                    }
+                    <div class="article-right" @if (!article.ImagePath.IsNullOrEmpty()) { <text> style="width:73%" </text> }>
+                        <div class="article-title">
+                            <a href="#">@article.ArticleTitle</a>
+                        </div>
+                        <div class="article-abstract">
+                            @article.ArticleContent
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="article-footer">
+                        <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;@article.AddDateTime.ToString("yyyy-MM-dd")</span>
+                        <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;@article.UserName</span>
+                        <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">@article.TagName</a></span>
+                        <span><a class="layui-btn layui-btn-xs article-recover" data-article-id="@article.ID" data-request-url="@Url.Action("RecoverArticle","Article")" style="color:#ffffff">恢复文章</a></span>
+                        <span><a class="layui-btn layui-btn-xs article-delete" data-article-id="@article.ID" data-request-url="@Url.Action("HardDeleteArticle","Article")" style="color:#ffffff">彻底删除</a></span>
+                        <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;删除时间：@(article.DeleteDate?.ToString("yyyy-MM-dd"))</span>
+                        <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;@article.ReadCount</span>
+                        <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;@article.CommentCount</span>
+                    </div>
                 </div>
             }
-            <div class="article-right" @if (!article.ImagePath.IsNullOrEmpty()) { <text> style="width:73%" </text> }>
-                <div class="article-title">
-                    <a href="#">@article.ArticleTitle</a>
-                </div>
-                <div class="article-abstract">
-                    @article.ArticleContent
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="article-footer">
-                <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;@article.AddDateTime.ToString("yyyy-MM-dd")</span>
-                <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;@article.UserName</span>
-                <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">@article.TagName</a></span>
-                <span><a class="layui-btn layui-btn-xs article-recover" data-article-id="@article.ID" data-request-url="@Url.Action("RecoverArticle","Article")" style="color:#ffffff">恢复文章</a></span>
-                <span><a class="layui-btn layui-btn-xs article-delete" data-article-id="@article.ID" data-request-url="@Url.Action("HardDeleteArticle","Article")" style="color:#ffffff">彻底删除</a></span>
-                <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp;删除时间：@(article.DeleteDate?.ToString("yyyy-MM-dd"))</span>
-                <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;@article.ReadCount</span>
-                <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;@article.CommentCount</span>
-            </div>
         </div>
-    }
-</div>
 
-<!--右边小栏目-->
-<div class="blog-main-right">
-    <div></div><!--占位-->
-    <div class="blog-module shadow table-container"
-         data-tagdelete-url="@Url.Action("DeleteTag","Tag")"
-         data-tagrename-url="@Url.Action("RenameTag","Tag")"
-         data-request-url="@Url.Action("TagManageList","Tag")"
-         data-tagadd-url="@Url.Action("AddTag","Tag")">
-        <table id="tag-table" lay-filter="tagTable">
-        </table>
+        <!--右边小栏目-->
+        <div class="blog-main-right">
+            <div></div><!--占位-->
+            <div class="blog-module shadow table-container"
+                 data-tagdelete-url="@Url.Action("DeleteTag","Tag")"
+                 data-tagrename-url="@Url.Action("RenameTag","Tag")"
+                 data-request-url="@Url.Action("TagManageList","Tag")"
+                 data-tagadd-url="@Url.Action("AddTag","Tag")">
+                <table id="tag-table" lay-filter="tagTable">
+                </table>
+            </div>
+
+
+            <script type="text/html" id="toolbarhead">
+                <div class="layui-row">
+                    <div class="layui-col-md11">
+                        <input class="add-tagname" style="height:30px;width:157px;" name="tagname" placeholder="标签名">
+                    </div>
+                    <div class="layui-col-md1">
+                        <button class="layui-btn layui-btn-sm" lay-event="add">添加标签</button>
+                    </div>
+                </div>
+            </script>
+            <script type="text/html" id="toolbar">
+                <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
+            </script>
+
+        </div>
+        <div class="clear"></div>
     </div>
-
-
-    <script type="text/html" id="toolbarhead">
-        <div class="layui-row">
-            <div class="layui-col-md11">
-                <input class="add-tagname" style="height:30px;width:157px;" name="tagname" placeholder="标签名">
-            </div>
-            <div class="layui-col-md1">
-                <button class="layui-btn layui-btn-sm" lay-event="add">添加标签</button>
-            </div>
-        </div>
-    </script>
-    <script type="text/html" id="toolbar">
-        <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
-    </script>
-
 </div>
-<div class="clear"></div>

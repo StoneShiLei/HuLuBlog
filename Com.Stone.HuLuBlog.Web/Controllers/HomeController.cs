@@ -38,6 +38,15 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         }
 
         /// <summary>
+        /// 关于本站
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult About()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// 导航条登陆可见按钮
         /// </summary>
         /// <returns></returns>
