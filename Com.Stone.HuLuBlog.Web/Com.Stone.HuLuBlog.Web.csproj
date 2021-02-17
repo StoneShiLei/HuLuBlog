@@ -183,8 +183,7 @@
     <Content Include="Content\Images\favicon.ico" />
     <Content Include="Content\Images\handshake.png" />
     <Content Include="Content\Images\HuLu.png" />
-    <Content Include="Content\Images\Logo_100.png" />
-    <Content Include="Content\Images\Logo_40.png" />
+    <Content Include="Content\Images\Logo.png" />
     <Content Include="Content\Images\messagewall.png" />
     <Content Include="Content\Images\qq_32.png" />
     <Content Include="Content\Images\qzone_32.png" />

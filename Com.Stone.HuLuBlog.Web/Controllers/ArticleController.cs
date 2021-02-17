@@ -26,6 +26,16 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         }
         
         /// <summary>
+        /// 文章专栏页面
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        /// <summary>
         /// 发布文章页面
         /// </summary>
         /// <param name="articleID"></param>
