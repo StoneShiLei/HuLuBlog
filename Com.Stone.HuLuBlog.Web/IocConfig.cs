@@ -9,6 +9,8 @@ using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Com.Stone.HuLuBlog.Infrastructure.AutoFac;
 using Com.Stone.HuLuBlog.Repositories.SqlSugar;
+using DI.Autofac.Modules;
+using MvcSiteMapProvider.Loader;
 
 namespace Com.Stone.HuLuBlog.Web
 {
@@ -48,14 +50,21 @@ namespace Com.Stone.HuLuBlog.Web
             // OPTIONAL: Register the Autofac model binder provider.
             iocBuilder.RegisterWebApiModelBinderProvider();
 
-
-
             //注册所有Controller
             iocBuilder.RegisterControllers(Assembly.GetExecutingAssembly());
             iocBuilder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
+            //注册MvcSiteMapProvider
+            iocBuilder.RegisterModule(new MvcSiteMapProviderModule());
+
+
+
             // Set the dependency resolver to be Autofac.
             IContainer iocContainer = iocBuilder.Build();
+
+            //注入MvcSiteMapProvider
+            MvcSiteMapProvider.SiteMaps.Loader = iocContainer.Resolve<ISiteMapLoader>();
+
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(iocContainer);
 

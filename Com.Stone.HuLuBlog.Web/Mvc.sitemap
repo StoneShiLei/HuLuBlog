@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="网站首页" controller="Home" action="Index">
+    <mvcSiteMapNode title="文章专栏" controller="Article" action="Index">
+      <mvcSiteMapNode title="文章详情" controller="Home" action="About"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="关于本站" controller="Home" action="About"/>
+    <mvcSiteMapNode title="后台管理" controller="BackStage" action="Index"/>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>
