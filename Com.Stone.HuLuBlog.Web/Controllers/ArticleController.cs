@@ -94,7 +94,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             {
                 HtmlToText convert = new HtmlToText();
                 articleContent = convert.Convert(articleVM.HtmlContent);
-                articleContent = articleContent.Length < 300 ? articleContent : articleContent.Substring(0, 300);
+                //articleContent = articleContent.Length < 300 ? articleContent : articleContent.Substring(0, 300);
                 var imageUrlArray = Utils.GetHtmlImageUrlList(articleVM.HtmlContent);
                 if (imageUrlArray.Length > 0) imageUrl = imageUrlArray[0];
             }

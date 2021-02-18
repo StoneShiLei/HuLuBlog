@@ -17,7 +17,7 @@
             <a href="@Url.Action("ArticleDetail","Article",new { articleID = article.ID })">@article.ArticleTitle</a>
         </div>
         <div class="article-abstract">
-            @article.ArticleContent
+            @(article.ArticleContent.Length< 300 ? article.ArticleContent : article.ArticleContent.Substring(0, 300))
         </div>
     </div>
     <div class="clear"></div>

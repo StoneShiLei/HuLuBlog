@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="SqlSugar, Version=5.0.2.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SqlSugar.5.0.2.6\lib\SqlSugar.dll</HintPath>
     </Reference>
@@ -70,7 +73,6 @@
       <Name>Com.Stone.HuLuBlog.Repositories</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

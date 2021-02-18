@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -169,5 +170,11 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
                 throw new Exception("事务执行失败", ex);
             }
         }
+
+        #region 全文索引搜索
+
+        
+
+        #endregion
     }
 }
