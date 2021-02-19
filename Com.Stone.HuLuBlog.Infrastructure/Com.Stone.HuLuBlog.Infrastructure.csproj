@@ -142,7 +142,6 @@
     <Compile Include="Configurations.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\IsWhatExtenions.cs" />
-    <Compile Include="HtmlToText.cs" />
     <Compile Include="HttpRuntimeCache.cs" />
     <Compile Include="Jieba\JiebaAnalyzer.cs" />
     <Compile Include="Jieba\JiebaTokenizer.cs" />

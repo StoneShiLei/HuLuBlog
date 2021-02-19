@@ -249,10 +249,5 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
             }
         }
 
-        #region 全文索引搜索
-
-        
-
-        #endregion
     }
 }

@@ -12,90 +12,13 @@ using Lucene.Net.Search;
 using Com.Stone.HuLuBlog.Infrastructure.Jieba;
 using Lucene.Net.Search.VectorHighlight;
 using Com.Stone.HuLuBlog.Infrastructure.Extensions;
+using Lucene.Net.QueryParsers.Classic;
+using Lucene.Net.Search.Highlight;
 
 namespace Com.Stone.HuLuBlog.Infrastructure
 {
     public static class LuceneOperation
     {
-        #region search
-
-        /// <summary>
-        /// 返回查询结果集
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public static List<DocumentModel> Search(string query)
-        {
-            query = query.ToLower().Replace(" ","");
-
-            var searcher = LuceneHelper.GetSearcherSingle();
-            //var keyWordQuery = new BooleanQuery();
-            //var hlQuery = new BooleanQuery();
-            //foreach (var item in GetSearchKeyWords(query))
-            //{
-            //    var key = "*" + item + "*";
-            //    keyWordQuery.Add(new WildcardQuery(new Term("Title", key)), Occur.SHOULD);
-            //    keyWordQuery.Add(new WildcardQuery(new Term("Content", key)), Occur.SHOULD);
-            //    hlQuery.Add(new WildcardQuery(new Term("Title", key)),Occur.SHOULD);
-            //    hlQuery.Add(new WildcardQuery(new Term("Content", key)),Occur.SHOULD);
-            //}
-
-            var titleQuery = new PhraseQuery();
-            var contentQuery = new PhraseQuery();
-
-            var keywordList = GetSearchKeyWords(query);
-            foreach (var itme in keywordList)
-            {
-                titleQuery.Add(new Term("Title", itme));
-            }
-
-            foreach (var itme in keywordList)
-            {
-                contentQuery.Add(new Term("Content", itme));
-            }
-
-            titleQuery.Slop = 4;
-            contentQuery.Slop = 10;
-
-            var bq = new BooleanQuery
-            {
-                { titleQuery, Occur.SHOULD },
-                {contentQuery,Occur.SHOULD }
-            };
-
-            var hits = searcher.Search(bq, 500).ScoreDocs;
-            var results = new List<DocumentModel>();
-            foreach(var hit in hits)
-            {
-                var highlighter = GetHighlighter();
-                FieldQuery tq = highlighter.GetFieldQuery(titleQuery);
-                FieldQuery cq = highlighter.GetFieldQuery(contentQuery);
-
-                string titleHL = highlighter.GetBestFragment(tq, searcher.IndexReader, hit.Doc, "Title", 200);
-                string contentHL = highlighter.GetBestFragment(cq, searcher.IndexReader, hit.Doc, "Content", 200);
-
-                var model = new DocumentModel
-                {
-                    ID = searcher.Doc(hit.Doc).Get("ID"),
-                    Title = titleHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Title") : titleHL,
-                    Content = contentHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Content") : contentHL
-                };
-                results.Add(model);
-            }
-
-            return results;
-        }
-
-        private static FastVectorHighlighter GetHighlighter()
-        {
-            SimpleFragListBuilder fragListBuilder = new SimpleFragListBuilder();
-            ScoreOrderFragmentsBuilder fragmentsBuilder = new ScoreOrderFragmentsBuilder(
-                    BaseFragmentsBuilder.COLORED_PRE_TAGS,
-                    BaseFragmentsBuilder.COLORED_POST_TAGS);
-            return new FastVectorHighlighter(true, false, fragListBuilder,
-                    fragmentsBuilder);
-        }
-
         /// <summary>
         /// 用于测试分词结果
         /// </summary>
@@ -107,7 +30,7 @@ namespace Com.Stone.HuLuBlog.Infrastructure
             List<string> keywords = new List<string>();
 
             var az = new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Search);
-            using (var ts = az.GetTokenStream(null,text))
+            using (var ts = az.GetTokenStream(null, text))
             {
                 ts.Reset();
                 var ct = ts.GetAttribute<Lucene.Net.Analysis.TokenAttributes.ICharTermAttribute>();
@@ -127,21 +50,159 @@ namespace Com.Stone.HuLuBlog.Infrastructure
             }
 
             StringBuilder sbr = new StringBuilder();
-            foreach(var item in keywords)
+            foreach (var item in keywords)
             {
                 sbr.AppendFormat(" {0} ", item);
             }
             return sbr.ToString().Trim();
-            
+
+        }
+
+        #region search
+
+        /// <summary>
+        /// 返回查询结果集的快速高亮实现，不支持通配符
+        /// </summary>
+        /// <param name="searchQuery"></param>
+        /// <returns></returns>
+        public static List<DocumentModel> SearchFastHightLight(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", "")))
+            {
+                return new List<DocumentModel>();
+            }
+
+            searchQuery = HighLightQuery(searchQuery);
+            var searcher = LuceneHelper.GetSearcherSingle();
+            var parser = new MultiFieldQueryParser(Lucene.Net.Util.LuceneVersion.LUCENE_48,
+                new[] { "Title", "Content" }, new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Default));
+            Query query = ParseQuery(searchQuery, parser);
+
+            var hits = searcher.Search(query, 500, Sort.RELEVANCE).ScoreDocs;
+            var results = new List<DocumentModel>();
+            foreach (var hit in hits)
+            {
+                var highlighter = GetFastHighlighter();
+                FieldQuery fq = highlighter.GetFieldQuery(query);
+
+                string titleHL = highlighter.GetBestFragment(fq, searcher.IndexReader, hit.Doc, "Title", 200);
+                string contentHL = highlighter.GetBestFragment(fq, searcher.IndexReader, hit.Doc, "Content", 200);
+
+                var model = new DocumentModel
+                {
+                    ID = searcher.Doc(hit.Doc).Get("ID"),
+                    Title = titleHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Title") : titleHL,
+                    Content = contentHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Content") : contentHL
+                };
+                results.Add(model);
+            }
+
+            return results;
+        }
+
+        public static List<DocumentModel> Search(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", "")))
+            {
+                return new List<DocumentModel>();
+            }
+
+            searchQuery = SearchQuery(searchQuery);
+            var searcher = LuceneHelper.GetSearcherSingle();
+            var parser = new MultiFieldQueryParser(Lucene.Net.Util.LuceneVersion.LUCENE_48,
+                new[] { "Title", "Content" }, new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Default));
+            Query query = ParseQuery(searchQuery, parser);
+
+            var hits = searcher.Search(query, 500, Sort.RELEVANCE).ScoreDocs;
+            var results = new List<DocumentModel>();
+            var highlighter = GetHighlighter(query);
+
+            foreach (var hit in hits)
+            {
+
+                TokenStream titleTs = TokenSources.GetAnyTokenStream(searcher.IndexReader, hit.Doc, "Title", new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Default));
+                TokenStream contentTs = TokenSources.GetAnyTokenStream(searcher.IndexReader, hit.Doc, "Content", new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Default));
+                string titleHL = highlighter.GetBestFragment(titleTs, searcher.Doc(hit.Doc).Get("Title"));
+                string contentHL = highlighter.GetBestFragment(contentTs, searcher.Doc(hit.Doc).Get("Content"));
+
+                var model = new DocumentModel
+                {
+                    ID = searcher.Doc(hit.Doc).Get("ID"),
+                    Title = titleHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Title") : titleHL,
+                    Content = contentHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Content") : contentHL
+                };
+                results.Add(model);
+            }
+
+            return results;
         }
 
         /// <summary>
-        /// 拆分查询关键词
+        /// 输入预处理
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private static string SearchQuery(string input)
+        {
+            var kwords = input;
+            kwords = GetSearchKeyWordsSpace(kwords);
+            var terms = kwords.Trim().Replace("-", " ").Replace("?", " ")
+                .Replace("*", " ").Replace("-", " ").Replace("/", " ")
+                .Replace(",", " ").Replace("，", " ").Replace(".", " ")
+                .Replace("。", " ").Replace("\\", " ").Replace("？"," ")
+                .Split(' ')
+                .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim() + "*");
+            input = string.Join(" ", terms);
+            return input;
+        }
+
+        /// <summary>
+        /// 用来做快速高亮查询的预处理  高亮不支持*通配符
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private static string HighLightQuery(string input)
+        {
+            var kwords = input;
+            kwords = GetSearchKeyWordsSpace(kwords);
+            var terms = kwords.Trim().Replace("-", " ").Replace("?", " ")
+                .Replace("*", " ").Replace("-", " ").Replace("/", " ")
+                .Replace(",", " ").Replace("，", " ").Replace(".", " ")
+                .Replace("。", " ").Replace("\\", " ").Split(' ')
+                .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim());
+            input = string.Join(" ", terms);
+            return input;
+        }
+
+        /// <summary>
+        /// 将输入的字符串转化为query对象
+        /// </summary>
+        /// <param name="searchQuery"></param>
+        /// <param name="parser"></param>
+        /// <returns></returns>
+        private static Query ParseQuery(string searchQuery, QueryParser parser)
+        {
+            Query query;
+            try
+            {
+                query = parser.Parse(searchQuery.Trim());
+            }
+            catch (ParseException pe)
+            {
+                query = parser.Parse(QueryParser.Escape(searchQuery.Trim() + "*"));
+            }
+
+            return query;
+        }
+
+        /// <summary>
+        /// 拆分查询关键词 以空格隔开
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private static List<string> GetSearchKeyWords(string query)
+        private static string GetSearchKeyWordsSpace(string query)
         {
+            StringBuilder result = new StringBuilder();
             List<string> keywords = new List<string>();
             var analyzer = new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Default);
             using (var ts = analyzer.GetTokenStream(null, query))
@@ -162,8 +223,42 @@ namespace Com.Stone.HuLuBlog.Infrastructure
                     }
                 }
             }
+            keywords.ForEach(k => result.AppendFormat("{0} ", k.Trim()));
 
-            return keywords;
+            return result.ToString().Trim();
+        }
+
+        /// <summary>
+        /// 获取快速高亮
+        /// </summary>
+        /// <returns></returns>
+        private static FastVectorHighlighter GetFastHighlighter()
+        {
+            SimpleFragListBuilder fragListBuilder = new SimpleFragListBuilder();
+            ScoreOrderFragmentsBuilder fragmentsBuilder = new ScoreOrderFragmentsBuilder(
+                    BaseFragmentsBuilder.COLORED_PRE_TAGS,
+                    BaseFragmentsBuilder.COLORED_POST_TAGS);
+            return new FastVectorHighlighter(true, false, fragListBuilder,
+                    fragmentsBuilder);
+        }
+
+        /// <summary>
+        /// 获取普通高亮
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        private static Highlighter GetHighlighter(Query query)
+        {
+            //构建Fragmenter对象,用于文档切片
+            SimpleFragmenter fragmenter = new SimpleFragmenter(100);
+            //构建Scorer,用于选取最佳切片
+            var fragmentScore = new QueryScorer(query);
+            //构建Formatter格式化最终显示(将字体颜色设置为红色)
+            SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<font color='red'>", "</font>");
+            var highlighter = new Highlighter(formatter, fragmentScore);
+            highlighter.TextFragmenter = fragmenter;
+
+            return highlighter;
         }
 
         #endregion
