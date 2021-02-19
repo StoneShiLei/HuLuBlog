@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -92,9 +93,10 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
 
             if (!articleVM.HtmlContent.IsNullOrEmpty())
             {
-                HtmlToText convert = new HtmlToText();
-                articleContent = convert.Convert(articleVM.HtmlContent);
-                //articleContent = articleContent.Length < 300 ? articleContent : articleContent.Substring(0, 300);
+                //HtmlToText convert = new HtmlToText();
+                //articleContent = convert.Convert(articleVM.HtmlContent);
+                //articleContent = convert.Convert(articleContent);
+                articleContent = Utils.ReplaceHtmlTag(articleVM.HtmlContent);
                 var imageUrlArray = Utils.GetHtmlImageUrlList(articleVM.HtmlContent);
                 if (imageUrlArray.Length > 0) imageUrl = imageUrlArray[0];
             }
@@ -160,7 +162,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             string fileName = files[0].FileName;
             string fileExtention = Path.GetExtension(fileName);
             string path = Utils.GetGuidStr() + fileExtention;
-            string basePath = Server.MapPath("~/Upload/Images/");
+            string basePath = Server.MapPath(App_Start.Configurations.UPLOAD_PATH);
             if (!Directory.Exists(basePath)) Directory.CreateDirectory(basePath);
             string serverPath = basePath + path;
 
@@ -261,33 +263,62 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             }
         }
 
+
         /// <summary>
-        /// 文章分页列表
+        /// 分页搜索组件外包装
         /// </summary>
         /// <param name="pageSize"></param>
-        /// <returns></returns>
+        /// <param name="tagID">标签分类的标签id</param>
+        /// <param name="keyword">关键词搜索的关键词字符串</param>
+        /// <returns>返回分页列表的html 无参数则默认显示全部 前端使用html()方法直接显示</returns>
         [AllowAnonymous]
-        [ChildActionOnly]
-        public PartialViewResult ArticleListPartial(int pageSize)
+        public PartialViewResult ArticleListPartial(int pageSize = 10,string tagID = "",string keyword = "")
         {
             ViewBag.PageSize = pageSize;
+            ViewBag.TagID = tagID;
+            ViewBag.Keyword = keyword;
             return PartialView();
         }
 
         /// <summary>
-        /// 文章分页列表视图模板
+        /// 搜索文章分页列表视图结果模板
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
+        /// <param name="tagID">标签分类的标签id</param>
+        /// <param name="keyword">关键词搜索的关键词字符串</param>
         /// <returns></returns>
         [AllowAnonymous]
-        public PartialViewResult ArticleListTemplatePartial(int pageIndex = 1, int pageSize = 10)
+        public PartialViewResult ArticleListTemplatePartial(int pageIndex = 1, int pageSize = 10,string tagID = "",string keyword = "")
         {
-            var pages = ArticleService.GetPagedList(a => a.IsDelete == false, pageIndex, pageSize,
-                SortOrder.Descending, a => a.AddDateTime);
-            var pageListVM = pages.PageData.MapTo<List<Article>, List<ArticleVM>>();
+            PagedResult<Article> pages;
+            List<ArticleVM> pageListVM;
+            if (keyword.IsNullOrEmpty()) //非关键字查询 
+            {
+                //拼接查询条件
+                var query = SqlSugar.Expressionable.Create<Article>();
+                if (!tagID.IsNullOrEmpty())  //如果搜索内容含有tagID字段
+                {
+                    query.And(a => a.TagID == tagID).And(a => a.IsDelete == false);
+                }
+                else  //如果没有查询条件  默认反回全部
+                {
+                    query.And(a => a.IsDelete == false);
+                }
 
-            ViewBag.TotalCount = pages.TotalRecords;
+                pages = ArticleService.GetPagedList(query.ToExpression(), pageIndex, pageSize,
+                    SortOrder.Descending, a => a.AddDateTime);
+                pageListVM = pages.PageData.MapTo<List<Article>, List<ArticleVM>>();
+
+                ViewBag.TotalCount = pages.TotalRecords;
+            }
+            else //关键字查询   查询索引获取数据
+            {
+                pages = ArticleService.SearchArticleIndex(keyword, pageIndex, pageSize);
+                pageListVM = pages.PageData.MapTo<List<Article>, List<ArticleVM>>();
+                ViewBag.TotalCount = pages.TotalRecords;
+            }
+            ViewBag.Keyword = keyword;
             return PartialView(pageListVM);
         }
     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Com.Stone.HuLuBlog.Domain.Model;
 using Com.Stone.HuLuBlog.Domain.Repositories;
+using Com.Stone.HuLuBlog.Infrastructure;
 
 namespace Com.Stone.HuLuBlog.Application.ServiceImpl
 {
@@ -22,6 +23,57 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         }
 
         /// <summary>
+        /// 根据关键字搜索文章 使用全文索引 分页
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public PagedResult<Article> SearchArticleIndex(string keyword,int pageIndex =1,int pageSize = 20)
+        {
+            var totalCount = 0;
+            var idList = new List<string>();
+            var models = LuceneOperation.Search(keyword);
+            models.ForEach(model => idList.Add(model.ID));
+
+            var pagedList = ArticleRepository.SugarClient.Queryable<Article>()
+                                .Where(a => a.IsDelete == false && idList.Contains(a.ID))
+                                .ToPageList(pageIndex, pageSize, ref totalCount);
+
+            pagedList.ForEach(a =>
+            {
+                var model = models.FirstOrDefault(m => m.ID == a.ID);
+                a.ArticleTitle = model?.Title;
+                a.ArticleContent = model?.Content;
+            });
+
+            PagedResult<Article> results = new PagedResult<Article>(totalCount,
+                (totalCount + pageSize - 1) / pageSize, pageSize, pageIndex, pagedList);
+
+            return results;
+        }
+
+        /// <summary>
+        /// 更新全部文章的索引至最新分词状态
+        /// </summary>
+        public void UpdateAllArticleIndex()
+        {
+            var allArticle = ArticleRepository.GetAllList();
+            List<DocumentModel> modes = new List<DocumentModel>();
+            foreach(var article in allArticle)
+            {
+                DocumentModel model = new DocumentModel()
+                {
+                    ID = article.ID,
+                    Title = article.ArticleTitle,
+                    Content = article.ArticleContent
+                };
+
+                modes.Add(model);
+            }
+            LuceneOperation.DeleteAllIndex();
+            LuceneOperation.AddAllIndex(modes);
+        }
+
+        /// <summary>
         /// 更新文章阅读量
         /// </summary>
         /// <param name="articleID"></param>
@@ -34,7 +86,7 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         }
 
         /// <summary>
-        /// 添加文章时，更新tag表冗余字段articCount
+        /// 添加文章时，更新tag表冗余字段articCount，添加文章索引
         /// </summary>
         /// <param name="article"></param>
         /// <param name="tagID"></param>
@@ -45,13 +97,23 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
             {
                 ArticleRepository.BeginTran();
 
-                ArticleRepository.Add(article);
+                var dbArticle = ArticleRepository.Add(article);
 
                 //直接更新articleCount字段  直接+1
                 ArticleTagRepository.SugarClient.Updateable<ArticleTag>()
                     .SetColumns(t => t.ArticleCount == t.ArticleCount + 1)
                     .Where(t => t.ID == tagID)
                     .ExecuteCommand();
+
+                //添加文章全文索引
+                DocumentModel model = new DocumentModel()
+                {
+                    ID = dbArticle.ID,
+                    Title = dbArticle.ArticleTitle,
+                    Content = dbArticle.ArticleContent
+
+                };
+                LuceneOperation.AddIndex(model);
 
                 ArticleRepository.CommitTran();
             }
@@ -64,7 +126,7 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         }
 
         /// <summary>
-        /// 修改文章时，更新tag表冗余字段articCount
+        /// 修改文章时，更新tag表冗余字段articCount，更新文章索引
         /// </summary>
         /// <param name="article"></param>
         /// <param name="tagID"></param>
@@ -89,6 +151,15 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
                     .Where(t => t.ID == newTagID)
                     .ExecuteCommand();
 
+                //更新文章全文索引
+                DocumentModel model = new DocumentModel()
+                {
+                    ID = article.ID,
+                    Title = article.ArticleTitle,
+                    Content = article.ArticleContent
+                };
+                LuceneOperation.UpdateIndex(model);
+
                 ArticleRepository.CommitTran();
             }
             catch (Exception ex)
@@ -100,7 +171,7 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         }
 
         /// <summary>
-        /// 硬删除文章时，更新tag表冗余字段articCount
+        /// 硬删除文章时，更新tag表冗余字段articCount，删除文章索引
         /// </summary>
         /// <param name="article"></param>
         /// <param name="tagID"></param>
@@ -118,6 +189,13 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
                     .SetColumns(t => t.ArticleCount == t.ArticleCount - 1)
                     .Where(t => t.ID == tagID)
                     .ExecuteCommand();
+
+                //删除文章全文索引
+                DocumentModel model = new DocumentModel()
+                {
+                    ID = article.ID,
+                };
+                LuceneOperation.DeleteIndex(model);
 
                 ArticleRepository.CommitTran();
             }

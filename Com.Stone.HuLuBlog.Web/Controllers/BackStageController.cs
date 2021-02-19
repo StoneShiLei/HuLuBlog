@@ -36,5 +36,23 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return View(articleVMs);
         }
 
+        /// <summary>
+        /// 更新全部文章索引
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult UpdateIndex()
+        {
+            try
+            {
+                ArticleService.UpdateAllArticleIndex();
+                return Json(ResponseModel.Success("更新成功"),JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ResponseModel.Error("更新失败", ex), JsonRequestBehavior.DenyGet);
+            }
+        }
+
     }
 }

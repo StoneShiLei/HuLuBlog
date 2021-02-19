@@ -24,6 +24,17 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         }
 
         /// <summary>
+        /// 文章专栏tag列表
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public ActionResult TagListPartial()
+        {
+            var tags = ArticleTagService.GetAllByClause(t => t.ArticleCount > 0).OrderByDescending(t => t.AddDateTime).ToList().MapTo<List<ArticleTag>, List<ArticleTagVM>>();
+            return PartialView(tags);
+        }
+
+        /// <summary>
         /// 后台页面的tag管理表格接口
         /// </summary>
         /// <returns></returns>

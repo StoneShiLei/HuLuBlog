@@ -25,7 +25,6 @@
             var items = (event.clipboardData || event.originalEvent.clipboardData).items
             var file = null;
             if (items && items.length) {
-                console.log(3)
 
                 // 检索剪切板items
                 for (var i = 0; i < items.length; i++) {

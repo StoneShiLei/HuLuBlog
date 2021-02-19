@@ -16,7 +16,7 @@ namespace Com.Stone.HuLuBlog.Infrastructure.Jieba
         private int _start = 0;
 
         private readonly string _stropWordsPath = Configurations.Stopwords + "stopwords.txt";
-
+        private readonly string _userdict = Configurations.UserDict;
         private readonly JiebaSegmenter _segmenter;
         private TokenizerMode _mode;
         private ICharTermAttribute _termAtt;
@@ -34,6 +34,7 @@ namespace Com.Stone.HuLuBlog.Infrastructure.Jieba
         {
             _segmenter = new JiebaSegmenter();
             _mode = Mode;
+            _segmenter.LoadUserDict(_userdict);
             LoadStopWords();
             Init();
         }

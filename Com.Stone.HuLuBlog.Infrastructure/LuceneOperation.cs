@@ -10,6 +10,8 @@ using Lucene.Net.Analysis;
 using Lucene.Net.Documents;
 using Lucene.Net.Search;
 using Com.Stone.HuLuBlog.Infrastructure.Jieba;
+using Lucene.Net.Search.VectorHighlight;
+using Com.Stone.HuLuBlog.Infrastructure.Extensions;
 
 namespace Com.Stone.HuLuBlog.Infrastructure
 {
@@ -24,19 +26,113 @@ namespace Com.Stone.HuLuBlog.Infrastructure
         /// <returns></returns>
         public static List<DocumentModel> Search(string query)
         {
-            var searcher = LuceneHelper.GetSearcherSingle();
+            query = query.ToLower().Replace(" ","");
 
-            var keyWordQuery = new BooleanQuery();
-            foreach (var item in GetSearchKeyWords(query))
+            var searcher = LuceneHelper.GetSearcherSingle();
+            //var keyWordQuery = new BooleanQuery();
+            //var hlQuery = new BooleanQuery();
+            //foreach (var item in GetSearchKeyWords(query))
+            //{
+            //    var key = "*" + item + "*";
+            //    keyWordQuery.Add(new WildcardQuery(new Term("Title", key)), Occur.SHOULD);
+            //    keyWordQuery.Add(new WildcardQuery(new Term("Content", key)), Occur.SHOULD);
+            //    hlQuery.Add(new WildcardQuery(new Term("Title", key)),Occur.SHOULD);
+            //    hlQuery.Add(new WildcardQuery(new Term("Content", key)),Occur.SHOULD);
+            //}
+
+            var titleQuery = new PhraseQuery();
+            var contentQuery = new PhraseQuery();
+
+            var keywordList = GetSearchKeyWords(query);
+            foreach (var itme in keywordList)
             {
-                keyWordQuery.Add(new TermQuery(new Term("Title", item)), Occur.SHOULD);
-                keyWordQuery.Add(new TermQuery(new Term("Content", item)), Occur.SHOULD);
+                titleQuery.Add(new Term("Title", itme));
             }
 
-            var hits = searcher.Search(keyWordQuery, 200).ScoreDocs;
-            var results = ConvertToModelList(hits, searcher);
+            foreach (var itme in keywordList)
+            {
+                contentQuery.Add(new Term("Content", itme));
+            }
+
+            titleQuery.Slop = 4;
+            contentQuery.Slop = 10;
+
+            var bq = new BooleanQuery
+            {
+                { titleQuery, Occur.SHOULD },
+                {contentQuery,Occur.SHOULD }
+            };
+
+            var hits = searcher.Search(bq, 500).ScoreDocs;
+            var results = new List<DocumentModel>();
+            foreach(var hit in hits)
+            {
+                var highlighter = GetHighlighter();
+                FieldQuery tq = highlighter.GetFieldQuery(titleQuery);
+                FieldQuery cq = highlighter.GetFieldQuery(contentQuery);
+
+                string titleHL = highlighter.GetBestFragment(tq, searcher.IndexReader, hit.Doc, "Title", 200);
+                string contentHL = highlighter.GetBestFragment(cq, searcher.IndexReader, hit.Doc, "Content", 200);
+
+                var model = new DocumentModel
+                {
+                    ID = searcher.Doc(hit.Doc).Get("ID"),
+                    Title = titleHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Title") : titleHL,
+                    Content = contentHL.IsNullOrEmpty() ? searcher.Doc(hit.Doc).Get("Content") : contentHL
+                };
+                results.Add(model);
+            }
 
             return results;
+        }
+
+        private static FastVectorHighlighter GetHighlighter()
+        {
+            SimpleFragListBuilder fragListBuilder = new SimpleFragListBuilder();
+            ScoreOrderFragmentsBuilder fragmentsBuilder = new ScoreOrderFragmentsBuilder(
+                    BaseFragmentsBuilder.COLORED_PRE_TAGS,
+                    BaseFragmentsBuilder.COLORED_POST_TAGS);
+            return new FastVectorHighlighter(true, false, fragListBuilder,
+                    fragmentsBuilder);
+        }
+
+        /// <summary>
+        /// 用于测试分词结果
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string Test(string text)
+        {
+            text = text.ToLower();
+            List<string> keywords = new List<string>();
+
+            var az = new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Search);
+            using (var ts = az.GetTokenStream(null,text))
+            {
+                ts.Reset();
+                var ct = ts.GetAttribute<Lucene.Net.Analysis.TokenAttributes.ICharTermAttribute>();
+                while (ts.IncrementToken())
+                {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < ct.Length; i++)
+                    {
+                        sb.Append(ct.Buffer[i]);
+                    }
+                    string item = sb.ToString();
+                    if (!keywords.Contains(item))
+                    {
+                        keywords.Add(item);
+                    }
+                }
+            }
+
+            StringBuilder sbr = new StringBuilder();
+            foreach(var item in keywords)
+            {
+                sbr.AppendFormat(" {0} ", item);
+            }
+            return sbr.ToString().Trim();
+            
         }
 
         /// <summary>
@@ -108,9 +204,34 @@ namespace Com.Stone.HuLuBlog.Infrastructure
             LuceneHelper.GetIndexWriterSingle().Commit();
         }
 
+        /// <summary>
+        /// 删除全部索引
+        /// </summary>
+        public static void DeleteAllIndex()
+        {
+            LuceneHelper.GetIndexWriterSingle().DeleteAll();
+            LuceneHelper.GetIndexWriterSingle().Commit();
+        }
+
+        /// <summary>
+        /// 生成全部索引
+        /// </summary>
+        /// <param name="documentModels"></param>
+        public static void AddAllIndex(List<DocumentModel> documentModels)
+        {
+            
+            LuceneHelper.GetIndexWriterSingle().AddDocuments(ConvertToDocuments(documentModels));
+            LuceneHelper.GetIndexWriterSingle().Commit();
+        }
+
         #endregion
 
         #region mappper
+
+        private static List<Document> ConvertToDocuments(IEnumerable<DocumentModel> models)
+        {
+            return models.Select(m => ConvertToDocument(m)).ToList();
+        }
 
         private static List<DocumentModel> ConvertToModelList(IEnumerable<Document> documents)
         {
@@ -136,9 +257,20 @@ namespace Com.Stone.HuLuBlog.Infrastructure
         private static Document ConvertToDocument(DocumentModel documentModel)
         {
             //保存至索引文件，按照分词结果保存，且保存词与词之间的距离
+            FieldType type = new FieldType
+            {
+                StoreTermVectorOffsets = true, //存储偏移量
+                StoreTermVectorPositions = true, //存储位置
+                StoreTermVectors = true, //存储向量
+                IsIndexed =true,
+                IsTokenized =true,
+                IsStored = true
+            };
+
             var id = new StringField("ID", documentModel.ID, Field.Store.YES);
-            var title = new TextField("Title", documentModel.Title, Field.Store.YES);
-            var content = new TextField("Content", documentModel.Content, Field.Store.YES);
+            var title = new Field("Title", documentModel.Title.ToLower(), type);
+            var content = new Field("Content", documentModel.Content.ToLower(), type);
+
             title.Boost = 2f; //增加标题索引权重
 
             Document doc = new Document
@@ -175,8 +307,6 @@ namespace Com.Stone.HuLuBlog.Infrastructure
         public string ID { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-
-
     }
 
     internal static class LuceneHelper

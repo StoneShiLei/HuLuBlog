@@ -8,11 +8,13 @@
         var $ = layui.jquery;
         var laypage = layui.laypage;
         var pageSize = @ViewBag.PageSize;
+        var tagID = "@ViewBag.TagID";
+            var keyword = "@ViewBag.Keyword";
         var requestUrl = '@Url.Action("ArticleListTemplatePartial", "Article")';
 
         //每次访问页面都请求一次
         GetDataByHtml(requestUrl,"get",
-                    { pageIndex: 1, pageSize: pageSize},function(data){
+                    { pageIndex: 1, pageSize: pageSize,tagID:tagID,keyword:keyword},function(data){
                         setHtml(data); //渲染第一页
                         getPages(totalCount); //此方法第一次不生效，渲染后续页  totalCount来自于组件页面定义的变量
                     });
@@ -26,7 +28,7 @@
             limit: pageSize,
             jump: function (obj, first) {
                 if (!first) {
-                    GetDataByHtml(requestUrl,"get",{pageIndex:obj.curr,pageSize:obj.limit},function(data){
+                    GetDataByHtml(requestUrl,"get",{pageIndex:obj.curr,pageSize:obj.limit,tagID:tagID,keyword:keyword},function(data){
                         setHtml(data);
                     });
                 }

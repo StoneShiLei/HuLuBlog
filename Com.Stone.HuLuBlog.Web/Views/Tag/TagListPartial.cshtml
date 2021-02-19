@@ -1,0 +1,27 @@
+﻿@using Com.Stone.HuLuBlog.Web.Models
+@model List<ArticleTagVM>
+
+
+<div class="article-category shadow">
+    <div class="article-category-title">分类导航</div>
+    @foreach (var tag in Model)
+    {
+        <a href="#" data-tag-id="@tag.ID">@tag.TagName</a>
+    }
+    <div class="clear"></div>
+</div>
+
+
+<script>
+    $(function () {
+        $(".article-category a").click(function () {
+            var tagID = $(this).data("tag-id");
+            GetDataByHtml("@Url.Action("ArticleListPartial","Article")", "get",
+                { tagID: tagID }, function (data) {
+                    $(".blog-main-left").html(data);
+                    $('html,body').animate({ scrollTop: 0 }); //滚动条置顶
+            })
+        });
+
+    });
+</script>

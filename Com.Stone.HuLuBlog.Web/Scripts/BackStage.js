@@ -117,5 +117,17 @@
             });
         });
 
+        //更新索引
+        $('.update-index').click(function () {
+            GetDataByJson($(this).data("request-url"), "post", null, function (data) {
+                if (data.IsSuccess) {
+                    layer.msg(data.Message);
+                }
+                else {
+                    layer.msg(data.Message);
+                }
+            });
+        });
+
     })
 });

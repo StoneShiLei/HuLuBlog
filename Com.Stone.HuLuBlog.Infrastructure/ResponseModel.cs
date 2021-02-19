@@ -57,5 +57,10 @@ namespace Com.Stone.HuLuBlog.Infrastructure
         {
             return new ResponseModel(false, message, null, string.Empty);
         }
+
+        public static ResponseModel Error(string message = null,object data = null)
+        {
+            return new ResponseModel(false, message, data, string.Empty);
+        }
     }
 }

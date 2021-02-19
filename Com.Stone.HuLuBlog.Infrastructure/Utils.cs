@@ -20,6 +20,18 @@ namespace Com.Stone.HuLuBlog.Infrastructure
             return guidStr;
         }
 
+        //去除html标签
+        public static string ReplaceHtmlTag(string html, int length = 0)
+        {
+            string strText = Regex.Replace(html, "<[^>]+>", "");
+            strText = Regex.Replace(strText, "&[^;]+;", "");
+
+            if (length > 0 && strText.Length > length)
+                return strText.Substring(0, length);
+
+            return strText;
+        }
+
         /// <summary>
         /// 获取html文本的img的url
         /// </summary>

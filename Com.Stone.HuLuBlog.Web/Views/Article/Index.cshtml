@@ -11,34 +11,23 @@
     @Html.MvcSiteMap().SiteMapPath("HuLuBlogSiteMap")
     <div class="blog-main">
         <div class="blog-main-left">
-            @*<div class="shadow" style="text-align:center;font-size:16px;padding:40px 15px;background:#fff;margin-bottom:15px;">
-                未搜索到与【<span style="color: #FF5722;">keywords</span>】有关的文章，随便看看吧！
-            </div>*@
-            @{ Html.RenderAction("ArticleListPartial", "Article", new { pageSize = 10 });}
+
+            @{ Html.RenderAction("ArticleListPartial", "Article");}
         </div>
         <div class="blog-main-right">
             <div class="blog-search">
-                <form class="layui-form" action="">
-                    <div class="layui-form-item">
-                        <div class="search-keywords  shadow">
-                            <input type="text" name="keywords" lay-verify="required" placeholder="输入关键词搜索" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="search-submit  shadow">
-                            <a class="search-btn" lay-submit="formSearch" lay-filter="formSearch"><i class="fa fa-search"></i></a>
-                        </div>
+                <div class="layui-form-item">
+                    <div class="search-keywords  shadow">
+                        <input class="keywords layui-input" type="text" name="keywords" placeholder="输入关键词搜索" autocomplete="off">
                     </div>
-                </form>
+                    <div class="search-submit  shadow">
+                        <a class="search-btn" data-request-url="@Url.Action("ArticleListPartial","Article")" ><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="article-category shadow">
-                <div class="article-category-title">分类导航</div>
-                <a href="javascript:layer.msg(&#39;切换到相应分类&#39;)">ASP.NET MVC</a>
-                <a href="javascript:layer.msg(&#39;切换到相应分类&#39;)">SQL Server</a>
-                <a href="javascript:layer.msg(&#39;切换到相应分类&#39;)">Entity Framework</a>
-                <a href="javascript:layer.msg(&#39;切换到相应分类&#39;)">Web前端</a>
-                <a href="javascript:layer.msg(&#39;切换到相应分类&#39;)">C#基础</a>
-                <a href="javascript:layer.msg(&#39;切换到相应分类&#39;)">杂文随笔</a>
-                <div class="clear"></div>
-            </div>
+
+            @{ Html.RenderAction("TagListPartial", "Tag");}
+
             @*<div class="blog-module shadow">
                 <div class="blog-module-title">作者推荐</div>
                 <ul class="fa-ul blog-module-ul">

@@ -58,7 +58,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
 
 
         
-        public JsonResult Test()
+        public ActionResult Test()
         {
             //var documentmodle = new DocumentModel()
             //{
@@ -80,9 +80,10 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             //LuceneOperation.AddIndex(aa);
             //LuceneOperation.AddIndex(bb);
             //LuceneOperation.AddIndex(cc);
+            ViewBag.Test = LuceneOperation.Test("C#高级知识点&(ABP框架理论学习高级篇)——白金版");
+            return View();
 
-
-            return Json(LuceneOperation.Search("源码"), JsonRequestBehavior.AllowGet);
+            //return Json(LuceneOperation.Search("源码"), JsonRequestBehavior.AllowGet);
             //return Json("111", JsonRequestBehavior.AllowGet);
         }
         
