@@ -24,7 +24,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         }
 
         /// <summary>
-        /// 文章专栏tag列表
+        /// tag分类搜索模块
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]

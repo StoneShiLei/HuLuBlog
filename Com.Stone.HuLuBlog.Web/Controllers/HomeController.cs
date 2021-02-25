@@ -29,12 +29,8 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            //热文排行
-            List<Article> articles = ArticleService.GetAllByClause(a => a.IsDelete == false).OrderByDescending(a => a.ReadCount + a.CommentCount).Take(10).ToList();
-            List<ArticleVM> articleVMs = articles.MapTo<List<Article>, List<ArticleVM>>();
-
             ViewBag.UserID = User.ID;
-            return View(articleVMs);
+            return View();
         }
 
         /// <summary>

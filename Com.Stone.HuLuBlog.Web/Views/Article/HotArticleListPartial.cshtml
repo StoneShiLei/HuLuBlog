@@ -1,0 +1,15 @@
+﻿@using Com.Stone.HuLuBlog.Web.Models
+@model List<ArticleVM>
+
+@if (Model.Count > 0)
+{
+    <div class="blog-module shadow">
+        <div class="blog-module-title">热文排行</div>
+        <ul class="fa-ul blog-module-ul">
+            @foreach (var article in Model)
+            {
+                <li><i class="fa-li fa fa-hand-o-right"></i><a href="@Url.Action("ArticleDetail","Article",new { articleID = article.ID})">@article.ArticleTitle</a></li>
+            }
+        </ul>
+    </div>
+}

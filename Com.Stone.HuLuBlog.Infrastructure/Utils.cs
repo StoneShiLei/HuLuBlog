@@ -60,7 +60,7 @@ namespace Com.Stone.HuLuBlog.Infrastructure
         public static string MD5Password(string password)
         {
             var md5 = new MD5CryptoServiceProvider();
-            string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(password + Configurations.SecretKey)), 4, 8);
+            string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(password + Configurations.PASSWORD_SECRET_KEY)), 4, 8);
             t2 = t2.Replace("-", "");
             return t2;
         }

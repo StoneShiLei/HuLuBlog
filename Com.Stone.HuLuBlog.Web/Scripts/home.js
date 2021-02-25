@@ -32,8 +32,10 @@ layui.use(['jquery','layer'], function () {
             type:2,
             title:"请登录",
             shadeClose:true,
-            area:['400px','220px'],
-            content:$(this).data("request-url")
+            area:['380px','270px'],
+            content: $(this).data("request-url"),
+            resize: false,
+            move:false
         })
     });
 

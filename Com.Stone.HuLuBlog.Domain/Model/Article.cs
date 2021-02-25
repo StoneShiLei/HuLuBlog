@@ -32,6 +32,8 @@ namespace Com.Stone.HuLuBlog.Domain.Model
 
         public bool IsDelete { get; set; }
 
+        public bool IsRecommend { get; set; }
+
         public DateTime? DeleteDate { get; set; }
 
         public int ReadCount { get; set; }

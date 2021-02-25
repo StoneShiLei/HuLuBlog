@@ -13,7 +13,7 @@ namespace Com.Stone.HuLuBlog.Infrastructure
     {
         public static string SetToken(string id, int minutes)
         {
-            string token = Utils.AesEncryptor_Hex(id+DateTime.Now.ToString(), Configurations.SecretKey);
+            string token = Utils.AesEncryptor_Hex(id+DateTime.Now.ToString(), Configurations.PASSWORD_SECRET_KEY);
             HttpRuntimeCache cache = new HttpRuntimeCache();
             cache.Add(token, id,minutes*60);
             return token;

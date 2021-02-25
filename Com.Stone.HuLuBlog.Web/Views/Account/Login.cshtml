@@ -1,34 +1,34 @@
-﻿@section scripts{<script src="@Url.Content("~/Scripts/login.js")"></script>}
-@section css{<link href="@Url.Content("~/Content/login.css")" rel="stylesheet" />}
+﻿@section scripts{
+    <script src="@Url.Content("~/Scripts/login.js")"></script>
+}
+@section css{
+    <link href="@Url.Content("~/Content/login.css")" rel="stylesheet" />
+}
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-             <form class="layui-form" action="">
-                 @Html.AntiForgeryToken()
+<form class="layui-form" action="">
 
-                 <div class="layui-form-item">
-                     <div class="layui-inline">
-                         <label class="layui-form-label">邮箱</label>
-                         <div class="layui-input-inline">
-                             <input type="text" name="email" lay-verify="email|required" autocomplete="off" placeholder="请输入邮箱" class="layui-input" value="@if (ViewBag.IsChecked)
-                {<text>@ViewBag.Email</text>}">
-                         </div>
-                     </div>
-                 </div>
-                 <div class="layui-form-item">
-                     <div class="layui-inline">
-                         <label class="layui-form-label">密码</label>
-                         <div class="layui-input-inline">
-                             <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input" value="@if (ViewBag.IsChecked)
-                {<text>@ViewBag.Password</text>}">
-                         </div>
-                         <div class="layui-form-item">
-                             <div class="layui-input-block">
-                                 <input type="checkbox" name="isRemember" lay-skin="primary" title="记住我" @if (ViewBag.IsChecked) { <text> checked </text> }>
-                                 <button type="button" class="layui-btn button-login" data-home-url="@Url.Action("Index", "Home")" data-request-url="@Url.Action("login", "account")" lay-submit lay-filter="login">登录</button>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </form>
+    @{ Html.RenderAction("RecaptchaPartial", "Recaptcha");}
+    @Html.AntiForgeryToken()
+    <div class="layui-container">
+        <div class="layui-row">
+            <label class="layui-form-label layui-col-md1">邮箱</label>
+            <div class="layui-col-md11 layui-input-inline">
+                <input type="text" name="email" lay-verify="email|required" autocomplete="off" placeholder="请输入邮箱" class="layui-input" value="@if (ViewBag.IsChecked){<text>@ViewBag.Email</text>}">
+            </div>
+        </div>
+        <div class="layui-row" style="margin-top:5px">
+            <label class="layui-form-label layui-col-md1">密码</label>
+            <div class="layui-col-md11 layui-input-inline">
+                <input type="password" name="password" required lay-verify="required|pass" placeholder="请输入密码" autocomplete="off" class="layui-input" value="@if (ViewBag.IsChecked)
+            {<text>@ViewBag.Password</text>}">
+            </div>
+        </div>
+        <div class="layui-input-block" style="margin-top:5px">
+                <input type="checkbox" name="isRemember" lay-skin="primary" title="记住我" @if (ViewBag.IsChecked) { <text> checked </text> }>
+                <button type="button" class="layui-btn button-login" data-home-url="@Url.Action("Index", "Home")" data-request-url="@Url.Action("login", "account")" lay-submit lay-filter="login">登录</button>
+        </div>
+    </div>
+</form>
 

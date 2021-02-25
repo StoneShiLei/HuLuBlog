@@ -1,9 +1,14 @@
-﻿@section css{<link href="@Url.Content("~/Content/article.css")" rel="stylesheet" />}
-@section scripts{<script src="@Url.Content("~/Scripts/article.js")"></script>}
+﻿@section css{
+    <link href="@Url.Content("~/Content/article.css")" rel="stylesheet" />
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/article.js")"></script>
+}
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "HuLuBlog -- 文章专栏";
     Layout = "~/Views/Shared/NavLayOut.cshtml";
 }
+
 
 
 
@@ -21,41 +26,19 @@
                         <input class="keywords layui-input" type="text" name="keywords" placeholder="输入关键词搜索" autocomplete="off">
                     </div>
                     <div class="search-submit  shadow">
-                        <a class="search-btn" data-request-url="@Url.Action("ArticleListPartial","Article")" ><i class="fa fa-search"></i></a>
+                        <a class="search-btn" data-request-url="@Url.Action("ArticleListPartial","Article")"><i class="fa fa-search"></i></a>
                     </div>
                 </div>
             </div>
 
             @{ Html.RenderAction("TagListPartial", "Tag");}
 
-            @*<div class="blog-module shadow">
-                <div class="blog-module-title">作者推荐</div>
-                <ul class="fa-ul blog-module-ul">
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">Web安全之跨站请求伪造CSRF</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">ASP.NET MVC 防范跨站请求伪造（CSRF）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">C#基础知识回顾-扩展方法</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">一步步制作时光轴（一）（HTML篇）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">一步步制作时光轴（二）（CSS篇）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">一步步制作时光轴（三）（JS篇）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">写了个Win10风格快捷菜单！</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">ASP.NET MVC自定义错误页</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">ASP.NET MVC制作404跳转（非302和200）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">基于laypage的layui扩展模块（pagesize.js）！</a></li>
-                </ul>
-            </div>*@
-            @*<div class="blog-module shadow">
-                <div class="blog-module-title">随便看看</div>
-                <ul class="fa-ul blog-module-ul">
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">一步步制作时光轴（一）（HTML篇）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">ASP.NET MVC制作404跳转（非302和200）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">ASP.NET MVC 防范跨站请求伪造（CSRF）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">一步步制作时光轴（三）（JS篇）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">基于laypage的layui扩展模块（pagesize.js）！</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">一步步制作时光轴（二）（CSS篇）</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">写了个Win10风格快捷菜单！</a></li>
-                    <li><i class="fa-li fa fa-hand-o-right"></i><a href="detail.html">常用正则表达式</a></li>
-                </ul>
-            </div>*@
+            @{ Html.RenderAction("HotArticleListPartial", "Article");}
+
+            @{ Html.RenderAction("ArticleRecommendPartial", "Article");}
+
+            @{ Html.RenderAction("RandomArticleListPartial", "Article");}
+
             <!--右边悬浮 平板或手机设备显示-->
             <div class="category-toggle"><i class="fa fa-chevron-left"></i></div>
         </div>

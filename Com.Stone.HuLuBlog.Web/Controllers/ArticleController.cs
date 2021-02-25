@@ -93,9 +93,6 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
 
             if (!articleVM.HtmlContent.IsNullOrEmpty())
             {
-                //HtmlToText convert = new HtmlToText();
-                //articleContent = convert.Convert(articleVM.HtmlContent);
-                //articleContent = convert.Convert(articleContent);
                 articleContent = Utils.ReplaceHtmlTag(articleVM.HtmlContent);
                 var imageUrlArray = Utils.GetHtmlImageUrlList(articleVM.HtmlContent);
                 if (imageUrlArray.Length > 0) imageUrl = imageUrlArray[0];
@@ -115,7 +112,8 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                     TagName = articleVM.TagName,
                     UserID = User.ID,
                     UserName = User.UserName,
-                    ImagePath = imageUrl
+                    ImagePath = imageUrl,
+                    IsRecommend = articleVM.IsRecommend
                 };
 
 
@@ -124,11 +122,12 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             else
             {
                 article = ArticleService.GetByClause(a => a.ID == articleVM.ID.Trim() && a.IsDelete == false);
-                string oldTagID = article.TagID;
-                string newTagID = articleVM.TagID;
 
                 if(article!= null && article.UserID == User.ID)
                 {
+                    string oldTagID = article.TagID;
+                    string newTagID = articleVM.TagID;
+
                     article.ArticleTitle = articleVM.ArticleTitle;
                     article.ArticleContent = articleContent;
                     article.HtmlContent = articleVM.HtmlContent;
@@ -136,6 +135,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                     article.TagID = articleVM.TagID;
                     article.TagName = articleVM.TagName;
                     article.ImagePath = imageUrl;
+                    article.IsRecommend = articleVM.IsRecommend;
 
                     ArticleService.UpdateArticleWithTag(article,oldTagID,newTagID);
                 }
@@ -320,6 +320,56 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             }
             ViewBag.Keyword = keyword;
             return PartialView(pageListVM);
+        }
+
+        /// <summary>
+        /// 作者推荐模块
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public PartialViewResult ArticleRecommendPartial()
+        {
+            var articleList = ArticleService.GetAllByClause(a => !a.IsDelete && a.IsRecommend).ToList();
+            var avm = articleList.MapTo<List<Article>, List<ArticleVM>>().OrderByDescending(a => a.AddDateTime).ToList();
+            return PartialView(avm);
+        }
+
+        /// <summary>
+        /// 随机文章模块
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public PartialViewResult RandomArticleListPartial()
+        {
+            var articleList = ArticleService.GetByRandom(5);
+            var avm = articleList.MapTo<List<Article>, List<ArticleVM>>();
+            return PartialView(avm);
+        }
+
+        /// <summary>
+        /// 热文排行模块
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public PartialViewResult HotArticleListPartial()
+        {
+            var articleList = ArticleService.GetAllByClause(a => a.IsDelete == false).OrderByDescending(a => a.ReadCount + a.CommentCount).Take(5).ToList();
+            var avm = articleList.MapTo<List<Article>, List<ArticleVM>>();
+            return PartialView(avm);
+        }
+
+        /// <summary>
+        /// 相似文章模块
+        /// </summary>
+        /// <param name="articleTitle"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public PartialViewResult SimilarArticleListPartial(string articleID,string articleTitle)
+        {
+            var articleList = ArticleService.SearchArticleIndex(articleTitle, 5);
+            articleList.RemoveAll(a => a.ID == articleID); //移除articleTitle文章本身
+            var avm = articleList.MapTo<List<Article>, List<ArticleVM>>();
+            return PartialView(avm);
         }
     }
 }

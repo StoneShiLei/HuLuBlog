@@ -24,11 +24,14 @@
             <form class="layui-form" action="">
                 @Html.AntiForgeryToken()
                 <div class="layui-row layui-col-space20">
-                    <div class="layui-col-md8">
+                    <div class="layui-col-md7">
                         <input type="text" name="ArticleTitle" autocomplete="off" placeholder="文章标题" value="@(Model?.ArticleTitle)" class="layui-input">
                     </div>
                     <div class="layui-col-md3">
                         @{ Html.RenderAction("ArticleTagPartial", "Tag", new { tagID = Model?.TagID });}
+                    </div>
+                    <div class="layui-col-md1 reconmmend">
+                        <input class="IsRecommend" type="checkbox" name="IsRecommend" lay-skin="switch" lay-text="推荐|不推荐" @if (Model?.IsRecommend == true) { <text> checked </text> }>
                     </div>
                     <div class="layui-col-md1 button">
                         <button type="button" class="layui-btn button-submit" data-article-url="@Url.Action("ArticleDetail", "Article")" data-request-url="@Url.Action("AddArticle", "Article")" lay-submit lay-filter="submit">提交</button>

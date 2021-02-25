@@ -1,0 +1,22 @@
+﻿
+
+<input type="hidden" id="recaptcha-token" name="recaptchaToken" />
+
+<script src="https://www.recaptcha.net/recaptcha/api.js?render=@Com.Stone.HuLuBlog.Infrastructure.Configurations.SITE_KEY"></script>
+
+<script>
+    grecaptcha.ready(function () {
+        const CLIENT_KEY = "@Com.Stone.HuLuBlog.Infrastructure.Configurations.SITE_KEY";
+        grecaptcha.execute(CLIENT_KEY, { action: 'HuLuBlog' }).then((token) => {
+            $("#recaptcha-token").val(token)
+        });
+    });
+</script>
+
+
+
+@*<style>
+        .grecaptcha-badge{
+            display:none;
+        }
+    </style>*@

@@ -11,6 +11,5 @@ namespace Com.Stone.HuLuBlog.Web.App_Start
         public const string TOKEN_KEY = "HULUBLOG_TOKEN";
         public const int TOKEN_TIME = 30;  //token 过期时间 单位分钟
         public const string UPLOAD_PATH = "~/Upload/Images/";
-
     }
 }

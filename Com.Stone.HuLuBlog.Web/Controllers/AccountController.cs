@@ -7,6 +7,8 @@ using Com.Stone.HuLuBlog.Application;
 using Com.Stone.HuLuBlog.Domain.Model;
 using Com.Stone.HuLuBlog.Infrastructure;
 using Com.Stone.HuLuBlog.Infrastructure.Extensions;
+using Com.Stone.HuLuBlog.Web.App_Start;
+using Com.Stone.HuLuBlog.Web.Models;
 using Configurations = Com.Stone.HuLuBlog.Web.App_Start.Configurations;
 
 namespace Com.Stone.HuLuBlog.Web.Controllers
@@ -41,27 +43,57 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         /// <summary>
         /// 登陆接口
         /// </summary>
-        /// <param name="email">用户作为凭据的电子邮箱</param>
-        /// <param name="password"></param>
+        /// <param name="userVM"></param>
         /// <param name="isRemember">是否记住用户</param>
+        /// <param name="recaptchaToken">验证码token</param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public JsonResult Login(string email,string password,bool isRemember)
+        public JsonResult Login(UserVM userVM,bool isRemember,string recaptchaToken)
         {
-            object data = null;
+            //模型验证
+            if (!ModelState.IsValid)
+            {
+                List<string> errors = new List<string>();
+                foreach (var key in ModelState.Keys.ToList())
+                {
+                    foreach (var error in ModelState[key].Errors.ToList())
+                    {
+                        errors.Add(error.ErrorMessage);
+                    }
+                }
+                return Json(ResponseModel.Error("登陆失败：" + errors[0]), JsonRequestBehavior.DenyGet);
+            }
 
-            string md5Pwd = Utils.MD5Password(password.Trim());
-            User user = UserService.GetByClause(x => x.Email == email.Trim() && x.Password == md5Pwd);
+            //验证码
+            if(!RecaptchaV3Operation.ReCaptchaPassed(recaptchaToken,Request.UserHostAddress))
+            {
+                if (recaptchaToken.IsNullOrEmpty()) //token为null一般为前台验证码接口加载延迟
+                {
+                    ModelState.AddModelError("recaptcha", "请等待人机验证加载完毕");
+                    string error = ModelState["recaptcha"].Errors[0].ErrorMessage;
+                    return Json(ResponseModel.Error(error), JsonRequestBehavior.DenyGet);
+                }
+                else
+                {
+                    ModelState.AddModelError("recaptcha", "您未通过人机验证");
+                    string error = ModelState["recaptcha"].Errors[0].ErrorMessage;
+                    return Json(ResponseModel.Error("登陆失败：" + error), JsonRequestBehavior.DenyGet);
+                }
+            }
+
+            object data = null;
+            string md5Pwd = Utils.MD5Password(userVM.Password.Trim());
+            User user = UserService.GetByClause(x => x.Email == userVM.Email.Trim() && x.Password == md5Pwd);
             if(user != null)
             {
                 //记住密码信息存入到cookie里面
                 if (isRemember)
                 {
-                    HttpCookie cookie = new HttpCookie(App_Start.Configurations.COOKIE_KEY);
-                    cookie.Values.Add("Email", email.Trim());
-                    cookie.Values.Add("Password", password.Trim());
+                    HttpCookie cookie = new HttpCookie(Configurations.COOKIE_KEY);
+                    cookie.Values.Add("Email", userVM.Email.Trim());
+                    cookie.Values.Add("Password", userVM.Password.Trim());
                     cookie.Values.Add("IsRemember", isRemember.ToString());
                     cookie.Expires = DateTime.Now.AddDays(30);
                     HttpContext.Response.Cookies.Add(cookie);
@@ -69,9 +101,9 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 else
                 {
                     //如果没有勾选则立即过期
-                    if (HttpContext.Request.Cookies[App_Start.Configurations.COOKIE_KEY] != null)
+                    if (HttpContext.Request.Cookies[Configurations.COOKIE_KEY] != null)
                     {
-                        HttpCookie cookies = HttpContext.Request.Cookies[App_Start.Configurations.COOKIE_KEY];
+                        HttpCookie cookies = HttpContext.Request.Cookies[Configurations.COOKIE_KEY];
                         cookies.Expires = DateTime.Now.AddDays(-1); //立即过期
                         HttpContext.Response.Cookies.Add(cookies);
                     }
@@ -84,7 +116,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 string token = TokenOperation.SetToken(user.ID,Configurations.TOKEN_TIME);
 
                 //加入到cookie
-                HttpCookie tokenCookie = new HttpCookie(App_Start.Configurations.TOKEN_KEY);
+                HttpCookie tokenCookie = new HttpCookie(Configurations.TOKEN_KEY);
                 tokenCookie.Values.Add("Token", token);
                 tokenCookie.Expires = DateTime.Now.AddMinutes(Configurations.TOKEN_TIME);
                 HttpContext.Response.Cookies.Add(tokenCookie);
@@ -114,11 +146,11 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
 
             TokenOperation.DeleteCacheByToken(Token);
             TokenOperation.DeleteCacheByToken(id);
-            HttpCookie cookie = new HttpCookie(App_Start.Configurations.COOKIE_KEY)
+            HttpCookie cookie = new HttpCookie(Configurations.COOKIE_KEY)
             {
                 Expires = DateTime.Now.AddDays(-1)
             };
-            HttpCookie tokenCookie = new HttpCookie(App_Start.Configurations.TOKEN_KEY)
+            HttpCookie tokenCookie = new HttpCookie(Configurations.TOKEN_KEY)
             {
                 Expires = DateTime.Now.AddDays(-1)
             };

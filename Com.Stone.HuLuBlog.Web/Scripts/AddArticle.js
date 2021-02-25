@@ -64,6 +64,10 @@
             data.field.HtmlContent = editor.getHTML();
             data.field.MarkDownContent = editor.getMarkdown();
             data.field.ID = $("#editor").data("article-id");
+            if (data.field.IsRecommend == "on")
+                data.field.IsRecommend = true;
+            else
+                data.field.IsRecommend = false;
 
             GetDataByJson($(this).data("request-url"), 'post', data.field, function (data) {
                 if (data.IsSuccess) {

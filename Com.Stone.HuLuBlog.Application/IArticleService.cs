@@ -18,5 +18,7 @@ namespace Com.Stone.HuLuBlog.Application
         void UpdateArticleTagName(string tagID, string newName);
         PagedResult<Article> SearchArticleIndex(string keyword, int pageIndex = 1, int pageSize = 20);
         void UpdateAllArticleIndex();
+        List<Article> GetByRandom(int take);
+        List<Article> SearchArticleIndex(string keyword, int take);
     }
 }

@@ -35,6 +35,9 @@ namespace Com.Stone.HuLuBlog.Web.Models
 
         public bool IsDelete { get; set; }
 
+        [Required(ErrorMessage = "推荐状态不能为空")]
+        public bool IsRecommend { get; set; }
+
         public DateTime? DeleteDate { get; set; }
 
         public int ReadCount { get; set; }

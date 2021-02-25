@@ -22,6 +22,26 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
             ArticleTagRepository = articleTagRepository;
         }
 
+
+        /// <summary>
+        /// 根据关键词搜索文章索引无分页无高亮
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        public List<Article> SearchArticleIndex(string keyword,int take)
+        {
+            var idList = new List<string>();
+            var models = LuceneOperation.Search(keyword);
+            models.ForEach(model => idList.Add(model.ID));
+
+            var results = ArticleRepository.SugarClient.Queryable<Article>()
+                                .Where(a => a.IsDelete == false && idList.Contains(a.ID))
+                                .Take(take)
+                                .ToList();
+
+            return results;
+        }
+
         /// <summary>
         /// 根据关键字搜索文章 使用全文索引 分页
         /// </summary>
@@ -247,6 +267,15 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
                 ArticleRepository.RollBackTran();
                 throw new Exception("事务执行失败", ex);
             }
+        }
+
+        /// <summary>
+        /// 随机抽取文章
+        /// </summary>
+        /// <returns></returns>
+        public List<Article> GetByRandom(int take)
+        {
+            return ArticleRepository.SugarClient.Queryable<Article>().Where(a => a.IsDelete == false).Take(take).OrderBy("NEWID()").ToList();
         }
 
     }

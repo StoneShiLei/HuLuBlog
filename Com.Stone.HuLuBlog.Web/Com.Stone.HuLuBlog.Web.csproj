@@ -169,6 +169,7 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\BackStageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\RecaptchaController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Models\ArticleTagVM.cs" />
@@ -1704,6 +1705,11 @@
     <Content Include="Views\Shared\DisplayTemplates\HuLuBlogSiteMap.cshtml" />
     <Content Include="Views\Tag\TagListPartial.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Article\ArticleRecommendPartial.cshtml" />
+    <Content Include="Views\Article\RandomArticleListPartial.cshtml" />
+    <Content Include="Views\Article\HotArticleListPartial.cshtml" />
+    <Content Include="Views\Article\SimilarArticleListPartial.cshtml" />
+    <Content Include="Views\Recaptcha\RecaptchaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
