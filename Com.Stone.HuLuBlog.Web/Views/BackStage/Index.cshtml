@@ -31,7 +31,7 @@
                             <a href="#">@article.ArticleTitle</a>
                         </div>
                         <div class="article-abstract">
-                            @article.ArticleContent
+                            @Html.Raw(article.ArticleContent.Length < 500 ? article.ArticleContent : article.ArticleContent.Substring(0, 500))
                         </div>
                     </div>
                     <div class="clear"></div>
