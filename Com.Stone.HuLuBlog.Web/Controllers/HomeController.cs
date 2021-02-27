@@ -1,10 +1,14 @@
 ﻿using Com.Stone.HuLuBlog.Application;
 using Com.Stone.HuLuBlog.Domain.Model;
 using Com.Stone.HuLuBlog.Infrastructure;
+using Com.Stone.HuLuBlog.Infrastructure.Extensions;
+using Com.Stone.HuLuBlog.Message;
 using Com.Stone.HuLuBlog.Web.Models;
+using EasyNetQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,12 +19,14 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
     {
         readonly IArticleService ArticleService;
         readonly IArticleTagService ArticleTagService;
+        readonly IBus Bus;
 
         public HomeController(IUserService userService,IArticleService articleService,
-            IArticleTagService articleTagService) : base(userService)
+            IArticleTagService articleTagService,IBus bus) : base(userService)
         {
             ArticleService = articleService;
             ArticleTagService = articleTagService;
+            Bus = bus;
         }
 
         /// <summary>
@@ -52,35 +58,77 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return PartialView(User.ToModel());
         }
 
+        [HttpGet]
+        public ActionResult Email()
+        {
+            return View();
+        }
 
-        
+        /// <summary>
+        /// home about页面给博主发送邮件
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult SendEmail(EmailVM emailVM,string recaptchaToken)
+        {
+            if (emailVM.To != App_Start.Configurations.HuLuEmail) ModelState.AddModelError(string.Empty, "检测到被篡改的收件人邮箱");
+
+            //模型验证
+            if (!ModelState.IsValid)
+            {
+                List<string> errors = new List<string>();
+                foreach (var key in ModelState.Keys.ToList())
+                {
+                    foreach (var error in ModelState[key].Errors.ToList())
+                    {
+                        errors.Add(error.ErrorMessage);
+                    }
+                }
+                return Json(ResponseModel.Error("发送失败：" + errors[0]), JsonRequestBehavior.DenyGet);
+            }
+
+            //验证码
+            if (!RecaptchaV3Operation.ReCaptchaPassed(recaptchaToken, Request.UserHostAddress))
+            {
+                if (recaptchaToken.IsNullOrEmpty()) //token为null一般为前台验证码接口加载延迟
+                {
+                    ModelState.AddModelError("recaptcha", "请等待人机验证加载完毕");
+                    string error = ModelState["recaptcha"].Errors[0].ErrorMessage;
+                    return Json(ResponseModel.Error(error), JsonRequestBehavior.DenyGet);
+                }
+                else
+                {
+                    ModelState.AddModelError("recaptcha", "您未通过人机验证");
+                    string error = ModelState["recaptcha"].Errors[0].ErrorMessage;
+                    return Json(ResponseModel.Error("发送失败：" + error), JsonRequestBehavior.DenyGet);
+                }
+            }
+
+
+
+            var email = new EmailMessage()
+            {
+                To = emailVM.To,
+                From = emailVM.From,
+                Subject = emailVM.Subject,
+                Body = emailVM.Body
+            };
+
+            Bus.PubSub.PublishAsync(email);
+
+            return Json(ResponseModel.Success("发送成功"));
+        }
+
+
         public ActionResult Test()
         {
-            //var documentmodle = new DocumentModel()
-            //{
-            //    ID="1",Title= "主要特性 支持“标准”Markdown",
-            //    Content= " / CommonMark和Github风格的语法，也可变身为代码编辑器； 支持实时预览、图片（跨域）上传、预格式文本/代码/表格插入、代码折叠、搜索替换、只读模式、自定义样式主" +
-            //        "题和多语言语法高亮等功能； 支持ToC（Table of Contents）、Emoji表情、Task lists、@链接等Markdown扩展语法； 支持TeX科学公式"
-            //};
+            //var input = "hello";
+            //var email = new EmailMessage() { Body = input };
+            //Bus.PubSub.Publish(email);
 
-            //LuceneOperation.AddIndex(documentmodle);
-            //string a = "看了源码后有一个疑问，Dispatcher模式最终代码仍然是在主线程上执行的，而我在Unity中只有在有性" +
-            //    "能需求时才才会使用线程，只是需要并行执行时使用协程就可以了。假如只是需要在线程代码上使用";
-            //string b = "就可以大显身手了。本文主要从无到有讲述lucene.net的用法！ ... 多个排序条件。(建议采用默认的积分排序," +
-            //    "设计良好的加权机制) ... Lucene.net(4.8.0) 学习问题记录六：Lucene 的索引系统和搜索过程分析 · weixin_30420305的 ...";
-            //string c = " 详细计算方法Lucene源码(二)：文本相似度TF-IDF原理 ... 但是Lucene的计算方式不一样，它还引入了文档长度的加权因子，作用就是提高短" +
-            //    "文档的分数， ... Lucene.net(4.8.0) 学习问题记录六：Lucene 的索引系统和搜索过程分析.";
-            //var aa = new DocumentModel() { ID = "aa",Title = "源码",Content = a};
-            //var bb = new DocumentModel() { ID = "bb", Title = "排序",Content = b};
-            //var cc = new DocumentModel() { ID = "cc", Title = "计算",Content = c};
-            //LuceneOperation.AddIndex(aa);
-            //LuceneOperation.AddIndex(bb);
-            //LuceneOperation.AddIndex(cc);
-            ViewBag.Test = LuceneOperation.Test("C#高级知识点&(ABP框架理论学习高级篇)——白金版");
+            //ViewBag.Test = LuceneOperation.Test("C#高级知识点&(ABP框架理论学习高级篇)——白金版");
             return View();
-
-            //return Json(LuceneOperation.Search("源码"), JsonRequestBehavior.AllowGet);
-            //return Json("111", JsonRequestBehavior.AllowGet);
         }
         
     }

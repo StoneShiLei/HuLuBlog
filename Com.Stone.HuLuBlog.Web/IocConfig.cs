@@ -11,6 +11,9 @@ using Com.Stone.HuLuBlog.Infrastructure.AutoFac;
 using Com.Stone.HuLuBlog.Repositories.SqlSugar;
 using DI.Autofac.Modules;
 using MvcSiteMapProvider.Loader;
+using EasyNetQ.DI;
+using EasyNetQ;
+using Com.Stone.HuLuBlog.Web.App_Start;
 
 namespace Com.Stone.HuLuBlog.Web
 {
@@ -57,6 +60,8 @@ namespace Com.Stone.HuLuBlog.Web
             //注册MvcSiteMapProvider
             iocBuilder.RegisterModule(new MvcSiteMapProviderModule());
 
+            //easyNetQ
+            iocBuilder.RegisterEasyNetQ(Configurations.MQ_CONNSTR);
 
 
             // Set the dependency resolver to be Autofac.
@@ -64,7 +69,7 @@ namespace Com.Stone.HuLuBlog.Web
 
             //注入MvcSiteMapProvider
             MvcSiteMapProvider.SiteMaps.Loader = iocContainer.Resolve<ISiteMapLoader>();
-
+            
 
             config.DependencyResolver = new AutofacWebApiDependencyResolver(iocContainer);
 

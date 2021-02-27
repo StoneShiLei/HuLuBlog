@@ -26,6 +26,18 @@ layui.use(['element', 'jquery', 'form', 'layedit'], function () {
     //    }
     //});
 
+    $('#email').click(function () {
+        layer.open({
+            type: 2,
+            title: "发送邮件",
+            shadeClose: false,
+            area: ['500px', '360px'],
+            resize: true,
+            move: true,
+            content: $(this).data("request-url")
+        })
+    });
+
     //Hash地址的定位
     var layid = location.hash.replace(/^#tabIndex=/, '');
     if (layid == "") {
