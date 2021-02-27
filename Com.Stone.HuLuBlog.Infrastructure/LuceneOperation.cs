@@ -119,7 +119,6 @@ namespace Com.Stone.HuLuBlog.Infrastructure
 
             foreach (var hit in hits)
             {
-
                 TokenStream titleTs = TokenSources.GetAnyTokenStream(searcher.IndexReader, hit.Doc, "Title", new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Default));
                 TokenStream contentTs = TokenSources.GetAnyTokenStream(searcher.IndexReader, hit.Doc, "Content", new JiebaAnalyzer(JiebaNet.Segmenter.TokenizerMode.Default));
                 string titleHL = highlighter.GetBestFragment(titleTs, searcher.Doc(hit.Doc).Get("Title"));

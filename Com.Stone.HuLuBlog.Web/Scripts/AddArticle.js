@@ -4,6 +4,8 @@
         var form = layui.form;
         var layer = layui.layer;
 
+        form.render();
+
         var editor = editormd("editor", { //id,后续name要开头一致
             width: "100%",
             height: 800,
