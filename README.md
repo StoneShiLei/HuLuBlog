@@ -1,5 +1,5 @@
 # HuLuBlog
-一个基于.net mvc的个人博客网站  
+一个基于.net mvc的个人博客网站
 技术盏：  
 .net mvc5  
 sqlsugar  
@@ -10,3 +10,4 @@ automapper
 layui  
 editormd  
 recaptchaV3  
+rabbitMQ
