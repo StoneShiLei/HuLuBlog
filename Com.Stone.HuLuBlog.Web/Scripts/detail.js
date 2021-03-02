@@ -16,7 +16,11 @@ $(function () {
             flowChart: true, // 默认不解析
             sequenceDiagram: true, // 默认不解析
             codeFold: true,
-        });
+    });
+
+    //导航栏选中
+    $("#nav-text").addClass("layui-this").siblings().removeClass("layui-this");
+    sessionStorage.setItem("selected", $("#nav-text").find('a').attr('href'));
 });
 
 layui.use(['form', 'layedit'], function () {

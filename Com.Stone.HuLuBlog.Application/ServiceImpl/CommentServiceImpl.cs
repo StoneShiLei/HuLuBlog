@@ -40,6 +40,7 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
             //效率优化 todo   思路：先分页查询父评论  然后再查出父评论关联的子评论
             var commentList = CommentRepository.SugarClient.Queryable<Comment>()
                                 .Where(c => c.ArticleID == articleID && !c.IsChild)
+                                .OrderBy(c => c.AddDateTime,OrderByType.Desc)
                                 .ToPageList(pageIndex, pageSize, ref totalCount);
             var childCommentList = CommentRepository.SugarClient.Queryable<Comment>()
                                 .Where(s => s.IsChild && commentList.Select(c => c.ID).Contains(s.PID))
@@ -128,6 +129,8 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
                         .Where(a => a.ID == articleID)
                         .ExecuteCommand();
                 }
+                CommentRepository.CommitTran();
+
             }
             catch (Exception ex)
             {

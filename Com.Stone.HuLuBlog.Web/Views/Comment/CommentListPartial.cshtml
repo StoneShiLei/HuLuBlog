@@ -1,14 +1,9 @@
 ﻿@model List<Com.Stone.HuLuBlog.Web.Models.CommentVM>
 @using Com.Stone.HuLuBlog.Web.Helper
 
-    <div class="layui-field-box">
-        <div class="leavemessage" style="text-align:initial">
-            <div id="remark-editor-container">
-                @{Html.RenderAction("RemarkEditorPartial", "Comment",new { articleid = ViewBag.ArticleID ,pageIndex = ViewBag.PageIndex,pageSize = ViewBag.PageSize});}
-            </div>
-            <ul class="blog-comment">
-                <li>
-                    @*<div class="comment-parent">
+<ul class="blog-comment">
+    <li>
+        @*<div class="comment-parent">
                 <img src="../images/Logo_40.png" alt="不落阁" />
                 <div class="info">
                     <span class="username">不落阁</span>
@@ -34,42 +29,99 @@
                 <p class="info"><span class="time">2017-03-18 18:26</span></p>
             </div>*@
 
-                    @foreach (var comment in Model)
+        @foreach (var comment in Model)
+        {
+            <div class="comment-parent">
+                <a id="@comment.ID"></a>
+                @Html.Raw(Html.Gravatar(comment.Email, size: 40, defaultImage: GravatarDefaultImage.MysteryMan, rating: GravatarRating.Default))
+                <div class="info">
+                    <span class="username">
+                        @(comment.UserName)@if (!string.IsNullOrEmpty(comment.UserID))
+                        {<strong>&nbsp;&nbsp;[博主]</strong>}
+                    </span>
+                </div>
+                <div class="content">
+                    @comment.CommentContent
+                </div>
+                <p class="info info-footer">
+                    <span class="time">@comment.AddDateTime.ToString("yyyy年MM月dd日   HH:mm")</span>
+                    <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@comment.UserName"  data-reply-to-id="@comment.UserID">回复</a>
+                    @if (!string.IsNullOrEmpty(ViewBag.UserID))
                     {
-                        <div class="comment-parent">
-                            <a id="@comment.ID"></a>
-                            @Html.Raw(Html.Gravatar(comment.Email, size: 40, defaultImage: GravatarDefaultImage.MysteryMan, rating: GravatarRating.Default))
-                            <div class="info">
-                                <span class="username">@(comment.UserName)@if (!string.IsNullOrEmpty(comment.UserID))
-                                {<strong>[博主]</strong>}</span>
-                            </div>
-                            <div class="content">
-                                @comment.CommentContent
-                            </div>
-                            <p class="info info-footer">
-                                <span class="time">@comment.AddDateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                                <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@comment.UserName">回复</a>
-                                @if (!string.IsNullOrEmpty(ViewBag.UserID))
-                                {
-                                    <a class="btn-delete" href="javascript:;" data-id="@comment.ID" data-articleID="@comment.ArticleID" style="margin-left:20px">删除</a>
-                                }
-                            </p>
-                        </div>
-                        <hr />
+                        <a class="btn-delete" href="javascript:;" data-id="@comment.ID" data-articleID="@comment.ArticleID" style="margin-left:20px">删除</a>
                     }
-                </li>
-            </ul>
-        </div>
-    </div>
+                </p>
+            </div>
+            <hr />
+            if (comment.ChildComments != null)
+            {
+                <div class="child-comment-container" id="child-comment-container-@comment.ID">
+                    @{
+                        comment.ChildComments = comment.ChildComments.OrderByDescending(c => c.AddDateTime).ToList();
+                        //foreach (var child in comment.ChildComments)
+                        var childList = comment.ChildComments;
+                        for (int i = 0; i < childList.Count; i++)
+                        {
+                            <div class="comment-child" @if (i > 3) { <text>style="display:none" </text> }>
+                            <a id="@childList[i].ID"></a>
+                                @Html.Raw(Html.Gravatar(childList[i].Email, size: 40, defaultImage: GravatarDefaultImage.MysteryMan, rating: GravatarRating.Default))
+                                <div class="info">
+                                <span class="username">
+                                    @(childList[i].UserName) @if (!string.IsNullOrEmpty(childList[i].UserID))
+                                    {<strong> &nbsp; &nbsp;[博主]</strong>}
+                                </span>
+                                <span>&nbsp;回复&nbsp;&nbsp;
+                                    <span class="username">
+                                        @childList[i].ReplyTo @if (!string.IsNullOrEmpty(childList[i].ReplyToID))
+                                    {<strong> &nbsp; &nbsp;[博主]</strong>}
+                                    </span>
+                                &nbsp;：&nbsp;@childList[i].CommentContent</span>
+                        </div>
+                        <p class="info">
+                            <span class="time">@childList[i].AddDateTime.ToString("yyyy年MM月dd日   HH:mm")</span>
+                            <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@childList[i].UserName" data-reply-to-id="@childList[i].UserID">回复</a>
+                            @if (!string.IsNullOrEmpty(ViewBag.UserID))
+                            {
+                                <a class="btn-delete" href="javascript:;" data-id="@childList[i].ID" data-articleID="@childList[i].ArticleID" style="margin-left:20px">删除</a>
+                            }
+                        </p>
+                        </div>
+                        }
+                        if(childList.Count > 4)
+                        {
+                            <div class="comment-footer" id="comment-footer-@comment.ID">共@(childList.Count)条回复，<a href="javascript:;" data-comment-id="@comment.ID">点击查看</a></div>
+                        }
+                    }
+                    </div>
+                }
+            }
+    </li>
+</ul>
 
+<style>
+    .comment-footer{
+        font-size:6px;
+        margin:10px 0px 5px 100px;
+    }
+        .comment-footer a {
+            color: #01AAED;
+        }
+</style>
 
-
-    <script>
+<script>
     var totalCount = @ViewBag.TotalCount
 
     layui.use(['element', 'jquery','layer'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
+
+        //查看更多回复
+        $(".comment-footer a").click(function () {
+            var id = "#child-comment-container-" + $(this).data("comment-id");
+            var footer = "#comment-footer-" + $(this).data("comment-id");
+            $(id+" .comment-child").show();
+            $(footer).remove();
+        });
 
          //删除回复按钮
         $(".btn-delete").click(function () {
@@ -99,10 +151,11 @@
             var data = {};
             data.pid = $(this).data("pid");
             data.replyTo = $(this).data("reply-to");
+            data.replyToID = $(this).data("reply-to-id");
             data.isChild = true;
             data.articleid = "@ViewBag.ArticleID";
-            GetDataByHtml("@Url.Action("RemarkEditorPartial","comment")", "get", data, function (data) {
-                $("#remark-editor-container").html(data);
+            GetDataByHtml("@Url.Action("CommentMoudlePartial", "comment")", "get", data, function (data) {
+                $("#comment-container").html(data);
 
                 //滚动至窗口位置
                 var container = $('html,body');
@@ -114,5 +167,7 @@
         });
 
 
+
+
     });
-    </script>
+</script>

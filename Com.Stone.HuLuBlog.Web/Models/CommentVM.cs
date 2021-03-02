@@ -34,6 +34,8 @@ namespace Com.Stone.HuLuBlog.Web.Models
 
         public string ReplyTo { get; set; }
 
+        public string ReplyToID { get; set; }
+
         public List<CommentVM> ChildComments { get; set; }
     }
 }

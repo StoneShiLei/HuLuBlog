@@ -1825,7 +1825,6 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Email.cshtml" />
     <Content Include="Views\Comment\CommentListPartial.cshtml" />
-    <Content Include="Views\Comment\RemarkEditorPartial.cshtml" />
     <Content Include="Views\Comment\CommentMoudlePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -33,26 +33,12 @@ namespace Com.Stone.HuLuBlog.Domain.Model
 
         public string ReplyTo { get; set; }
 
+        public string ReplyToID { get; set; }
+
         [SugarColumn(IsIgnore = true)]
         public List<Comment> ChildComments { get; set; }
 
         public Comment() : base() { }
 
-
-        //public override bool Equals(object obj)
-        //{
-        //    if (obj == null) return false;
-
-        //    Comment comment = obj as Comment;
-        //    if (comment == null)
-        //        return false;
-        //    else
-        //        return comment.ID == this.ID;
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    return ID.GetHashCode();
-        //}
     }
 }

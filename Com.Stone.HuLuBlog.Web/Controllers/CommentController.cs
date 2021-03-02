@@ -70,6 +70,11 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             commentVM.ID = Utils.GetGuidStr();
             commentVM.UserID = User.ID;
 
+            commentVM.ArticleID = commentVM.ArticleID == null ? string.Empty : commentVM.ArticleID;
+            commentVM.PID = commentVM.PID == null ? string.Empty : commentVM.PID;
+            commentVM.ReplyTo = commentVM.ReplyTo == null ? string.Empty : commentVM.ReplyTo;
+            commentVM.ReplyToID = commentVM.ReplyToID == null ? string.Empty : commentVM.ReplyToID;
+
             //检查父级评论id
             if (!commentVM.PID.IsNullOrEmpty())
             {
@@ -124,29 +129,26 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             var commentPagedList = CommentService.GetAllCommentByArticleID(articleID, pageIndex, pageSize);
             ViewBag.PageIndex = pageIndex;
             ViewBag.PageSize = pageSize;
-            ViewBag.TotalCount = commentPagedList.TotalPages;
+            ViewBag.TotalCount = commentPagedList.TotalRecords;
             var commentList = commentPagedList.PageData;
-            var x = HttpContext.Request.UrlReferrer;
             return PartialView(commentList.MapTo<List<Comment>,List<CommentVM>>());
         }
 
         /// <summary>
-        /// 评论输入框模板
+        /// 评论列表模块
         /// </summary>
-        /// <param name="isReply">是否为回复窗口</param>
         /// <returns></returns>
         [HttpGet]
-        public PartialViewResult RemarkEditorPartial(int pageIndex,int pageSize, string pid = "", string replyTo = "", string articleID = "" ,bool isChild = false)
+        public PartialViewResult CommentMoudlePartial(string articleID = "", string pid = "", string replyTo = "",string replyToID="", bool isChild = false)
         {
             ViewBag.UserID = User.ID;
-
             ViewBag.ArticleID = articleID;
             ViewBag.Legend = isChild ? "回复给：" + replyTo : "发表评论";
             ViewBag.PID = pid;
             ViewBag.IsChild = isChild;
             ViewBag.ReplyTo = replyTo;
-            ViewBag.PageIndex = pageIndex;
-            ViewBag.PageSize = pageSize;
+            ViewBag.ReplyToID = replyToID;
+            ViewBag.PageSize = 10;
 
             HttpCookie cookies = Request.Cookies[App_Start.Configurations.COMMENT_KEY];
             ViewBag.IsReceive = true;
@@ -160,22 +162,5 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return PartialView();
         }
 
-        /// <summary>
-        /// 评论列表模块
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public PartialViewResult CommentMoudlePartial(string articleID = "")
-        {
-            ViewBag.ArticleID = articleID;
-            ViewBag.PageSize = 10;
-            return PartialView();
-        }
-
-        //public JsonResult Test()
-        //{
-        //    var result = CommentService.GetAllCommentByArticleID(string.Empty, 1, 10);
-        //    return Json("1");
-        //}
     }
 }

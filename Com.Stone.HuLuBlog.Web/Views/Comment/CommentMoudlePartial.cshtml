@@ -1,13 +1,60 @@
 ﻿<div id="comment-container">
+    <div class="layui-field-box">
+        <div class="leavemessage" style="text-align:initial">
+            <div id="remark-editor-container">
+                <fieldset class="layui-elem-field">
+                    <legend>
+                        @ViewBag.Legend   @if (ViewBag.IsChild)
+                        {<a id="reply-cancel" class="layui-btn layui-btn-primary layui-btn-xs">取消回复</a>}
+                    </legend>
+                    <div class="layui-field-box">
+                        <form class="layui-form blog-editor" action="" style="margin:10px">
+                            @Html.AntiForgeryToken()
+                            @{ Html.RenderAction("RecaptchaPartial", "Recaptcha");}
+                            <div class="layui-inline">
+                                <label class="layui-form-label" style="text-align:center;width:35px">邮箱</label>
+                                <div class="layui-input-inline" style="width:200px">
+                                    <input type="text" name="email" lay-verify="email|required" autocomplete="on" placeholder="请输入邮箱" class="layui-input" value="@(ViewBag?.Email)">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" style="text-align:center;width:35px">昵称</label>
+                                <div class="layui-input-inline" style="width:200px">
+                                    <input type="text" name="username" lay-verify="required" autocomplete="on" placeholder="请输入昵称" class="layui-input" value="@(ViewBag?.UserName)">
+                                </div>
+                            </div>
+                            <div class="layui-form-item" style="margin-top:5px">
+                                <textarea name="commentContent" lay-verify="content" id="remarkEditor" placeholder="请输入内容" class="layui-textarea layui-hide"></textarea>
+                            </div>
+                            <div class="layui-inline">
+                                <a class="layui-btn" lay-submit="formLeaveMessage" lay-filter="formLeaveMessage">提交评论</a>
+                            </div>
+                            <div class="layui-inline" style="margin-left:30px">
+                                <input type="checkbox" name="isReceive" lay-skin="primary" title="通过邮件通知我后续评论" @if (ViewBag.IsReceive) { <text> checked</text> }>
+                            </div>
+                        </form>
+                    </div>
+                </fieldset>
+            </div>
+            <div id="comment-list-container">
+                @*@{ Html.RenderAction("CommentListPartial", "Comment"); }*@
+            </div>
+        </div>
+    </div>
+    <div id="page"></div>
 </div>
-<div id="page"></div>
 
 
 
 <script>
-    layui.use(['jquery','layer', 'laypage'], function () {
+    layui.use(['jquery', 'layer', 'laypage', 'form', 'layedit'], function () {
         var $ = layui.jquery;
         var laypage = layui.laypage;
+        var layedit = layui.layedit;
+        var form = layui.form;
+
+        form.render();
+
         var pageSize = @ViewBag.PageSize;
         var articleID = "@ViewBag.ArticleID";
         var requestUrl = '@Url.Action("CommentListPartial", "Comment")';
@@ -31,13 +78,14 @@
                     GetDataByHtml(requestUrl,"get",{pageIndex:obj.curr,pageSize:obj.limit,articleID:articleID},function(data){
                         setHtml(data);
                     });
+                    pageIndex = obj.curr;
                 }
             }
-        });
+            });
         }
 
         function setHtml(data) {
-            $('#comment-container').html(data);
+            $('#comment-list-container').html(data);
             //滚动至窗口位置
             var container = $('html,body');
             var scrollTo = $("#remark-editor-container");
@@ -45,5 +93,63 @@
                 scrollTop: scrollTo.offset().top - 100
             })
         }
+
+
+
+
+        //评论和留言的编辑器
+        var editIndex = layedit.build('remarkEditor', {
+            height: 100,
+            tool: ['face', '|', 'left', 'center', 'right', '|', 'link'],
+        });
+        //评论和留言的编辑器的验证
+        layui.form.verify({
+            content: function (value) {
+                value = $.trim(layedit.getText(editIndex));
+                if (value == "") return "自少得有一个字吧";
+                if (value.length > 1000) return "评论限制1000个字符";
+                layedit.sync(editIndex);
+            },
+        });
+
+        //监听留言提交
+        form.on('submit(formLeaveMessage)', function (data) {
+            if (data.field.isReceive == "on")
+                data.field.isReceive = true;
+            else
+                data.field.isReceive = false;
+
+            data.field.articleID = "@ViewBag.ArticleID";
+            data.field.PID = "@ViewBag.PID";
+            data.field.isChild = "@ViewBag.IsChild";
+            data.field.replyTo = "@ViewBag.ReplyTo";
+            data.field.replyToID = "@ViewBag.ReplyToID";
+
+            if (!data.field.recaptchaToken) {
+                layer.msg("请等待人机验证")
+            }
+            else {
+                var index = layer.load(1);
+                GetDataByJson("@Url.Action("AddComment","Comment")", 'post', data.field, function (data) {
+                    if (data.IsSuccess) {
+                        GetDataByHtml("@Url.Action("CommentMoudlePartial", "Comment",new { articleID = ViewBag.ArticleID })", "get", null, function (html) {
+                            $("#comment-container").html(html);
+                        });
+
+                    } else {
+                        layer.msg(data.Message);
+                    }
+                    layer.close(index);
+                });
+            }
+        });
+    });
+
+
+    //取消回复按钮渲染输入框
+    $("#reply-cancel").click(function () {
+        GetDataByHtml("@Url.Action("CommentMoudlePartial", "comment",new { articleID = ViewBag.ArticleID })", "get", null, function (data) {
+            $("#comment-container").html(data);
+        });
     });
 </script>
