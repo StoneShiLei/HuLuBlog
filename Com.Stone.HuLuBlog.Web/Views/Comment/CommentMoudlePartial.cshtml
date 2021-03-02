@@ -1,20 +1,20 @@
-﻿
-
-<div class="article-container"></div>
+﻿<div id="comment-container">
+</div>
 <div id="page"></div>
 
+
+
 <script>
-        layui.use(['jquery','layer', 'laypage'], function () {
+    layui.use(['jquery','layer', 'laypage'], function () {
         var $ = layui.jquery;
         var laypage = layui.laypage;
         var pageSize = @ViewBag.PageSize;
-        var tagID = "@ViewBag.TagID";
-        var keyword = "@ViewBag.Keyword";
-        var requestUrl = '@Url.Action("ArticleListTemplatePartial", "Article")';
+        var articleID = "@ViewBag.ArticleID";
+        var requestUrl = '@Url.Action("CommentListPartial", "Comment")';
 
         //每次访问页面都请求一次
         GetDataByHtml(requestUrl,"get",
-                    { pageIndex: 1, pageSize: pageSize,tagID:tagID,keyword:keyword},function(data){
+                    { pageIndex: 1, pageSize: pageSize,articleID:articleID},function(data){
                         setHtml(data); //渲染第一页
                         getPages(totalCount); //此方法第一次不生效，渲染后续页  totalCount来自于组件页面定义的变量
                     });
@@ -28,7 +28,7 @@
             limit: pageSize,
             jump: function (obj, first) {
                 if (!first) {
-                    GetDataByHtml(requestUrl,"get",{pageIndex:obj.curr,pageSize:obj.limit,tagID:tagID,keyword:keyword},function(data){
+                    GetDataByHtml(requestUrl,"get",{pageIndex:obj.curr,pageSize:obj.limit,articleID:articleID},function(data){
                         setHtml(data);
                     });
                 }
@@ -37,9 +37,13 @@
         }
 
         function setHtml(data) {
-            $('.article-container').html(data);
-            $('html,body').animate({scrollTop:0}); //滚动条置顶
+            $('#comment-container').html(data);
+            //滚动至窗口位置
+            var container = $('html,body');
+            var scrollTo = $("#remark-editor-container");
+            container.animate({
+                scrollTop: scrollTo.offset().top - 100
+            })
         }
     });
-
 </script>

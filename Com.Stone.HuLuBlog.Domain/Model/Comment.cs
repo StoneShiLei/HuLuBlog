@@ -10,17 +10,49 @@ namespace Com.Stone.HuLuBlog.Domain.Model
     [SugarTable("Comment")]
     public class Comment : BaseEntity
     {
-        [SugarColumn(IsNullable = false)]
         public string ArticleID { get; set; }
 
-        [SugarColumn(IsNullable = false)]
         public string UserID { get; set; }
 
         [SugarColumn(IsNullable = false)]
-        public string UserName { get; set; } 
+        public string UserName { get; set; }
 
+        [SugarColumn(IsNullable = false)]
         public string CommentContent { get; set; }
 
+        [SugarColumn(IsNullable = false)]
+        public string Email { get; set; }
+
+        public string PID { get; set; }
+
+        [SugarColumn(IsNullable = false)]
+        public bool IsReceive { get; set; }
+
+        [SugarColumn(IsNullable = false)]
+        public bool IsChild { get; set; }
+
+        public string ReplyTo { get; set; }
+
+        [SugarColumn(IsIgnore = true)]
+        public List<Comment> ChildComments { get; set; }
+
         public Comment() : base() { }
+
+
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj == null) return false;
+
+        //    Comment comment = obj as Comment;
+        //    if (comment == null)
+        //        return false;
+        //    else
+        //        return comment.ID == this.ID;
+        //}
+
+        //public override int GetHashCode()
+        //{
+        //    return ID.GetHashCode();
+        //}
     }
 }

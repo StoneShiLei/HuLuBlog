@@ -887,6 +887,9 @@ body {
         .blog-comment .info .btn-reply {
             color: #009688;
         }
+        .blog-comment .info .btn-delete {
+            color: #009688;
+        }
 
     .blog-comment .content {
         padding: 2px 0 5px 0;

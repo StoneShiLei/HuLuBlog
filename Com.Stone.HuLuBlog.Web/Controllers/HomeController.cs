@@ -118,18 +118,6 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             Bus.PubSub.PublishAsync(email);
 
             return Json(ResponseModel.Success("发送成功"));
-        }
-
-
-        public ActionResult Test()
-        {
-            //var input = "hello";
-            //var email = new EmailMessage() { Body = input };
-            //Bus.PubSub.Publish(email);
-
-            //ViewBag.Test = LuceneOperation.Test("C#高级知识点&(ABP框架理论学习高级篇)——白金版");
-            return View();
-        }
-        
+        }        
     }
 }

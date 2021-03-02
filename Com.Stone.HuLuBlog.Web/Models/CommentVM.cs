@@ -10,20 +10,30 @@ namespace Com.Stone.HuLuBlog.Web.Models
     {
         public string ID { get; set; }
 
-        [Required]
         public string ArticleID { get; set; }
 
-        [Required]
         public string UserID { get; set; }
 
+        [Required(ErrorMessage = "用户名不能为空")]
         public string UserName { get; set; }
 
-        [StringLength(maximumLength: 300, ErrorMessage = "评论限制300个字符")]
+        [StringLength(maximumLength: 1000, ErrorMessage = "评论限制1000个字符")]
+        [Required(ErrorMessage = "评论内容不能为空")]
         public string CommentContent { get; set; }
 
-        public string AddDateTime { get; set; }
+        public DateTime AddDateTime { get; set; }
 
-        //[remote]
-        //public string Captcha { get; set; }
+        [Required(ErrorMessage ="邮箱地址不能为空")]
+        public string Email { get; set; }
+
+        public string PID { get; set; }
+
+        public bool IsReceive { get; set; }
+
+        public bool IsChild { get; set; }
+
+        public string ReplyTo { get; set; }
+
+        public List<CommentVM> ChildComments { get; set; }
     }
 }

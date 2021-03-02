@@ -200,6 +200,7 @@
     <Compile Include="Controllers\RecaptchaController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Helper\HtmlHelperGravatar.cs" />
     <Compile Include="Models\ArticleTagVM.cs" />
     <Compile Include="Models\ArticleVM.cs" />
     <Compile Include="Models\CommentVM.cs" />
@@ -1823,12 +1824,14 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Email.cshtml" />
+    <Content Include="Views\Comment\CommentListPartial.cshtml" />
+    <Content Include="Views\Comment\RemarkEditorPartial.cshtml" />
+    <Content Include="Views\Comment\CommentMoudlePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Log\" />
     <Folder Include="Upload\Images\" />
-    <Folder Include="Views\Comment\" />
     <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>

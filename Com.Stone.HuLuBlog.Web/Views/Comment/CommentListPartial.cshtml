@@ -1,0 +1,118 @@
+﻿@model List<Com.Stone.HuLuBlog.Web.Models.CommentVM>
+@using Com.Stone.HuLuBlog.Web.Helper
+
+    <div class="layui-field-box">
+        <div class="leavemessage" style="text-align:initial">
+            <div id="remark-editor-container">
+                @{Html.RenderAction("RemarkEditorPartial", "Comment",new { articleid = ViewBag.ArticleID ,pageIndex = ViewBag.PageIndex,pageSize = ViewBag.PageSize});}
+            </div>
+            <ul class="blog-comment">
+                <li>
+                    @*<div class="comment-parent">
+                <img src="../images/Logo_40.png" alt="不落阁" />
+                <div class="info">
+                    <span class="username">不落阁</span>
+                </div>
+                <div class="content">
+                    我为大家做了模拟留言与回复！试试吧！
+                </div>
+                <p class="info info-footer"><span class="time">2017-03-18 18:09</span><a class="btn-reply" href="javascript:;" onclick="btnReplyClick(this)">回复</a></p>
+            </div>
+            <hr />
+            <div class="comment-child">
+                <img src="../images/Absolutely.jpg" alt="Absolutely" />
+                <div class="info">
+                    <span class="username">Absolutely</span><span>这是用户回复内容</span>
+                </div>
+                <p class="info"><span class="time">2017-03-18 18:26</span></p>
+            </div>
+            <div class="comment-child">
+                <img src="../images/Absolutely.jpg" alt="Absolutely" />
+                <div class="info">
+                    <span class="username">Absolutely</span><span>这是第二个用户回复内容</span>
+                </div>
+                <p class="info"><span class="time">2017-03-18 18:26</span></p>
+            </div>*@
+
+                    @foreach (var comment in Model)
+                    {
+                        <div class="comment-parent">
+                            <a id="@comment.ID"></a>
+                            @Html.Raw(Html.Gravatar(comment.Email, size: 40, defaultImage: GravatarDefaultImage.MysteryMan, rating: GravatarRating.Default))
+                            <div class="info">
+                                <span class="username">@(comment.UserName)@if (!string.IsNullOrEmpty(comment.UserID))
+                                {<strong>[博主]</strong>}</span>
+                            </div>
+                            <div class="content">
+                                @comment.CommentContent
+                            </div>
+                            <p class="info info-footer">
+                                <span class="time">@comment.AddDateTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                                <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@comment.UserName">回复</a>
+                                @if (!string.IsNullOrEmpty(ViewBag.UserID))
+                                {
+                                    <a class="btn-delete" href="javascript:;" data-id="@comment.ID" data-articleID="@comment.ArticleID" style="margin-left:20px">删除</a>
+                                }
+                            </p>
+                        </div>
+                        <hr />
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <script>
+    var totalCount = @ViewBag.TotalCount
+
+    layui.use(['element', 'jquery','layer'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+
+         //删除回复按钮
+        $(".btn-delete").click(function () {
+            var id = $(this).data("id");
+            var articleID = $(this).data("articleID")
+            layer.confirm('确定删除评论？', function (index) {
+                GetDataByJson("@Url.Action("DeleteComment","Comment")", "post", {
+                    commentID: id,
+                    articleID:articleID
+                }, function (data) {
+                    if (data.IsSuccess) {
+                        //关闭该 confirm 窗口
+                        layer.close(index);
+                        layer.msg(data.Message);
+                        location.reload();
+                    }
+                    else {
+                        layer.close(index);
+                        layer.msg(data.Message)
+                    }
+                });
+            });
+        });
+
+        //回复按钮渲染输入框
+        $(".btn-reply").click(function () {
+            var data = {};
+            data.pid = $(this).data("pid");
+            data.replyTo = $(this).data("reply-to");
+            data.isChild = true;
+            data.articleid = "@ViewBag.ArticleID";
+            GetDataByHtml("@Url.Action("RemarkEditorPartial","comment")", "get", data, function (data) {
+                $("#remark-editor-container").html(data);
+
+                //滚动至窗口位置
+                var container = $('html,body');
+                var scrollTo = $("#remark-editor-container");
+                container.animate({
+                    scrollTop: scrollTo.offset().top - 100
+                })
+            });
+        });
+
+
+    });
+    </script>

@@ -238,7 +238,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             }
             else
             {
-                return Json(ResponseModel.Error("删除失败，无效的文章id"));
+                return Json(ResponseModel.Error("删除失败，没有权限或无效的文章id"));
             }
         }
 

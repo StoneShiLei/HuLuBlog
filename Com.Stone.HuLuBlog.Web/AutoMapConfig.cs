@@ -47,7 +47,9 @@ namespace Com.Stone.HuLuBlog.Web
 
                 #region Comment
 
-                cfg.CreateMap<Comment, CommentVM>().ReverseMap();
+                cfg.CreateMap<Comment, CommentVM>()
+                    .ForMember(d => d.ChildComments,d => d.MapFrom(s => s.ChildComments))
+                .ReverseMap();
 
                 #endregion
 
