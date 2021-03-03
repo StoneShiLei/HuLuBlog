@@ -24,6 +24,8 @@ namespace Com.Stone.HuLuBlog.Web
                 "~/Content/font-awesome/css/font-awesome.min.css"));
             bundles.Add(new StyleBundle("~/Content/global").Include(
                 "~/Content/global.css"));
+
+            BundleTable.EnableOptimizations = false; //禁止压缩
         }
     }
 }
