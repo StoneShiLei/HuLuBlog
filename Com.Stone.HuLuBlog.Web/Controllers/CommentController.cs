@@ -96,7 +96,8 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                             To = parentComment.Email,
                             From = commentVM.Email,
                             Subject = "您在HuLuBlog的评论有新的回复",
-                            Body = string.Format("来自 【{0}】 的回复说：{1} \r\n 点击链接进行查看：{2}", commentVM.UserName, commentVM.CommentContent, Request.UrlReferrer + Request.QueryString.ToString())
+                            Body = string.Format("您的评论：{0}\r\n 【{1}】 回复了您的评论：{2} \r\n 点击链接进行查看：{3}"
+                            ,replyComment.CommentContent ,commentVM.UserName, commentVM.CommentContent, Request.UrlReferrer + Request.QueryString.ToString())
                         };
 
                         Bus.PubSub.PublishAsync(email);
