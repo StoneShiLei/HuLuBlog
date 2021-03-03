@@ -36,8 +36,7 @@
                 @Html.Raw(Html.Gravatar(comment.Email, size: 40, defaultImage: GravatarDefaultImage.MysteryMan, rating: GravatarRating.Default))
                 <div class="info">
                     <span class="username">
-                        @(comment.UserName)@if (!string.IsNullOrEmpty(comment.UserID))
-                        {<strong>&nbsp;&nbsp;[博主]</strong>}
+                        @comment.UserName
                     </span>
                 </div>
                 <div class="content">
@@ -45,7 +44,7 @@
                 </div>
                 <p class="info info-footer">
                     <span class="time">@comment.AddDateTime.ToString("yyyy年MM月dd日   HH:mm")</span>
-                    <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@comment.UserName"  data-reply-to-id="@comment.UserID">回复</a>
+                    <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@comment.UserName"  data-reply-to-id="@comment.ID">回复</a>
                     @if (!string.IsNullOrEmpty(ViewBag.UserID))
                     {
                         <a class="btn-delete" href="javascript:;" data-id="@comment.ID" data-articleID="@comment.ArticleID" style="margin-left:20px">删除</a>
@@ -67,19 +66,18 @@
                                 @Html.Raw(Html.Gravatar(childList[i].Email, size: 40, defaultImage: GravatarDefaultImage.MysteryMan, rating: GravatarRating.Default))
                                 <div class="info">
                                 <span class="username">
-                                    @(childList[i].UserName) @if (!string.IsNullOrEmpty(childList[i].UserID))
-                                    {<strong> &nbsp; &nbsp;[博主]</strong>}
+                                    @childList[i].UserName
                                 </span>
                                 <span>&nbsp;回复&nbsp;&nbsp;
                                     <span class="username">
-                                        @childList[i].ReplyTo @if (!string.IsNullOrEmpty(childList[i].ReplyToID))
-                                    {<strong> &nbsp; &nbsp;[博主]</strong>}
+                                        @childList[i].ReplyTo 
                                     </span>
-                                &nbsp;：&nbsp;@childList[i].CommentContent</span>
+                                     &nbsp;：&nbsp;@childList[i].CommentContent
+                                </span>
                         </div>
                         <p class="info">
                             <span class="time">@childList[i].AddDateTime.ToString("yyyy年MM月dd日   HH:mm")</span>
-                            <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@childList[i].UserName" data-reply-to-id="@childList[i].UserID">回复</a>
+                            <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@childList[i].UserName" data-reply-to-id="@childList[i].ID">回复</a>
                             @if (!string.IsNullOrEmpty(ViewBag.UserID))
                             {
                                 <a class="btn-delete" href="javascript:;" data-id="@childList[i].ID" data-articleID="@childList[i].ArticleID" style="margin-left:20px">删除</a>

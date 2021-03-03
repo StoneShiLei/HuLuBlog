@@ -2,7 +2,9 @@
 using Com.Stone.HuLuBlog.Domain.Model;
 using Com.Stone.HuLuBlog.Infrastructure;
 using Com.Stone.HuLuBlog.Infrastructure.Extensions;
+using Com.Stone.HuLuBlog.Message;
 using Com.Stone.HuLuBlog.Web.Models;
+using EasyNetQ;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +18,14 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
     {
         ICommentService CommentService { get; }
         IArticleService ArticleService { get; }
+        IBus Bus { get; }
 
-        public CommentController(IUserService userService,ICommentService commentService,IArticleService articleService) : base(userService)
+        public CommentController(IUserService userService,ICommentService commentService,IArticleService articleService,IBus bus) : base(userService)
         {
             UserService = userService;
             CommentService = commentService;
             ArticleService = articleService;
+            Bus = bus;
         }
 
         /// <summary>
@@ -80,9 +84,29 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             {
                 var parentComment = CommentService.GetByPkValue(commentVM.PID);
                 if(parentComment == null) return Json(ResponseModel.Error("评论失败：回复的评论不存在"), JsonRequestBehavior.DenyGet);
+
+                //发送邮件通知
+                if(!commentVM.ReplyToID.IsNullOrEmpty())
+                {
+                    var replyComment = CommentService.GetByPkValue(commentVM.ReplyToID);
+                    if(replyComment.IsReceive) //判断被回复者是否接收通知
+                    {
+                        var email = new EmailMessage()
+                        {
+                            To = parentComment.Email,
+                            From = commentVM.Email,
+                            Subject = "您在HuLuBlog的评论有新的回复",
+                            Body = string.Format("来自 【{0}】 的回复说：{1} \r\n 点击链接进行查看：{2}", commentVM.UserName, commentVM.CommentContent, Request.UrlReferrer + Request.QueryString.ToString())
+                        };
+
+                        Bus.PubSub.PublishAsync(email);
+                    }
+                }
             }
 
             CommentService.AddCommentWithCommentCount(commentVM.ToEntity(),commentVM.ArticleID);
+
+
 
             //将评论的用户名和邮箱、通知设置写入cookie
             HttpCookie cookie = new HttpCookie(App_Start.Configurations.COMMENT_KEY);

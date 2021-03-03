@@ -112,7 +112,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 To = emailVM.To,
                 From = emailVM.From,
                 Subject = emailVM.Subject,
-                Body = emailVM.Body
+                Body = "来自：" + emailVM.From + "   内容：" + emailVM.Body
             };
 
             Bus.PubSub.PublishAsync(email);

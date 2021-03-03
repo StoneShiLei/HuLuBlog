@@ -64,7 +64,7 @@ namespace Com.Stone.HuLuBlog.EmailService
 
             mail.Subject = emailMsg.Subject;
             mail.SubjectEncoding = Encoding.UTF8;
-            mail.Body ="来自：" + emailMsg.From + "   内容：" + emailMsg.Body;
+            mail.Body = emailMsg.Body;
             mail.BodyEncoding = Encoding.UTF8;
 
             SmtpClient client = new SmtpClient("smtp.exmail.qq.com")

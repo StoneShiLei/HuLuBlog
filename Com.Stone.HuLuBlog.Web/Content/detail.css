@@ -40,7 +40,9 @@
     padding: 10px 5px;
 }
 
-
+.layui-laypage .layui-laypage-skip, .layui-laypage .layui-laypage-count {
+    background-color: #fff
+}
 
 /*代码区域*/
 pre {

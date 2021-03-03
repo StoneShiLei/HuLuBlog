@@ -144,10 +144,6 @@
     border-top: 1px dotted #01AAED;
 }
 
-.layui-laypage .layui-laypage-skip, .layui-laypage .layui-laypage-count {
-    background-color: #fff
-}
-
  /*小屏幕（平板，大于等于 768px）*/ 
 @media (min-width: 768px) {
     .layui-tab-brief .layui-tab-title li {
