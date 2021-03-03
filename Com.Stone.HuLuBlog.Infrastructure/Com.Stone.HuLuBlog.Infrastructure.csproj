@@ -216,6 +216,7 @@
   <ItemGroup>
     <Compile Include="AutoFac\ContainerManager.cs" />
     <Compile Include="AutoFac\IDependency.cs" />
+    <Compile Include="Configurations - 复制.cs" />
     <Compile Include="Configurations.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\IsWhatExtenions.cs" />
