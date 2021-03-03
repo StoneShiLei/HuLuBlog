@@ -47,7 +47,7 @@
                     <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@comment.UserName"  data-reply-to-id="@comment.ID">回复</a>
                     @if (!string.IsNullOrEmpty(ViewBag.UserID))
                     {
-                        <a class="btn-delete" href="javascript:;" data-id="@comment.ID" data-articleID="@comment.ArticleID" style="margin-left:20px">删除</a>
+                        <a class="btn-delete" href="javascript:;" data-id="@comment.ID" data-article-id="@ViewBag.ArticleID" style="margin-left:20px">删除</a>
                     }
                 </p>
             </div>
@@ -57,7 +57,6 @@
                 <div class="child-comment-container" id="child-comment-container-@comment.ID">
                     @{
                         comment.ChildComments = comment.ChildComments.OrderByDescending(c => c.AddDateTime).ToList();
-                        //foreach (var child in comment.ChildComments)
                         var childList = comment.ChildComments;
                         for (int i = 0; i < childList.Count; i++)
                         {
@@ -80,7 +79,7 @@
                             <a class="btn-reply" href="javascript:;" data-pid="@comment.ID" data-reply-to="@childList[i].UserName" data-reply-to-id="@childList[i].ID">回复</a>
                             @if (!string.IsNullOrEmpty(ViewBag.UserID))
                             {
-                                <a class="btn-delete" href="javascript:;" data-id="@childList[i].ID" data-articleID="@childList[i].ArticleID" style="margin-left:20px">删除</a>
+                                <a class="btn-delete" href="javascript:;" data-id="@childList[i].ID" data-article-id="@ViewBag.ArticleID" style="margin-left:20px">删除</a>
                             }
                         </p>
                         </div>
@@ -124,7 +123,8 @@
          //删除回复按钮
         $(".btn-delete").click(function () {
             var id = $(this).data("id");
-            var articleID = $(this).data("articleID")
+            var articleID = $(this).data("article-id")
+
             layer.confirm('确定删除评论？', function (index) {
                 GetDataByJson("@Url.Action("DeleteComment","Comment")", "post", {
                     commentID: id,
