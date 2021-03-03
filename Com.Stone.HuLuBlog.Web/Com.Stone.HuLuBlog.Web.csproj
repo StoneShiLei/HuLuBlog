@@ -1827,6 +1827,7 @@
     <Content Include="Views\Home\Email.cshtml" />
     <Content Include="Views\Comment\CommentListPartial.cshtml" />
     <Content Include="Views\Comment\CommentMoudlePartial.cshtml" />
+    <Content Include="Views\Home\TimeLine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

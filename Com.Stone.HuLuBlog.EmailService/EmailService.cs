@@ -56,7 +56,7 @@ namespace Com.Stone.HuLuBlog.EmailService
         public static void SendEmail(EmailMessage emailMsg)
         {
             string HuLuBlogHost = "hulu@hafuhafu.cn";
-            string emailoath = "邮箱授权码";
+            string emailoath = "QMa5iTjjcDBEnow6";
 
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(HuLuBlogHost);

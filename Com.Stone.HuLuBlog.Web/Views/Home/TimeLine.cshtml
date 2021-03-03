@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "HuLuBlog -- 时光轴";
+    Layout = "~/Views/Shared/NavLayOut.cshtml";
+}
+@section css{
+    <link href="@Url.Content("~/Content/timeline.css")" rel="stylesheet" />
+}
+@using MvcSiteMapProvider.Web.Html
+
+@model Dictionary<int, Dictionary<int, List<Com.Stone.HuLuBlog.Web.Models.ArticleVM>>>
+
+<div class="blog-container">
+    @Html.MvcSiteMap().SiteMapPath("HuLuBlogSiteMap")
+    <div class="blog-main">
+        @*<div class="child-nav shadow">
+                <span class="child-nav-btn child-nav-btn-this">时光轴</span>
+                <span class="child-nav-btn">笔记墙</span>
+            </div>*@
+        <div class="timeline-box shadow">
+            <div class="timeline-main">
+                <h1><i class="fa fa-clock-o"></i>时光轴<span> —— 记录生活点点滴滴</span></h1>
+                <div class="timeline-line"></div>
+                @{
+                    var years = Model.Keys.OrderByDescending(m => m).ToList();
+                    for (int i = 0; i < years.Count; i++)
+                    {
+                        var months = Model[years[i]].Keys.OrderByDescending(m => m).ToList();
+
+                                <div class="timeline-year">
+                                    <h2><a class="yearToggle" href="javascript:;">@years[i]年</a><i class="fa fa-caret-down fa-fw"></i></h2>
+
+                                    @{
+                                        for (int m = 0; m < months.Count; m++)
+                                        {
+                                            var articles = Model[years[i]][months[m]];
+                                            <div class="timeline-month">
+                                                <h3 class=" animated fadeInLeft"><a class="monthToggle" href="javascript:;">@months[m]月</a><i class="fa fa-caret-down fa-fw"></i></h3>
+                                                <ul>
+                                                    @foreach (var article in articles)
+                                                    {
+                                                        <li class=" ">
+                                                            <div class="h4  animated fadeInLeft">
+                                                                <p class="date">@article.AddDateTime.ToString("MM月dd日 HH:mm")</p>
+                                                            </div>
+                                                            <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
+                                                            <div class="content animated fadeInRight">@article.ArticleTitle</div>
+                                                            <div class="clear"></div>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                    }
+                }
+                <h1 style="padding-top:4px;padding-bottom:2px;margin-top:40px;"><i class="fa fa-hourglass-end"></i>THE END</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 本页脚本 -->
+<script type="text/javascript">
+    layui.use('jquery', function () {
+        var $ = layui.jquery;
+
+        $(function () {
+            $('.monthToggle').click(function () {
+                $(this).parent('h3').siblings('ul').slideToggle('slow');
+                $(this).siblings('i').toggleClass('fa-caret-down fa-caret-right');
+            });
+            $('.yearToggle').click(function () {
+                $(this).parent('h2').siblings('.timeline-month').slideToggle('slow');
+                $(this).siblings('i').toggleClass('fa-caret-down fa-caret-right');
+            });
+        });
+    });
+</script>

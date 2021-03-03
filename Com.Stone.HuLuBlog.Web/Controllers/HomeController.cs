@@ -53,6 +53,44 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         }
 
         /// <summary>
+        /// 时光轴
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TimeLine()
+        {
+            var articles = ArticleService.GetAllByClause(a => !a.IsDelete,a => a.AddDateTime).ToList().MapTo<List<Article>,List<ArticleVM>>();
+
+            var resultDict = new Dictionary<int, Dictionary<int,List<ArticleVM>>>();
+            foreach(var article in articles)
+            {
+                int year = article.AddDateTime.Year;
+                int month = article.AddDateTime.Month;
+
+                if (resultDict.ContainsKey(year) && resultDict[year].ContainsKey(month))
+                {
+                    resultDict[year][month].Add(article);
+                    continue;
+                }
+
+                //不包含年份key
+                if (!resultDict.ContainsKey(year)) 
+                {
+                    var tempDict = new Dictionary<int, List<ArticleVM>>() { { month, new List<ArticleVM>() { article } } };
+                    resultDict.Add(year, tempDict);
+                }
+
+                //不包含月份key
+                if (!resultDict[year].ContainsKey(month)) resultDict[year].Add(month, new List<ArticleVM>() { article });
+
+                //如果包含该年份和月份的key
+                if (resultDict[year][month] == null) resultDict[year][month] = new List<ArticleVM>(); 
+
+            }
+
+            return View(resultDict);
+        }
+
+        /// <summary>
         /// 导航条登陆可见按钮
         /// </summary>
         /// <returns></returns>

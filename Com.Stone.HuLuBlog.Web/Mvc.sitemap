@@ -7,6 +7,7 @@
     <mvcSiteMapNode title="文章专栏" controller="Article" action="Index">
       <mvcSiteMapNode title="文章内容" controller="Article" action="ArticleDetail"/>
     </mvcSiteMapNode>
+    <mvcSiteMapNode title="关于本站" controller="Home" action="TimeLine"/>
     <mvcSiteMapNode title="关于本站" controller="Home" action="About"/>
     <mvcSiteMapNode title="后台管理" controller="BackStage" action="Index"/>
   </mvcSiteMapNode>
