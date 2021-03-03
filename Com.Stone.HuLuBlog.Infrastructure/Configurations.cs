@@ -18,6 +18,6 @@ namespace Com.Stone.HuLuBlog.Infrastructure
         public const string PASSWORD_SECRET_KEY = "84022499840224998402249984022499"; //RijndaelManaged 加密必须为32位
         public const string SITE_KEY = "6LeeVGYaAAAAAKoheZ1xlftZ_z-y0KD7cc1lfJmq";
         public const string SECRET_KEY = "6LeeVGYaAAAAACKZh_KTpBtlCxj1LaOA1wac3gd8";
-        public const string RECAPTCHA_URL = "https://recaptcha.net/recaptcha/api/siteverify";
+        public const string RECAPTCHA_URL = "https://recaptcha.net/recaptcha/api/siteverify"; 
     }
 }
