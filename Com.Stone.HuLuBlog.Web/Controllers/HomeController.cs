@@ -19,14 +19,16 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
     {
         readonly IArticleService ArticleService;
         readonly IArticleTagService ArticleTagService;
+        readonly IFriendLinkService FriendLinkService;
         readonly IBus Bus;
 
         public HomeController(IUserService userService,IArticleService articleService,
-            IArticleTagService articleTagService,IBus bus) : base(userService)
+            IArticleTagService articleTagService,IBus bus,IFriendLinkService friendLinkService) : base(userService)
         {
             ArticleService = articleService;
             ArticleTagService = articleTagService;
             Bus = bus;
+            FriendLinkService = friendLinkService;
         }
 
         /// <summary>
@@ -35,8 +37,9 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+            var friendLinks = FriendLinkService.GetAll().OrderBy(f => f.AddDateTime).ToList().MapTo<List<FriendLink>, List<FriendLinkVM>>();
             ViewBag.UserID = User.ID;
-            return View();
+            return View(friendLinks);
         }
 
         /// <summary>
@@ -45,7 +48,8 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
         /// <returns></returns>
         public ActionResult About()
         {
-            return View();
+            var friendLinks = FriendLinkService.GetAll().OrderBy(f => f.AddDateTime).ToList().MapTo<List<FriendLink>, List<FriendLinkVM>>();
+            return View(friendLinks);
         }
 
         /// <summary>
@@ -58,6 +62,10 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             return PartialView(User.ToModel());
         }
 
+        /// <summary>
+        /// 发送邮件窗口
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Email()
         {

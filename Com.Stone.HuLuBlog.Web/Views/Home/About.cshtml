@@ -10,6 +10,8 @@
     Layout = "~/Views/Shared/NavLayOut.cshtml";
 }
 @using MvcSiteMapProvider.Web.Html
+@model List<Com.Stone.HuLuBlog.Web.Models.FriendLinkVM>
+
 
 <div class="blog-container">
     @Html.MvcSiteMap().SiteMapPath("HuLuBlogSiteMap")
@@ -102,13 +104,16 @@
                             <legend>Friend Link</legend>
                             <div class="layui-field-box">
                                 <ul class="friendlink">
-                                    <li>
-                                        <a target="_blank" href="https://noodlefighter.com/" title="Noodlefighter" class="friendlink-item">
-                                            <p class="friendlink-item-pic"><img src="https://noodlefighter.com/favicon.png" alt="Layui" /></p>
-                                            <p class="friendlink-item-title">Noodlefighter</p>
-                                            <p class="friendlink-item-domain">noodlefighter.com.com</p>
-                                        </a>
-                                    </li>
+                                    @foreach (var friendLink in Model)
+                                    {
+                                        <li>
+                                            <a target="_blank" href="@friendLink.Url" title="@friendLink.Title" class="friendlink-item">
+                                                <p class="friendlink-item-pic"><img src="@friendLink.IconUrl" alt="@friendLink.Title" /></p>
+                                                <p class="friendlink-item-title">@friendLink.Title</p>
+                                                <p class="friendlink-item-domain">@friendLink.Domain</p>
+                                            </a>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </fieldset>
@@ -132,10 +137,10 @@
                         </div>
                         <fieldset class="layui-elem-field layui-field-title">
                             <legend>Leave a message</legend>
-                            @{ Html.RenderAction("CommentMoudlePartial", "Comment",new { articleID = string.Empty});}
+                            @{ Html.RenderAction("CommentMoudlePartial", "Comment", new { articleID = string.Empty });}
                         </fieldset>
-                        </div>
                     </div>
+                </div>
                 <!--留言墙End-->
             </div>
         </div>

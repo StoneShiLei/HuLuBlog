@@ -52,12 +52,14 @@
     <Compile Include="IArticleService.cs" />
     <Compile Include="IArticleTagService.cs" />
     <Compile Include="ICommentService.cs" />
+    <Compile Include="IFriendLinkService.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceImpl\ArticleServiceImpl.cs" />
     <Compile Include="ServiceImpl\ArticleTagServiceImpl.cs" />
     <Compile Include="ServiceImpl\CommentServiceImpl.cs" />
+    <Compile Include="ServiceImpl\FriendLinkServiceImpl.cs" />
     <Compile Include="ServiceImpl\UserServiceImpl.cs" />
   </ItemGroup>
   <ItemGroup>

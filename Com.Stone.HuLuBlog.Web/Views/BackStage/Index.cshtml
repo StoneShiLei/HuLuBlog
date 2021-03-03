@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "HuLuBlog - 后台管理";
+    ViewBag.Title = "HuLuBlog -- 后台管理";
     Layout = "~/Views/Shared/NavLayOut.cshtml";
 }
 @section css{
@@ -11,7 +11,7 @@
 @using Com.Stone.HuLuBlog.Web.Models
 @using Com.Stone.HuLuBlog.Infrastructure.Extensions
 @model List<ArticleVM>
-
+@using MvcSiteMapProvider.Web.Html
 <div class="blog-container">
     @Html.MvcSiteMap().SiteMapPath("HuLuBlogSiteMap")
     <div class="blog-main">
@@ -61,11 +61,20 @@
                 </table>
             </div>
 
+            <div class="blog-module shadow friendlink-table-container"
+                 data-friendlink-delete-url="@Url.Action("DeleteFriendLink","BackStage")"
+                 data-friendlink-rename-url="@Url.Action("UpdateFriendLink","BackStage")"
+                 data-request-url="@Url.Action("FriendLinkList","BackStage")"
+                 data-friendlink-add-url="@Url.Action("AddFriendLink","BackStage")">
+                <table id="friendlink-table" lay-filter="friendlinkTable">
+                </table>
+            </div>
+
             <div class="blog-module shadow">
                 <button class="layui-btn layui-btn-sm update-index" data-request-url="@Url.Action("UpdateIndex","BackStage")">更新文章索引</button>
             </div>
 
-
+            @*标签工具栏*@
             <script type="text/html" id="toolbarhead">
                 <div class="layui-row">
                     <div class="layui-col-md11">
@@ -77,6 +86,18 @@
                 </div>
             </script>
             <script type="text/html" id="toolbar">
+                <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
+            </script>
+
+            @*友链工具栏*@
+        <script type="text/html" id="friendlink-toolbarhead">
+            <div class="layui-inline"><input class="friendlink-title layui-input-inline" name="title" placeholder="标题"></div>
+            <div class="layui-inline"><input class="friendlink-iconUrl layui-input-inline" name="iconUrl" placeholder="图标"></div>
+            <div class="layui-inline"><input class="friendlink-domain layui-input-inline" name="domain" placeholder="域名"></div>
+            <div class="layui-inline"><input class="friendlink-url layui-input-inline" name="url" placeholder="链接"></div>
+            <div class="layui-inline"><a class="layui-btn layui-btn-sm" lay-event="add">添加友链</a></div>
+        </script>
+            <script type="text/html" id="friendlink-toolbar">
                 <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
             </script>
 

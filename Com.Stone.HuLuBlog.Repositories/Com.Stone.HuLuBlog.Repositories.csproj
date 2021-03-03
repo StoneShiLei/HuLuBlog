@@ -51,6 +51,7 @@
     <Compile Include="SqlSugar\ArticleRepository.cs" />
     <Compile Include="SqlSugar\ArticleTagRepoitory.cs" />
     <Compile Include="SqlSugar\CommentRepository.cs" />
+    <Compile Include="SqlSugar\FriendLinkRepository.cs" />
     <Compile Include="SqlSugar\HttpRuntimeCache.cs" />
     <Compile Include="SqlSugar\HuLuBlogContext.cs" />
     <Compile Include="SqlSugar\ISqlSugarRepositoryContext.cs" />

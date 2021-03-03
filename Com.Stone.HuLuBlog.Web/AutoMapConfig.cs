@@ -53,6 +53,12 @@ namespace Com.Stone.HuLuBlog.Web
 
                 #endregion
 
+                #region FriendLink
+
+                cfg.CreateMap<FriendLink, FriendLinkVM>().ReverseMap();
+
+                #endregion
+
             });
 
             Mapper = MapperConfiguration.CreateMapper();
@@ -141,6 +147,20 @@ namespace Com.Stone.HuLuBlog.Web
         public static Comment ToEntity(this CommentVM model)
         {
             return model.MapTo<CommentVM, Comment>();
+        }
+
+        #endregion
+
+        #region FriendLink
+
+        public static FriendLinkVM ToModel(this FriendLink entity)
+        {
+            return entity.MapTo<FriendLink, FriendLinkVM>();
+        }
+
+        public static FriendLink ToEntity(this FriendLinkVM model)
+        {
+            return model.MapTo<FriendLinkVM, FriendLink>();
         }
 
         #endregion

@@ -210,6 +210,7 @@
     </Compile>
     <Compile Include="IocConfig.cs" />
     <Compile Include="Models\EmailVM.cs" />
+    <Compile Include="Models\FriendLinkVM.cs" />
     <Compile Include="Models\UserVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

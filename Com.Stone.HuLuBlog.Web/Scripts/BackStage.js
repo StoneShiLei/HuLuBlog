@@ -4,12 +4,14 @@
         var form = layui.form;
         var layer = layui.layer;
         var table = layui.table;
-        var url = $(".table-container").data("request-url");
+        var tagUrl = $(".table-container").data("request-url");
+        var friendUrl = $(".friendlink-table-container").data("request-url");
 
+        //tag表格
         table.render({
             id:'tagTable',
             elem: '#tag-table',
-            url: url,
+            url: tagUrl,
             toolbar: '#toolbarhead',
             defaultToolbar:[],
             parseData: function (res) {
@@ -28,7 +30,7 @@
             ]]
         });
 
-        //监听单元格修改
+        //监听tag单元格修改
         table.on('edit(tagTable)', function (obj) {
             var value = obj.value; //修改后的值
             var data = obj.data; //所在行所有键值
@@ -43,7 +45,7 @@
             });
         });
 
-        //监听行工具事件
+        //监听tag行工具事件
         table.on('tool(tagTable)', function (obj) {
             var data = obj.data;
             if (obj.event === 'delete') {
@@ -68,7 +70,7 @@
             }
         });
 
-        //头工具栏事件
+        //tag头工具栏事件
         table.on('toolbar(tagTable)', function (obj) {
             switch (obj.event) {
                 case 'add':
@@ -76,7 +78,6 @@
                         { TagName: $(".add-tagname").val(), ID: "1" }, function (data) {
                             if (data.IsSuccess) {
                                 layer.msg(data.Message);
-                                //$(".add-tagname").val() = "";
                                 table.reload('tagTable');
                             }
                             else {
@@ -86,6 +87,105 @@
                     break;
             };
         });
+
+        //friendlink表格
+        table.render({
+            id: 'friendlinkTable',
+            elem: '#friendlink-table',
+            url: friendUrl,
+            toolbar: '#friendlink-toolbarhead',
+            defaultToolbar: [],
+            parseData: function (res) {
+                return {
+                    "code": res.Data.code,
+                    "msg": res.Message,
+                    "count": res.Data.count,
+                    "data": res.Data.data
+                }
+            },
+            cols: [[
+                { field: 'ID', title: 'ID', hide: true },
+                { field: 'Title', title: '标题', width: 120, edit: 'text' },
+                { field: 'IconUrl', title: '图标', align: 'center', width: 80, edit: 'text' },
+                { field: 'Domain', title: '域名', align: 'center', width: 80, edit: 'text'},
+                { field: 'Url', title: '链接', align: 'center', width: 80, edit: 'text' },
+                { fixed: 'right', title: '操作', align: 'center', toolbar: '#friendlink-toolbar' },
+            ]]
+        });
+
+        //监听friendlink行工具事件
+        table.on('tool(friendlinkTable)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'delete') {
+                layer.confirm('确定删除友链？', function (index) {
+                    GetDataByJson($(".friendlink-table-container").data("friendlink-delete-url"), "post", {
+                        ID: data.ID,
+                        Title: data.Title,
+                        IconUrl: data.IconUrl,
+                        Domain: data.Domain,
+                        Url: data.Url
+                    }, function (data) {
+                        if (data.IsSuccess) {
+                            //关闭该 confirm 窗口
+                            layer.close(index);
+                            layer.msg(data.Message);
+                            table.reload('friendlinkTable');
+                        }
+                        else {
+                            layer.close(index);
+                            layer.msg(data.Message)
+                            table.reload('friendlinkTable');
+                        }
+                    });
+                });
+            }
+        });
+
+        //friendlink头工具栏事件
+        table.on('toolbar(friendlinkTable)', function (obj) {
+            switch (obj.event) {
+                case 'add':
+                    var data = {};
+                    data.title = $(".friendlink-title").val();
+                    data.iconUrl = $(".friendlink-iconUrl").val();
+                    data.domain = $(".friendlink-domain").val();
+                    data.url = $(".friendlink-url").val();
+                    data.id = "1";
+                    GetDataByJson($(".friendlink-table-container").data("friendlink-add-url"), "post",
+                        data, function (data) {
+                            if (data.IsSuccess) {
+                                layer.msg(data.Message);
+                                table.reload('friendlinkTable');
+                            }
+                            else {
+                                layer.msg(data.Message)
+                            }
+                        });
+                    break;
+            };
+        });
+
+        //监听friendlink单元格修改
+        table.on('edit(friendlinkTable)', function (obj) {
+            var value = obj.value; //修改后的值
+            var data = obj.data; //所在行所有键值
+            GetDataByJson($(".friendlink-table-container").data("friendlink-rename-url"), "post",
+                data, function (data) {
+                    if (data.IsSuccess) {
+                        layer.msg(data.Message);
+                    }
+                    else {
+                        layer.msg(data.Message)
+                    }
+                });
+        });
+
+
+
+
+
+
+
 
         //恢复文章按钮
         $('.article-recover').click(function () {

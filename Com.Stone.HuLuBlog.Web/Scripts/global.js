@@ -8,16 +8,11 @@
 
 layui.use(['element', 'layer', 'util', 'form'], function () {
     var $ = layui.jquery;
-    //模拟QQ登陆
-    $('.blog-user').click(function () {
-        var user = this;
-        var index = layer.load(1);
-        setTimeout(function () {
-            layer.close(index);
-            $(user).toggleClass('layui-hide').siblings('a.blog-user').toggleClass('layui-hide');
-        }, 800);
-    });
 
+    //回到顶部
+    layui.util.fixbar({
+        css: {right:75,bottom:100}
+    });
 
     //导航菜单选中效果  //todo 暂定
     if (sessionStorage.getItem("selected")) {

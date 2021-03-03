@@ -10,8 +10,6 @@ namespace Com.Stone.HuLuBlog.Web.Models
     {
         public string ID { get; set; }
 
-        //[Required(ErrorMessage = "用户名不能为空")]
-        //[StringLength(maximumLength:16,MinimumLength = 2,ErrorMessage ="请输入2-16位的用户名")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "邮箱不能为空")]
