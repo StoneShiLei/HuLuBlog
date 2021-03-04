@@ -142,6 +142,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             if (comment != null && !User.ID.IsNullOrEmpty())
             {
                 CommentService.RemoveCommentWithCommentCount(comment.ID,articleID);
+
                 return Json(ResponseModel.Success("删除成功"));
             }
             else

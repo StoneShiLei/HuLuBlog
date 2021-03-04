@@ -120,12 +120,23 @@ namespace Com.Stone.HuLuBlog.Application.ServiceImpl
         {
             try
             {
+                int count = 1;
                 CommentRepository.BeginTran();
+                var comment = GetByPkValue(commentID);
+                if (comment == null) throw new Exception("评论不存在");
+                //计算子评论数目
+                if(!comment.IsChild)
+                {
+                    count += CommentRepository.Count(c => c.PID == comment.ID);
+                }
+
                 Remove(commentID);
+                Remove(c => c.PID == comment.ID);
+
                 if (!articleID.IsNullOrEmpty())
                 {
                     ArticleRepository.SugarClient.Updateable<Article>()
-                        .SetColumns(a => a.CommentCount == a.CommentCount - 1)
+                        .SetColumns(a => a.CommentCount == a.CommentCount - count)
                         .Where(a => a.ID == articleID)
                         .ExecuteCommand();
                 }
