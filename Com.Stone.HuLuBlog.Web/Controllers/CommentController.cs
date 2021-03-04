@@ -82,6 +82,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
             //检查父级评论id
             if (!commentVM.PID.IsNullOrEmpty())
             {
+                commentVM.IsChild = true; //防止篡改 包含pid的评论一定为子评论
                 var parentComment = CommentService.GetByPkValue(commentVM.PID);
                 if(parentComment == null) return Json(ResponseModel.Error("评论失败：回复的评论不存在"), JsonRequestBehavior.DenyGet);
 
@@ -89,7 +90,14 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                 if(!commentVM.ReplyToID.IsNullOrEmpty())
                 {
                     var replyComment = CommentService.GetByPkValue(commentVM.ReplyToID);
-                    if(replyComment.IsReceive) //判断被回复者是否接收通知
+
+                    //验证回复目标的同一性
+                    if (replyComment.UserName != commentVM.ReplyTo || replyComment.ArticleID != commentVM.ArticleID)
+                    {
+                        return Json(ResponseModel.Error("回复失败：无效的回复目标"), JsonRequestBehavior.DenyGet);
+                    }
+
+                    if (replyComment.IsReceive) //判断被回复者是否接收通知
                     {
                         var email = new EmailMessage()
                         {
