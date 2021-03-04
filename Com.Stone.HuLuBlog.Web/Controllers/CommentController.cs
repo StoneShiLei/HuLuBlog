@@ -101,7 +101,7 @@ namespace Com.Stone.HuLuBlog.Web.Controllers
                     {
                         var email = new EmailMessage()
                         {
-                            To = parentComment.Email,
+                            To = replyComment.Email,
                             From = commentVM.Email,
                             Subject = "您在HuLuBlog的评论有新的回复",
                             Body = string.Format("您的评论：{0}\r\n 【{1}】 回复了您的评论：{2} \r\n 点击链接进行查看：{3}"
