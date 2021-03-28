@@ -43,7 +43,7 @@
                                                                 <p class="date">@article.AddDateTime.ToString("MM月dd日 HH:mm")</p>
                                                             </div>
                                                             <p class="dot-circle animated "><i class="fa fa-dot-circle-o"></i></p>
-                                                            <div class="content animated fadeInRight">@article.ArticleTitle</div>
+                                                            <a href="@Url.Action("ArticleDetail","Article",new { articleID = article.ID })"><div class="content animated fadeInRight">@article.ArticleTitle</div></a>
                                                             <div class="clear"></div>
                                                         </li>
                                                     }
